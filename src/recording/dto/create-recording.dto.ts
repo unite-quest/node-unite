@@ -1,5 +1,9 @@
+import { CreateSpeakerDto } from './create-speaker.dto';
+
 export class CreateRecordingDto {
-  name: string;
-  age: number;
-  breed: string;
+  mediaPath: string;
+  sampleRate: number;
+  phoneMetadata: string;
+  length: string;
+  speaker: CreateSpeakerDto;
 }

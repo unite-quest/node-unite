@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 
+import { CreateRecordingDto } from './dto/create-recording.dto';
 import { Recording } from './interfaces/recording.interface';
 
 @Injectable()
@@ -10,11 +11,8 @@ export class RecordingService {
     private recordingModel: Model<Recording>,
   ) { }
 
-  async create(data: any): Promise<any> {
-    return this.recordingModel.create({});
-  }
-
-  async findByUser(formId: string): Promise<Recording[]> {
-    return this.recordingModel.find({ formId }).exec();
+  async create(recordingDto: CreateRecordingDto): Promise<Recording> {
+    const createdRecording = new this.recordingModel(recordingDto);
+    return createdRecording.save();
   }
 }

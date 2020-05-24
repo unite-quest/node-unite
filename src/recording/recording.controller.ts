@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 
+import { CreateRecordingDto } from './dto/create-recording.dto';
 import { RecordingService } from './recording.service';
 
 @Controller('recording')
@@ -8,13 +9,8 @@ export class RecordingController {
     private readonly recordingService: RecordingService,
   ) { }
 
-  @Get(':id')
-  getRecording(@Param() params): Promise<any> {
-    return this.recordingService.findByUser(params.id);
-  }
-
   @Post()
-  createRecording(@Body() data: any) {
+  createRecording(@Body() data: CreateRecordingDto) {
     return this.recordingService.create(data);
   }
 }
