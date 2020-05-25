@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { RecordingModule } from './recording/recording.module';
 import { SuggestionsModule } from './suggestions/suggestions.module';
 
@@ -12,7 +10,5 @@ import { SuggestionsModule } from './suggestions/suggestions.module';
     RecordingModule,
     SuggestionsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule { }

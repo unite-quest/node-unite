@@ -4,6 +4,5 @@ export class CreateRecordingDto {
   mediaPath: string;
   sampleRate: number;
   phoneMetadata: string;
-  length: string;
   speaker: CreateSpeakerDto;
 }
