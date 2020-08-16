@@ -1,7 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
-
+import { Body, Controller, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
 import { CreateRecordingDto } from './dto/create-recording.dto';
 import { RecordingService } from './recording.service';
+
 
 @Controller('recording')
 export class RecordingController {
@@ -9,8 +11,10 @@ export class RecordingController {
     private readonly recordingService: RecordingService,
   ) { }
 
+  @UseGuards(FirebaseAuthGuard)
   @Post()
-  createRecording(@Body() data: CreateRecordingDto) {
-    return this.recordingService.create(data);
+  @UseInterceptors(FileInterceptor('file'))
+  createRecording(@Body() data: CreateRecordingDto, @UploadedFile() file) {
+    return this.recordingService.create(data, file);
   }
 }
