@@ -25,6 +25,7 @@
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
+    "@sentry/node": "^5.20.1",
     "@types/mongoose": "^5.7.21",
     "firebase-admin": "^9.0.0",
     "mockingoose": "^2.13.2",
