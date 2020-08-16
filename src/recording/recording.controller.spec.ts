@@ -2,6 +2,7 @@ import mockingoose from 'mockingoose';
 import { Model, model } from 'mongoose';
 import { CreateRecordingDto } from './dto/create-recording.dto';
 import { FileUploadService } from './file-upload.service';
+import { FileInterface } from './interfaces/file.interface';
 import { Recording } from './interfaces/recording.interface';
 import { RecordingController } from './recording.controller';
 import { RecordingService } from './recording.service';
@@ -21,6 +22,7 @@ describe('RecordingController', () => {
     sampleRate: 16000,
     phoneMetadata: 'Android',
     speaker: {
+      initials: 'AB',
       age: 26,
       sex: 'M',
       origin: 'SP',
@@ -38,7 +40,10 @@ describe('RecordingController', () => {
 
   describe('create', () => {
     it('should create a recording to database', async () => {
-      const recording = await recordingController.createRecording(data, '').toPromise();
+      const file: FileInterface = {
+        size: 10, buffer: [], encoding: 'utf-8', mimetype: 'audio/wave', fieldname: 'file', originalname: 'test.wav'
+      };
+      const recording = await recordingController.createRecording(data, file).toPromise();
       expect(recording._id.toString()).toEqual(_id);
       expect(recording.mediaPath).toEqual('test/path');
       expect(recording.sampleRate).toEqual(16000);
