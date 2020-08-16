@@ -26,9 +26,11 @@
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.0.0",
     "@types/mongoose": "^5.7.21",
+    "firebase-admin": "^9.0.0",
     "mockingoose": "^2.13.2",
     "mongoose": "^5.9.15",
     "reflect-metadata": "^0.1.13",
+    "request-context": "^2.0.0",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4"
   },
