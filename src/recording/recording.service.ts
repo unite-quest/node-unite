@@ -30,6 +30,6 @@ export class RecordingService {
   }
 
   private _getFilename(recording: CreateRecordingDto, file: FileInterface): string {
-    return `${new Date().toISOString()}-${recording['speaker.initials']}${extname(file.originalname)}`;
+    return `${new Date().toISOString()}${extname(file.originalname)}`;
   }
 }

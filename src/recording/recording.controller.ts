@@ -1,6 +1,6 @@
 import { Body, Controller, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
 import { CreateRecordingDto } from './dto/create-recording.dto';
 import { FileInterface } from './interfaces/file.interface';

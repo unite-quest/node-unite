@@ -18,9 +18,13 @@ describe('RecordingController', () => {
 
   const _id = '507f191e810c19729de860ea';
   const data: CreateRecordingDto = {
-    mediaPath: 'test/path',
+    word: 'test',
     sampleRate: 16000,
-    phoneMetadata: 'Android',
+    noiseLevel: 'M',
+    recordingPath: 'url.com',
+    additionalMetadata: {
+      userAgent: 'Android',
+    },
     speaker: {
       initials: 'AB',
       age: 26,
@@ -45,9 +49,10 @@ describe('RecordingController', () => {
       };
       const recording = await recordingController.createRecording(data, file).toPromise();
       expect(recording._id.toString()).toEqual(_id);
-      expect(recording.mediaPath).toEqual('test/path');
+      expect(recording.word).toEqual('test');
+      expect(recording.recordingPath).toEqual('url.com');
       expect(recording.sampleRate).toEqual(16000);
-      expect(recording.phoneMetadata).toEqual('Android');
+      expect(recording.additionalMetadata.userAgent).toEqual('Android');
       expect(recording.speaker.age).toEqual(26);
       expect(recording.speaker.sex).toEqual('M');
       expect(recording.speaker.origin).toEqual('SP');

@@ -16,7 +16,7 @@ export class FileUploadService {
       return;
     }
 
-    return this.httpService.post('https://content.dropboxapi.com/2/files/upload', file, {
+    return this.httpService.post('https://content.dropboxapi.com/2/files/upload', file.buffer, {
       headers: {
         'Dropbox-API-Arg': `{"path": "/voices/${filename}","mode": "add","autorename": true,"mute": false,"strict_conflict": false}`,
         'Authorization': `Bearer ${process.env.DROPBOX_APP_TOKEN}`,
