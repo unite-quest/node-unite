@@ -1,10 +1,13 @@
 import { Document } from 'mongoose';
-
 import { Speaker } from './speaker.interface';
 
+
 export interface Recording extends Document {
-  readonly mediaPath: string;
+  readonly word: string;
+  readonly recordingPath: string;
   readonly sampleRate: number;
-  readonly phoneMetadata: string;
+  readonly additionalMetadata: {
+    userAgent: string;
+  };
   readonly speaker: Speaker;
 }
