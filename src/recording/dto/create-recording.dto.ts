@@ -1,4 +1,3 @@
-import { CreateSpeakerDto } from "./create-speaker.dto";
 
 export class CreateRecordingDto {
   word: string;
@@ -8,5 +7,4 @@ export class CreateRecordingDto {
   additionalMetadata: {
     userAgent: string;
   };
-  speaker: CreateSpeakerDto;
 }

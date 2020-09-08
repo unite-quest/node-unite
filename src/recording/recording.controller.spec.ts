@@ -25,13 +25,6 @@ describe('RecordingController', () => {
     additionalMetadata: {
       userAgent: 'Android',
     },
-    speaker: {
-      initials: 'AB',
-      age: 26,
-      sex: 'M',
-      origin: 'SP',
-      motherLanguage: 'EN_US',
-    },
   };
 
   beforeEach(() => {
@@ -53,10 +46,6 @@ describe('RecordingController', () => {
       expect(recording.recordingPath).toEqual('url.com');
       expect(recording.sampleRate).toEqual(16000);
       expect(recording.additionalMetadata.userAgent).toEqual('Android');
-      expect(recording.speaker.age).toEqual(26);
-      expect(recording.speaker.sex).toEqual('M');
-      expect(recording.speaker.origin).toEqual('SP');
-      expect(recording.speaker.motherLanguage).toEqual('EN_US');
     });
   });
 });

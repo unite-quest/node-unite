@@ -1,9 +1,13 @@
 export class AuthUserModel {
   name: string;
+  email: string;
 
-  constructor(
-    name: string
-  ) {
-    this.name = name;
+  constructor(data: any) {
+    if (!data || !data.name || !data.email) {
+      return;
+    }
+
+    this.name = data.name;
+    this.email = data.email;
   }
 }

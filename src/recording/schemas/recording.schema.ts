@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { SpeakerSchema } from './speaker.schema.ts';
 
 
 export const RecordingSchema = new mongoose.Schema({
@@ -10,5 +9,4 @@ export const RecordingSchema = new mongoose.Schema({
     userAgent: String,
   },
   length: String,
-  speaker: SpeakerSchema,
 });
