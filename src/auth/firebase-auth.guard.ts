@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthUserModel } from './auth-user.model';
+import AuthUserModel from './auth-user.model';
 import { AuthService } from './auth.service';
 import { FirebaseService } from './firebase.service';
 

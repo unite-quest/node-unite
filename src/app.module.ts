@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { PhrasesModule } from './phrases/phrases.module';
 import { RecordingModule } from './recording/recording.module';
-import { SuggestionsModule } from './suggestions/suggestions.module';
-import { BasicDataModule } from './basic-data/basic-data.module';
 
 
 @Module({
@@ -13,9 +12,8 @@ import { BasicDataModule } from './basic-data/basic-data.module';
       expandVariables: true,
     }),
     RecordingModule,
-    SuggestionsModule,
+    PhrasesModule,
     AuthModule,
-    BasicDataModule,
   ],
 })
 export class AppModule { }
