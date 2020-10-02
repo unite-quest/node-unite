@@ -1,12 +1,12 @@
 import { Connection, Model } from 'mongoose';
+import { UserRecording } from './interfaces/user-recording.interface';
+import { UserRecordingSchema } from './schemas/user-recording.schema';
 
-import { Recording } from './interfaces/recording.interface';
-import { RecordingSchema } from './schemas/recording.schema';
 
 export const recordingProviders = [
   {
-    provide: 'RECORDING_MODEL',
-    useFactory: (connection: Connection): Model<Recording> => connection.model('Recording', RecordingSchema),
+    provide: 'USER_RECORDING_MODEL',
+    useFactory: (connection: Connection): Model<UserRecording> => connection.model('UserRecording', UserRecordingSchema),
     inject: ['DATABASE_CONNECTION'],
   }
 ];

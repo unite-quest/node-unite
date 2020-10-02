@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AuthUserModel } from './auth-user.model';
+import AuthUserModel from './auth-user.model';
 import { RequestContextService } from './request-context.service';
 
 

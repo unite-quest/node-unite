@@ -53,10 +53,10 @@ curl --location --request POST 'localhost/recording' \
   "phoneMetadata": "ASD",
   "length": "",
   "speaker": {
-	"age": "28",
-	"sex": "M",
-	"origin": "SP",
-	"motherLanguage": "PT_BR"
+  "age": "28",
+  "sex": "M",
+  "origin": "SP",
+  "motherLanguage": "PT_BR"
   }
 }'
 ```

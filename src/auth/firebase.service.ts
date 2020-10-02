@@ -21,6 +21,10 @@ export class FirebaseService {
   }
 
   public validateToken(token: string): Observable<boolean> {
+    if (!token) {
+      return of(false);
+    }
+
     token = token.replace('Bearer ', '');
     return from(admin.auth().verifyIdToken(token)).pipe(
       catchError(err => {
