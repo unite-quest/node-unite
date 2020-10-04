@@ -88,8 +88,25 @@ export class RecordingService {
     return user;
   }
 
-  public skip(recordingDto: SkipRecordingDto, user: AuthUserModel): any {
-    // this.recordingModel.findBy()
+  public async skip(recordingDto: SkipRecordingDto, themeName: string, loggedUser: AuthUserModel): Promise<RecordingTheme> {
+    const user = await this.getUser(loggedUser);
+    let recordingTheme: RecordingTheme = user.themes.find((each) => each.title === themeName);
+    const recording: Recording = {
+      ...recordingDto,
+      skipped: true,
+    };
+
+    if (recordingTheme) { // push if found
+      recordingTheme.recordings.push(recording);
+    } else { // create theme if not found
+      recordingTheme = {
+        title: themeName,
+        recordings: [recording],
+      };
+      user.themes.push(recordingTheme);
+    }
+    await user.save();
+    return recordingTheme;
   }
 
   private _getFilename(recording: AppendUserRecordingDto, file: FileInterface): string {

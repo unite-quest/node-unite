@@ -28,7 +28,7 @@ export class PhrasesService {
         id: phrase._id,
         text: phrase.text,
         skipped: Boolean(userRecorded?.skipped),
-        spoken: Boolean(userRecorded),
+        spoken: Boolean(userRecorded && !userRecorded.skipped),
       }
     }) || [];
 
