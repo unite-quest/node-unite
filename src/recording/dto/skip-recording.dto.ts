@@ -1,3 +1,3 @@
 export class SkipRecordingDto {
-  word: string;
+  phraseId: string;
 }

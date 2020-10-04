@@ -44,14 +44,9 @@ export class RecordingService {
    * @returns {Observable<any>}
    * @memberof RecordingService
    */
-  public async append(recordingDto: AppendUserRecordingDto, themeName: string, file: FileInterface, user: AuthUserModel):
-    Promise<RecordingTheme | BadRequestException> {
-    // find user
-    const query = { 'user.firebaseId': user.uid };
-    const dbUser = await this.userRecordingModel.findOne(query).exec();
-    if (!dbUser) {
-      return new BadRequestException('User not found.');
-    }
+  public async append(recordingDto: AppendUserRecordingDto, themeName: string, file: FileInterface, loggedUser: AuthUserModel):
+    Promise<RecordingTheme> {
+    const user = await this.getUser(loggedUser);
 
     // upload recording
     const filename = this._getFilename(recordingDto, file);
@@ -65,7 +60,7 @@ export class RecordingService {
     };
 
     // try to find theme
-    let recordingTheme: RecordingTheme = dbUser.themes.find((each) => each.title === themeName);
+    let recordingTheme: RecordingTheme = user.themes.find((each) => each.title === themeName);
     if (recordingTheme) { // push if found
       recordingTheme.recordings.push(recording);
     } else { // create theme if not found
@@ -73,14 +68,45 @@ export class RecordingService {
         title: themeName,
         recordings: [recording],
       };
-      dbUser.themes.push(recordingTheme);
+      user.themes.push(recordingTheme);
     }
-    await dbUser.save();
+    await user.save();
     return recordingTheme;
   }
 
-  public skip(recordingDto: SkipRecordingDto, user: AuthUserModel): any {
-    // this.recordingModel.findBy()
+  public async getUserRecordingsForTheme(themeName: string, loggedUser: AuthUserModel): Promise<RecordingTheme> {
+    const user = await this.getUser(loggedUser);
+    return user.themes.find((each) => each.title === themeName);
+  }
+
+  private async getUser(loggedUser: AuthUserModel): Promise<UserRecording> {
+    const query = { 'user.firebaseId': loggedUser.uid };
+    const user = await this.userRecordingModel.findOne(query).exec();
+    if (!user) {
+      throw new BadRequestException('User not found.');
+    }
+    return user;
+  }
+
+  public async skip(recordingDto: SkipRecordingDto, themeName: string, loggedUser: AuthUserModel): Promise<RecordingTheme> {
+    const user = await this.getUser(loggedUser);
+    let recordingTheme: RecordingTheme = user.themes.find((each) => each.title === themeName);
+    const recording: Recording = {
+      ...recordingDto,
+      skipped: true,
+    };
+
+    if (recordingTheme) { // push if found
+      recordingTheme.recordings.push(recording);
+    } else { // create theme if not found
+      recordingTheme = {
+        title: themeName,
+        recordings: [recording],
+      };
+      user.themes.push(recordingTheme);
+    }
+    await user.save();
+    return recordingTheme;
   }
 
   private _getFilename(recording: AppendUserRecordingDto, file: FileInterface): string {
