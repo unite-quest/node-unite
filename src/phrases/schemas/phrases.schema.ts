@@ -6,6 +6,7 @@ export const PhrasesSchema = new mongoose.Schema({
     index: true,
     unique: true,
   },
+  cover: String,
   phrases: [
     new mongoose.Schema({
       text: String,

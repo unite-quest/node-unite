@@ -1,6 +1,8 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
 import CreateThemeDto from './dto/create-theme.dto';
+import ThemePhrasesResponseDto from './dto/theme-phrases-response.dto';
 import PhrasesInterface from './interfaces/phrases.interface';
 import { PhrasesService } from './phrases.service';
 
@@ -21,8 +23,9 @@ export class PhrasesController {
    */
   @UseGuards(FirebaseAuthGuard)
   @Get(':theme')
-  getPhrasesByGroup(@Param('theme') theme): Promise<PhrasesInterface> {
-    return this.phrasesService.getGroup(theme);
+  getPhrasesByGroup(@Param('theme') theme): Promise<ThemePhrasesResponseDto> {
+    const user = AuthService.getLoggedUser();
+    return this.phrasesService.getGroup(theme, user);
   }
 
   @UseGuards(FirebaseAuthGuard)

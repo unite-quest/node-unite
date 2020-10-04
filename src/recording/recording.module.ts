@@ -17,5 +17,8 @@ import { RecordingService } from './recording.service';
     FileUploadService,
     ...recordingProviders,
   ],
+  exports: [
+    RecordingService,
+  ]
 })
 export class RecordingModule { }
