@@ -19,21 +19,6 @@ export class RecordingService {
     private fileUploadService: FileUploadService,
   ) { }
 
-  // this shouldnt be here, but where?
-  public async createEmptyUserIfNonExistent(user: AuthUserModel): Promise<UserRecording> {
-    const dbUser = await this.userRecordingModel.findOne({ 'user.firebaseId': user.uid }).exec();
-    if (dbUser) {
-      return dbUser;
-    }
-
-    return this.userRecordingModel.create({
-      user: {
-        firebaseId: user.uid,
-      },
-      themes: [],
-    });
-  }
-
   /**
    * Appends recording to user.
    * [PREREQUISITES] user should be created before

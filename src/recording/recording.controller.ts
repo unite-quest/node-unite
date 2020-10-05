@@ -15,13 +15,6 @@ export class RecordingController {
   ) { }
 
   @UseGuards(FirebaseAuthGuard)
-  @Post('user')
-  createUser() {
-    const user = AuthService.getLoggedUser();
-    return this.recordingService.createEmptyUserIfNonExistent(user);
-  }
-
-  @UseGuards(FirebaseAuthGuard)
   @Post('send/:theme')
   @UseInterceptors(FileInterceptor('file'))
   appendRecording(@Body() data: AppendUserRecordingDto, @Param('theme') theme, @UploadedFile() file: FileInterface): Promise<RecordingTheme> {
