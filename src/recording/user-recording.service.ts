@@ -21,6 +21,7 @@ export class UserRecordingService {
         firebaseId: user.uid,
       },
       themes: [],
+      scoring: [],
     });
   }
 }

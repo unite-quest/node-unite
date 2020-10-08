@@ -1,15 +1,17 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { extname } from 'path';
-import { Observable } from 'rxjs';
 import AuthUserModel from '../auth/auth-user.model';
+import AppendUserRecordingResponseDto from './dto/append-user-recording-response.dto';
 import AppendUserRecordingDto from './dto/append-user-recording.dto';
+import AssignNameDto from './dto/assign-name.dto';
 import { SkipRecordingDto } from './dto/skip-recording.dto';
 import { FileUploadService } from './file-upload.service';
 import { FileInterface } from './interfaces/file.interface';
 import RecordingTheme from './interfaces/recording-theme.interface';
 import { Recording } from './interfaces/recording.interface';
 import { UserRecording } from './interfaces/user-recording.interface';
+import { ScoringService } from './scoring.service';
 
 @Injectable()
 export class RecordingService {
@@ -17,6 +19,7 @@ export class RecordingService {
     @Inject('USER_RECORDING_MODEL')
     private userRecordingModel: Model<UserRecording>,
     private fileUploadService: FileUploadService,
+    private scoringService: ScoringService,
   ) { }
 
   /**
@@ -30,7 +33,7 @@ export class RecordingService {
    * @memberof RecordingService
    */
   public async append(recordingDto: AppendUserRecordingDto, themeName: string, file: FileInterface, loggedUser: AuthUserModel):
-    Promise<RecordingTheme> {
+    Promise<AppendUserRecordingResponseDto> {
     const user = await this.getUser(loggedUser);
 
     // upload recording
@@ -55,8 +58,15 @@ export class RecordingService {
       };
       user.themes.push(recordingTheme);
     }
+
+    const validRecordings = recordingTheme.recordings.filter(recording => !recording.skipped).length;
+    const score = await this.scoringService.getNextScore(user, validRecordings);
+    if (score) {
+      user.scoring.push(score);
+    }
+
     await user.save();
-    return recordingTheme;
+    return new AppendUserRecordingResponseDto(score, validRecordings < 6);
   }
 
   public async getUserRecordingsForTheme(themeName: string, loggedUser: AuthUserModel): Promise<RecordingTheme> {
@@ -92,6 +102,12 @@ export class RecordingService {
     }
     await user.save();
     return recordingTheme;
+  }
+
+  public async assignName(assignNameDto: AssignNameDto, loggedUser: AuthUserModel): Promise<void> {
+    const user = await this.getUser(loggedUser);
+    user.user.nickname = assignNameDto.name;
+    await user.save();
   }
 
   private _getFilename(recording: AppendUserRecordingDto, file: FileInterface): string {
