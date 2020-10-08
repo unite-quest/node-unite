@@ -4,6 +4,7 @@ import { extname } from 'path';
 import { Observable } from 'rxjs';
 import AuthUserModel from '../auth/auth-user.model';
 import AppendUserRecordingDto from './dto/append-user-recording.dto';
+import AssignNameDto from './dto/assign-name.dto';
 import { SkipRecordingDto } from './dto/skip-recording.dto';
 import { FileUploadService } from './file-upload.service';
 import { FileInterface } from './interfaces/file.interface';
@@ -92,6 +93,12 @@ export class RecordingService {
     }
     await user.save();
     return recordingTheme;
+  }
+
+  public async assignName(assignNameDto: AssignNameDto, loggedUser: AuthUserModel): Promise<void> {
+    const user = await this.getUser(loggedUser);
+    user.user.nickname = assignNameDto.name;
+    await user.save();
   }
 
   private _getFilename(recording: AppendUserRecordingDto, file: FileInterface): string {
