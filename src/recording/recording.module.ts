@@ -5,6 +5,7 @@ import { FileUploadService } from './file-upload.service';
 import { RecordingController } from './recording.controller';
 import { recordingProviders } from './recording.providers';
 import { RecordingService } from './recording.service';
+import { ScoringService } from './scoring.service';
 import { UserRecordingService } from './user-recording.service';
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UserRecordingService } from './user-recording.service';
     RecordingService,
     UserRecordingService,
     FileUploadService,
+    ScoringService,
     ...recordingProviders,
   ],
   exports: [
