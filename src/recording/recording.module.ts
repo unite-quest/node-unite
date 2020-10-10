@@ -26,6 +26,7 @@ import { UserRecordingService } from './user-recording.service';
   exports: [
     RecordingService,
     UserRecordingService,
+    ScoringService,
   ]
 })
 export class RecordingModule { }

@@ -54,19 +54,21 @@ export class RecordingService {
     } else { // create theme if not found
       recordingTheme = {
         title: themeName,
+        finished: false,
         recordings: [recording],
       };
       user.themes.push(recordingTheme);
     }
 
     const validRecordings = recordingTheme.recordings.filter(recording => !recording.skipped).length;
+    recordingTheme.finished = validRecordings >= 6; // does this updates the array reference?
     const score = await this.scoringService.getNextScore(user, validRecordings);
     if (score) {
       user.scoring.push(score);
     }
 
     await user.save();
-    return new AppendUserRecordingResponseDto(score, validRecordings < 6);
+    return new AppendUserRecordingResponseDto(score, !recordingTheme.finished);
   }
 
   public async getUserRecordingsForTheme(themeName: string, loggedUser: AuthUserModel): Promise<RecordingTheme> {
@@ -74,7 +76,7 @@ export class RecordingService {
     return user.themes.find((each) => each.title === themeName);
   }
 
-  private async getUser(loggedUser: AuthUserModel): Promise<UserRecording> {
+  public async getUser(loggedUser: AuthUserModel): Promise<UserRecording> {
     const query = { 'user.firebaseId': loggedUser.uid };
     const user = await this.userRecordingModel.findOne(query).exec();
     if (!user) {
@@ -96,6 +98,7 @@ export class RecordingService {
     } else { // create theme if not found
       recordingTheme = {
         title: themeName,
+        finished: false,
         recordings: [recording],
       };
       user.themes.push(recordingTheme);

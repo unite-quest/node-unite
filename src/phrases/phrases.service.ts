@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import AuthUserModel from 'src/auth/auth-user.model';
 import { RecordingService } from '../recording/recording.service';
 import CreateThemeDto from './dto/create-theme.dto';
+import RandomThemeResponseDto from './dto/random-theme-response.dto';
 import ThemePhrasesItemResponseDto from './dto/theme-phrases-item-response.dto';
 import ThemePhrasesResponseDto from './dto/theme-phrases-response.dto';
 import PhrasesInterface from './interfaces/phrases.interface';
@@ -39,5 +40,18 @@ export class PhrasesService {
       total: 10,
       phrases,
     };
+  }
+
+  public async getRandomGroups(include: string[], exclude: string[]): Promise<RandomThemeResponseDto[]> {
+    const groups: PhrasesInterface[] = await this.phrasesModel.find({
+      title: { $in: include, $nin: exclude }
+    }).exec();
+
+    return groups.map(group => {
+      return {
+        title: group.title,
+        cover: group.cover,
+      }
+    });
   }
 }
