@@ -19,5 +19,8 @@ import { PhrasesService } from './phrases.service';
     PhrasesService,
     ...phrasesProviders,
   ],
+  exports: [
+    PhrasesService,
+  ]
 })
 export class PhrasesModule { }

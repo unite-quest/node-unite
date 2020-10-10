@@ -5,10 +5,6 @@ import { UserRecording } from './interfaces/user-recording.interface';
 
 @Injectable()
 export class ScoringService {
-  constructor(
-  ) { }
-
-
   /**
    * Based on user data, returns next score if available
    *
