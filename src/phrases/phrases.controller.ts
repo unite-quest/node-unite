@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
-import { UserRecordingService } from '../recording/user-recording.service';
 import CreateThemeDto from './dto/create-theme.dto';
 import ThemePhrasesResponseDto from './dto/theme-phrases-response.dto';
 import PhrasesInterface from './interfaces/phrases.interface';
@@ -11,7 +10,6 @@ import { PhrasesService } from './phrases.service';
 export class PhrasesController {
   constructor(
     private readonly phrasesService: PhrasesService,
-    private readonly userRecordingService: UserRecordingService,
   ) { }
 
   /**
@@ -22,16 +20,23 @@ export class PhrasesController {
    * @memberof PhrasesController
    */
   @UseGuards(FirebaseAuthGuard)
-  @Get(':theme')
+  @Get('theme/:theme')
   async getPhrasesByGroup(@Param('theme') theme): Promise<ThemePhrasesResponseDto> {
     const user = AuthService.getLoggedUser();
-    await this.userRecordingService.createEmptyUserIfNonExistent(user); // fire and forget user creation (should move this to guard...)
-    return this.phrasesService.getGroup(theme, user);
+    return this.phrasesService.getTheme(theme, user);
   }
 
   @UseGuards(FirebaseAuthGuard)
-  @Post(':theme')
+  @Post('theme/:theme')
   addPhraseToGroup(@Param('theme') theme, @Body() payload: CreateThemeDto): Promise<PhrasesInterface> {
-    return this.phrasesService.createGroup({ ...payload, title: theme });
+    return this.phrasesService.createTheme({ ...payload, title: theme });
   }
+
+  @UseGuards(FirebaseAuthGuard)
+  @Get('random')
+  async getRandomTheme(): Promise<ThemePhrasesResponseDto> {
+    const user = AuthService.getLoggedUser();
+    return this.phrasesService.getRandomTheme(user);
+  }
+
 }

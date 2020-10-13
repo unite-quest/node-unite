@@ -1,5 +1,5 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 import { DatabaseModule } from '../database/database.module';
 import { FileUploadService } from './file-upload.service';
 import { RecordingController } from './recording.controller';

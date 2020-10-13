@@ -7,7 +7,7 @@ import AppendUserRecordingDto from './dto/append-user-recording.dto';
 import AssignNameDto from './dto/assign-name.dto';
 import { SkipRecordingDto } from './dto/skip-recording.dto';
 import { FileInterface } from './interfaces/file.interface';
-import RecordingTheme from './interfaces/recording-theme.interface';
+import UserRecordingTheme from './interfaces/user-recording-theme.interface';
 import { RecordingService } from './recording.service';
 
 @Controller('user-recording')
@@ -26,7 +26,7 @@ export class RecordingController {
 
   @UseGuards(FirebaseAuthGuard)
   @Post('skip/:theme')
-  skipRecording(@Body() data: SkipRecordingDto, @Param('theme') theme): Promise<RecordingTheme> {
+  skipRecording(@Body() data: SkipRecordingDto, @Param('theme') theme): Promise<UserRecordingTheme> {
     const user = AuthService.getLoggedUser();
     return this.recordingService.skip(data, theme, user);
   }

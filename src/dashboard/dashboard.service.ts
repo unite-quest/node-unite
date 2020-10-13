@@ -2,22 +2,22 @@ import { Injectable } from '@nestjs/common';
 import AuthUserModel from '../auth/auth-user.model';
 import { PhrasesService } from '../phrases/phrases.service';
 import { UserRecording } from '../recording/interfaces/user-recording.interface';
-import { RecordingService } from '../recording/recording.service';
 import { ScoringService } from '../recording/scoring.service';
+import { UserRecordingService } from '../recording/user-recording.service';
 import DashboardResponseActionDto from './dto/dashboard-response-action.dto';
 import DashboardResponseDto from './dto/dashboard-response.dto';
 
 @Injectable()
 export class DashboardService {
   constructor(
-    private recordingService: RecordingService,
+    private userRecordingService: UserRecordingService,
     private phrasesService: PhrasesService,
     private scoringService: ScoringService,
   ) { }
 
 
   public async getActions(loggedUser: AuthUserModel): Promise<DashboardResponseDto> {
-    const user = await this.recordingService.getUser(loggedUser);
+    const user = await this.userRecordingService.getUser(loggedUser);
     const registration = await this.getRegistrationActions(user);
     const theme = await this.getThemeActions(user);
     const extra = await this.getExtraActions(user);
