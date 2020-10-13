@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
+import { LooseFirebaseAuthGuard } from '../auth/loose-firebase-auth.guard';
 import CreateThemeDto from './dto/create-theme.dto';
 import ThemePhrasesResponseDto from './dto/theme-phrases-response.dto';
 import PhrasesInterface from './interfaces/phrases.interface';
@@ -32,7 +33,7 @@ export class PhrasesController {
     return this.phrasesService.createTheme({ ...payload, title: theme });
   }
 
-  @UseGuards(FirebaseAuthGuard)
+  @UseGuards(LooseFirebaseAuthGuard)
   @Get('random')
   async getRandomTheme(): Promise<ThemePhrasesResponseDto> {
     const user = AuthService.getLoggedUser();

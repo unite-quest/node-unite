@@ -8,12 +8,12 @@ import { FirebaseService } from './firebase.service';
 @Injectable()
 export class FirebaseAuthGuard implements CanActivate {
   constructor(
-    private readonly _firebaseService: FirebaseService,
+    protected readonly _firebaseService: FirebaseService,
   ) { }
 
   canActivate(
     context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  ): Observable<boolean> {
     const request = context.switchToHttp().getRequest();
     const header: string = request.header('Authorization');
     return this._firebaseService.validateToken(header).pipe(
