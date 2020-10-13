@@ -8,6 +8,7 @@ import { RecordingController } from './recording.controller';
 import { RecordingService } from './recording.service';
 import { UserRecordingSchema } from './schemas/user-recording.schema';
 import { ScoringService } from './scoring.service';
+import { UserRecordingService } from './user-recording.service';
 
 jest.mock('./file-upload.service');
 jest.mock('../auth/auth.service');
@@ -17,6 +18,7 @@ describe('RecordingController', () => {
   let recordingService: RecordingService;
   let fileUploadService: FileUploadService;
   let scoringService: ScoringService;
+  let userRecordingService: UserRecordingService;
   let userRecordingModel: Model<UserRecording>;
 
   const _id = '507f191e810c19729de860ea';
@@ -40,8 +42,10 @@ describe('RecordingController', () => {
     userRecordingModel = model('UserRecording', UserRecordingSchema);
     fileUploadService = new FileUploadService(null)
     scoringService = new ScoringService();
+    userRecordingService = new UserRecordingService(userRecordingModel);
+
     mockingoose(userRecordingModel).toReturn({ _id, ...userRecording }, 'findOne');
-    recordingService = new RecordingService(userRecordingModel, fileUploadService, scoringService);
+    recordingService = new RecordingService(userRecordingService, fileUploadService, scoringService);
     recordingController = new RecordingController(recordingService);
   });
 

@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import AuthUserModel from 'src/auth/auth-user.model';
-import { RecordingService } from '../recording/recording.service';
+import UserRecordingTheme from 'src/recording/interfaces/user-recording-theme.interface';
+import AuthUserModel from '../auth/auth-user.model';
+import { UserRecordingService } from '../recording/user-recording.service';
 import CreateThemeDto from './dto/create-theme.dto';
 import RandomThemeResponseDto from './dto/random-theme-response.dto';
 import ThemePhrasesItemResponseDto from './dto/theme-phrases-item-response.dto';
@@ -10,21 +11,38 @@ import PhrasesInterface from './interfaces/phrases.interface';
 
 @Injectable()
 export class PhrasesService {
+  public static readonly MAXIMUM_SKIPS_COUNT: number = 4;
+
   constructor(
     @Inject('PHRASES_MODEL')
     private phrasesModel: Model<PhrasesInterface>,
-    private recordingService: RecordingService,
+    private userRecordingService: UserRecordingService,
   ) { }
 
-  public createGroup(createThemeDto: CreateThemeDto): Promise<PhrasesInterface> {
+  public createTheme(createThemeDto: CreateThemeDto): Promise<PhrasesInterface> {
     return this.phrasesModel.create(createThemeDto); //TODO error handling
   }
 
-  public async getGroup(title: string, user: AuthUserModel): Promise<ThemePhrasesResponseDto> {
-    const themeRecordings = await this.recordingService.getUserRecordingsForTheme(title, user);
+  public async getTheme(title: string, loggedUser: AuthUserModel): Promise<ThemePhrasesResponseDto> {
+    const userTheme = await this.userRecordingService.getUserRecordingTheme(title, loggedUser);
+
     const themePhrases: PhrasesInterface = await this.phrasesModel.findOne({ title }).exec();
+    return this.mergePhrasesWithUser(themePhrases, userTheme);
+  }
+
+  public async getRandomTheme(loggedUser: AuthUserModel): Promise<ThemePhrasesResponseDto> {
+    // randomize theme
+    const phrases = await this.phrasesModel.aggregate<PhrasesInterface>([{ $sample: { size: 1 } }]);
+    if (phrases && phrases.length === 1) {
+      const userTheme = await this.userRecordingService.getUserRecordingTheme(phrases[0].title, loggedUser);
+      return this.mergePhrasesWithUser(phrases[0], userTheme);
+    }
+    throw new Error('Error during phrase randomization');
+  }
+
+  private mergePhrasesWithUser(themePhrases: PhrasesInterface, userTheme: UserRecordingTheme): ThemePhrasesResponseDto {
     const phrases = themePhrases?.phrases.map((phrase): ThemePhrasesItemResponseDto => {
-      const userRecorded = themeRecordings?.recordings?.find((recording) => `${recording.phraseId}` === `${phrase._id}`)
+      const userRecorded = userTheme?.recordings?.find((recording) => `${recording.phraseId}` === `${phrase._id}`)
       return {
         id: phrase._id,
         text: phrase.text,
@@ -36,8 +54,8 @@ export class PhrasesService {
     return {
       title: themePhrases.title,
       cover: themePhrases.cover,
-      stepsCap: 6,
-      total: 10,
+      stepsCap: (phrases.length - PhrasesService.MAXIMUM_SKIPS_COUNT),
+      total: phrases.length,
       phrases,
     };
   }
