@@ -8,7 +8,7 @@ export const UserDataSchema = new mongoose.Schema({
     index: true,
   },
   nickname: String,
-  sex: String,
+  gender: String,
   ageInterval: String,
   region: String,
   dialect: String,
