@@ -31,7 +31,7 @@ export class RecordingService {
    * @returns {Observable<any>}
    * @memberof RecordingService
    */
-  public async append(recordingDto: AppendUserRecordingDto, themeName: string, file: FileInterface, loggedUser: AuthUserModel):
+  public async append(recordingDto: AppendUserRecordingDto, file: FileInterface, loggedUser: AuthUserModel):
     Promise<AppendUserRecordingResponseDto> {
     const user = await this.userRecordingService.getOrCreateUser(loggedUser);
 
@@ -43,16 +43,15 @@ export class RecordingService {
       ...recordingDto,
       format,
       recordingPath,
-      skipped: false,
     };
 
     // try to find theme
-    let recordingTheme: UserRecordingTheme = user.themes.find((each) => each.title === themeName);
+    let recordingTheme: UserRecordingTheme = user.themes.find((each) => each.title === recordingDto.themeId);
     if (recordingTheme) { // push if found
       recordingTheme.recordings.push(recording);
     } else { // create theme if not found
       recordingTheme = {
-        title: themeName,
+        title: recordingDto.themeId,
         finished: false,
         recordings: [recording],
       };
@@ -70,20 +69,22 @@ export class RecordingService {
     return new AppendUserRecordingResponseDto(score, !recordingTheme.finished);
   }
 
-  public async skip(recordingDto: SkipRecordingDto, themeName: string, loggedUser: AuthUserModel): Promise<UserRecordingTheme> {
+  public async skip(recordingDto: SkipRecordingDto, loggedUser: AuthUserModel): Promise<UserRecordingTheme> {
     const user = await this.userRecordingService.getOrCreateUser(loggedUser);
 
-    let recordingTheme: UserRecordingTheme = user.themes.find((each) => each.title === themeName);
+    let recordingTheme: UserRecordingTheme = user.themes.find((each) => each.title === recordingDto.themeId);
     const recording: Recording = {
       ...recordingDto,
-      skipped: true,
+      skipped: {
+        reason: recordingDto.reason,
+      },
     };
 
     if (recordingTheme) { // push if found
       recordingTheme.recordings.push(recording);
     } else { // create theme if not found
       recordingTheme = {
-        title: themeName,
+        title: recordingDto.themeId,
         finished: false,
         recordings: [recording],
       };

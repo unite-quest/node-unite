@@ -24,6 +24,7 @@ describe('RecordingController', () => {
   const _id = '507f191e810c19729de860ea';
   const data: AppendUserRecordingDto = {
     phraseId: 'phraseId--222',
+    themeId: 'theme-t',
     sampleRate: 16000,
     duration: '1234',
     additionalMetadata: {
@@ -51,11 +52,10 @@ describe('RecordingController', () => {
 
   describe('create', () => {
     it('should create a recording to database', async () => {
-      const theme = 'theme-t';
       const file: FileInterface = {
         size: 10, buffer: [], encoding: 'utf-8', mimetype: 'audio/wave', fieldname: 'file', originalname: 'test.wav'
       };
-      const response = await recordingController.appendRecording(data, theme, file);
+      const response = await recordingController.appendRecording(data, file);
       expect(response.hasNext).toEqual(true);
       expect(response.modal.score).toEqual(100);
       expect(response.modal.type).toEqual('FIRST_RECORDING');
