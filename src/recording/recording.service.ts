@@ -58,7 +58,7 @@ export class RecordingService {
       user.themes.push(recordingTheme);
     }
 
-    const validRecordings = recordingTheme.recordings.filter(recording => !recording.skipped).length;
+    const validRecordings = recordingTheme.recordings.filter(recording => !recording?.skipped?.reason).length;
     recordingTheme.finished = validRecordings >= 6; // does this updates the array reference?
     const score = await this.scoringService.getNextScore(user, validRecordings);
     if (score) {

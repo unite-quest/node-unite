@@ -57,15 +57,7 @@ export class DashboardService {
   }
 
   private async getThemeActions(user: UserRecording): Promise<DashboardResponseActionDto[]> {
-    let unfinishedThemes: string[] = [];
-    const finishedThemes: string[] = user?.themes?.filter(theme => {
-      if (!theme.finished) {
-        unfinishedThemes.push(theme.title);
-      }
-      return theme.finished;
-    }).map(theme => theme.title);
-
-    const randomGroups = await this.phrasesService.getRandomGroups(unfinishedThemes, finishedThemes);
+    const randomGroups = await this.phrasesService.getRandomGroupsForUserRecording(user);
     return randomGroups.map(group => {
       return {
         id: group.title,
