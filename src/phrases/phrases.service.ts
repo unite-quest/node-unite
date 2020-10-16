@@ -32,7 +32,7 @@ export class PhrasesService {
     // fetches user theme and scoring
     const user = await this.userRecordingService.getUser(loggedUser);
     const userTheme = this.userRecordingService.filterRecordingTheme(theme, user);
-    if (userTheme.finished) {
+    if (userTheme?.finished) {
       throw new BadRequestException('Already finished recording');
     }
     const themePhrases: PhrasesInterface = await this.phrasesModel.findOne({ title: theme }).exec();
