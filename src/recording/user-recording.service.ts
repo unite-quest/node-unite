@@ -32,6 +32,10 @@ export class UserRecordingService {
 
   public async getUserRecordingTheme(theme: string, loggedUser: AuthUserModel): Promise<UserRecordingTheme | null> {
     const user = await this.userRecordingModel.findOne({ 'user.firebaseId': loggedUser.uid }).exec();
+    return this.filterRecordingTheme(theme, user);
+  }
+
+  public filterRecordingTheme(theme: string, user: UserRecording): UserRecordingTheme | null {
     return user ? user.themes.find((each) => each.title === theme) : null;
   }
 }

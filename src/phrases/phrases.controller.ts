@@ -35,9 +35,9 @@ export class PhrasesController {
 
   @UseGuards(LooseFirebaseAuthGuard)
   @Get('random')
-  async getRandomTheme(): Promise<ThemePhrasesResponseDto> {
+  async getRandomTheme(): Promise<{ title: string }> {
     const user = AuthService.getLoggedUser();
-    return this.phrasesService.getRandomTheme(user);
+    return await this.phrasesService.getRandomTheme(user);
   }
 
 }

@@ -1,17 +1,22 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import UserRecordingTheme from 'src/recording/interfaces/user-recording-theme.interface';
 import AuthUserModel from '../auth/auth-user.model';
+import { RecordingModalTypes } from '../recording/dto/recording-modal-types';
+import { ScoreEntry, ScoringValues } from '../recording/interfaces/score-entry.interface';
+import UserRecordingTheme from '../recording/interfaces/user-recording-theme.interface';
+import { UserRecording } from '../recording/interfaces/user-recording.interface';
 import { UserRecordingService } from '../recording/user-recording.service';
 import CreateThemeDto from './dto/create-theme.dto';
 import RandomThemeResponseDto from './dto/random-theme-response.dto';
 import ThemePhrasesItemResponseDto from './dto/theme-phrases-item-response.dto';
+import { ThemePhrasesModalEventResponseDto } from './dto/theme-phrases-modal-event-response.dto';
 import ThemePhrasesResponseDto from './dto/theme-phrases-response.dto';
 import PhrasesInterface from './interfaces/phrases.interface';
 
 @Injectable()
 export class PhrasesService {
   public static readonly MAXIMUM_SKIPS_COUNT: number = 4;
+  public static readonly DASHBOARD_LIMIT: number = 20;
 
   constructor(
     @Inject('PHRASES_MODEL')
@@ -23,33 +28,19 @@ export class PhrasesService {
     return this.phrasesModel.create(createThemeDto); //TODO error handling
   }
 
-  public async getTheme(title: string, loggedUser: AuthUserModel): Promise<ThemePhrasesResponseDto> {
-    const userTheme = await this.userRecordingService.getUserRecordingTheme(title, loggedUser);
-
-    const themePhrases: PhrasesInterface = await this.phrasesModel.findOne({ title }).exec();
-    return this.mergePhrasesWithUser(themePhrases, userTheme);
-  }
-
-  public async getRandomTheme(loggedUser: AuthUserModel): Promise<ThemePhrasesResponseDto> {
-    // randomize theme
-    const phrases = await this.phrasesModel.aggregate<PhrasesInterface>([{ $sample: { size: 1 } }]);
-    if (phrases && phrases.length === 1) {
-      const userTheme = await this.userRecordingService.getUserRecordingTheme(phrases[0].title, loggedUser);
-      return this.mergePhrasesWithUser(phrases[0], userTheme);
+  public async getTheme(theme: string, loggedUser: AuthUserModel): Promise<ThemePhrasesResponseDto> {
+    // fetches user theme and scoring
+    const user = await this.userRecordingService.getUser(loggedUser);
+    const userTheme = this.userRecordingService.filterRecordingTheme(theme, user);
+    if (userTheme.finished) {
+      throw new BadRequestException('Already finished recording');
     }
-    throw new Error('Error during phrase randomization');
+    const themePhrases: PhrasesInterface = await this.phrasesModel.findOne({ title: theme }).exec();
+    return this.mergePhrasesWithUser(themePhrases, userTheme, user.scoring);
   }
 
-  private mergePhrasesWithUser(themePhrases: PhrasesInterface, userTheme: UserRecordingTheme): ThemePhrasesResponseDto {
-    const phrases = themePhrases?.phrases.map((phrase): ThemePhrasesItemResponseDto => {
-      const userRecorded = userTheme?.recordings?.find((recording) => `${recording.phraseId}` === `${phrase._id}`)
-      return {
-        id: phrase._id,
-        text: phrase.text,
-        skipped: Boolean(userRecorded?.skipped),
-        spoken: Boolean(userRecorded && !userRecorded.skipped),
-      }
-    }) || [];
+  private mergePhrasesWithUser(themePhrases: PhrasesInterface, userTheme: UserRecordingTheme, scoring: ScoreEntry[]): ThemePhrasesResponseDto {
+    const phrases = this.mergePhrases(themePhrases, userTheme);
 
     return {
       title: themePhrases.title,
@@ -57,13 +48,75 @@ export class PhrasesService {
       stepsCap: (phrases.length - PhrasesService.MAXIMUM_SKIPS_COUNT),
       total: phrases.length,
       phrases,
+      modalEvents: this.getModalEvents(scoring),
     };
   }
 
-  public async getRandomGroups(include: string[], exclude: string[]): Promise<RandomThemeResponseDto[]> {
+  private mergePhrases(
+    themePhrases: PhrasesInterface,
+    userPhrases: UserRecordingTheme
+  ): ThemePhrasesItemResponseDto[] {
+    let spokenLength = 0;
+
+    return themePhrases?.phrases.map((phrase): ThemePhrasesItemResponseDto => {
+      const userRecorded = userPhrases?.recordings?.find((recording) => `${recording.phraseId}` === `${phrase._id}`)
+      const spoken = Boolean(userRecorded && !userRecorded?.skipped?.reason);
+      spokenLength = spoken ? spokenLength + 1 : spokenLength;
+      return {
+        id: phrase._id,
+        text: phrase.text,
+        skipped: Boolean(userRecorded?.skipped?.reason),
+        spoken,
+      }
+    }) || [];
+  }
+
+  private getModalEvents(scoring: ScoreEntry[]): ThemePhrasesModalEventResponseDto[] {
+    const modalEvents: ThemePhrasesModalEventResponseDto[] = [];
+
+    if (!scoring.find(score => score.reason === RecordingModalTypes.FIRST_RECORDING)) {
+      modalEvents.push({
+        eventIndex: 1,
+        type: RecordingModalTypes.FIRST_RECORDING,
+        score: ScoringValues[RecordingModalTypes.FIRST_RECORDING],
+      });
+    }
+    if (!scoring.find(score => score.reason === RecordingModalTypes.FIRST_THEME)) {
+      modalEvents.push({
+        eventIndex: 6,
+        type: RecordingModalTypes.FIRST_THEME,
+        score: ScoringValues[RecordingModalTypes.FIRST_THEME],
+      });
+    }
+
+    return modalEvents;
+  }
+
+  public async getRandomTheme(loggedUser: AuthUserModel): Promise<{ title: string }> {
+    const user = await this.userRecordingService.getUser(loggedUser);
+    const themes = await this.getRandomGroupsForUserRecording(user);
+    if (themes && themes.length > 0) {
+      return {
+        title: themes[0]?.title,
+      };
+    }
+  }
+
+  public async getRandomGroupsForUserRecording(user: UserRecording) {
+    let unfinishedThemes: string[] = [];
+    const finishedThemes: string[] = user?.themes?.filter(theme => {
+      if (!theme.finished) {
+        unfinishedThemes.push(theme.title);
+      }
+      return theme.finished;
+    }).map(theme => theme.title);
+    return this.getRandomNonRepeatingGroups(unfinishedThemes, finishedThemes);
+  }
+
+  private async getRandomNonRepeatingGroups(include: string[], exclude: string[]): Promise<RandomThemeResponseDto[]> {
     const groups: PhrasesInterface[] = await this.phrasesModel.find({
       title: { $in: include, $nin: exclude }
-    }).exec();
+    }).limit(PhrasesService.DASHBOARD_LIMIT).exec();
 
     return groups.map(group => {
       return {
