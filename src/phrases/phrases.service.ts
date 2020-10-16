@@ -96,8 +96,9 @@ export class PhrasesService {
     const user = await this.userRecordingService.getUser(loggedUser);
     const themes = await this.getRandomGroupsForUserRecording(user);
     if (themes && themes.length > 0) {
+      const randomIndex = Math.floor((Math.random() * themes.length));
       return {
-        title: themes[0]?.title,
+        title: themes[randomIndex]?.title,
       };
     }
   }
@@ -114,9 +115,15 @@ export class PhrasesService {
   }
 
   private async getRandomNonRepeatingGroups(include: string[], exclude: string[]): Promise<RandomThemeResponseDto[]> {
-    const groups: PhrasesInterface[] = await this.phrasesModel.find({
-      title: { $in: include, $nin: exclude }
-    }).limit(PhrasesService.DASHBOARD_LIMIT).exec();
+    let query = {};
+    if (include && include.length) {
+      query['title']['$in'] = include;
+    }
+    if (exclude && exclude.length) {
+      query['title']['$nin'] = exclude;
+    }
+    const groups: PhrasesInterface[] = await this.phrasesModel.find(query)
+      .limit(PhrasesService.DASHBOARD_LIMIT).exec();
 
     return groups.map(group => {
       return {
