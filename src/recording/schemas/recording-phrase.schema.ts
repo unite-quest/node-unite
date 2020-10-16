@@ -6,5 +6,7 @@ export const RecordingPhraseSchema = new mongoose.Schema({
   format: String,
   duration: String,
   recordingPath: String,
-  skipped: Boolean,
+  skipped: {
+    reason: String,
+  },
 });

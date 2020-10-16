@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
@@ -18,18 +18,18 @@ export class RecordingController {
   ) { }
 
   @UseGuards(FirebaseAuthGuard)
-  @Post('send/:theme')
+  @Post('send')
   @UseInterceptors(FileInterceptor('file'))
-  appendRecording(@Body() data: AppendUserRecordingDto, @Param('theme') theme, @UploadedFile() file: FileInterface): Promise<AppendUserRecordingResponseDto> {
+  appendRecording(@Body() data: AppendUserRecordingDto, @UploadedFile() file: FileInterface): Promise<AppendUserRecordingResponseDto> {
     const user = AuthService.getLoggedUser();
-    return this.recordingService.append(data, theme, file, user);
+    return this.recordingService.append(data, file, user);
   }
 
   @UseGuards(FirebaseAuthGuard)
-  @Post('skip/:theme')
-  skipRecording(@Body() data: SkipRecordingDto, @Param('theme') theme): Promise<UserRecordingTheme> {
+  @Post('skip')
+  skipRecording(@Body() data: SkipRecordingDto): Promise<UserRecordingTheme> {
     const user = AuthService.getLoggedUser();
-    return this.recordingService.skip(data, theme, user);
+    return this.recordingService.skip(data, user);
   }
 
   @UseGuards(FirebaseAuthGuard)

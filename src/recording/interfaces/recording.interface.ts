@@ -4,5 +4,7 @@ export interface Recording {
   format?: 'wav' | 'webm'; // web compatibility layer
   duration?: string
   recordingPath?: string;
-  skipped: boolean;
+  skipped?: {
+    reason: string,
+  };
 }
