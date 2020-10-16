@@ -117,10 +117,15 @@ export class PhrasesService {
   private async getRandomNonRepeatingGroups(include: string[], exclude: string[]): Promise<RandomThemeResponseDto[]> {
     let query = {};
     if (include && include.length) {
-      query['title']['$in'] = include;
+      query['title'] = {
+        ['$in']: include
+      };
     }
     if (exclude && exclude.length) {
-      query['title']['$nin'] = exclude;
+      query['title'] = {
+        ...query['title'],
+        ['$nin']: exclude,
+      }
     }
     const groups: PhrasesInterface[] = await this.phrasesModel.find(query)
       .limit(PhrasesService.DASHBOARD_LIMIT).exec();
