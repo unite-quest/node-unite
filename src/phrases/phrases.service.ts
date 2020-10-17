@@ -36,7 +36,7 @@ export class PhrasesService {
       throw new BadRequestException('Already finished recording');
     }
     const themePhrases: PhrasesInterface = await this.phrasesModel.findOne({ title: theme }).exec();
-    return this.mergePhrasesWithUser(themePhrases, userTheme, user.scoring);
+    return this.mergePhrasesWithUser(themePhrases, userTheme, user?.scoring);
   }
 
   private mergePhrasesWithUser(themePhrases: PhrasesInterface, userTheme: UserRecordingTheme, scoring: ScoreEntry[]): ThemePhrasesResponseDto {
