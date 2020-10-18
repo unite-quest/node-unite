@@ -32,10 +32,16 @@ export class PhrasesService {
     // fetches user theme and scoring
     const user = await this.userRecordingService.getUser(loggedUser);
     const userTheme = this.userRecordingService.filterRecordingTheme(theme, user);
+
     if (userTheme?.finished) {
       throw new BadRequestException('Already finished recording');
     }
+
     const themePhrases: PhrasesInterface = await this.phrasesModel.findOne({ title: theme }).exec();
+    if (!themePhrases) {
+      throw new BadRequestException('Theme does not exist');
+    }
+
     return this.mergePhrasesWithUser(themePhrases, userTheme, user?.scoring);
   }
 
@@ -93,7 +99,7 @@ export class PhrasesService {
   }
 
   public async getRandomTheme(loggedUser: AuthUserModel): Promise<{ title: string }> {
-    const user = await this.userRecordingService.getUser(loggedUser);
+    const user = await this.userRecordingService.getOrCreateUser(loggedUser);
     const themes = await this.getRandomGroupsForUserRecording(user);
     if (themes && themes.length > 0) {
       const randomIndex = Math.floor((Math.random() * themes.length));
