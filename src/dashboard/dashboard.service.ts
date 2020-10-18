@@ -24,7 +24,7 @@ export class DashboardService {
 
     return {
       user: {
-        name: user.user.nickname || '',
+        name: user?.user?.nickname || '',
       },
       score: {
         total: this.scoringService.calculateTotal(user),
@@ -35,7 +35,7 @@ export class DashboardService {
   }
 
   private async getRegistrationActions(user: UserRecording): Promise<DashboardResponseActionDto[]> {
-    if (user.user && user.user.dialect && user.user.ageInterval) {
+    if (user && user.user && user.user.dialect && user.user.ageInterval) {
       return [];
     }
 

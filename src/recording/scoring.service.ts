@@ -36,6 +36,10 @@ export class ScoringService {
   }
 
   calculateTotal(user: UserRecording): number {
+    if (!user) {
+      return 0;
+    }
+
     return user.scoring.reduce((acc, cur) => {
       return acc + cur.score;
     }, 0);

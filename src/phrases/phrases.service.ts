@@ -80,14 +80,14 @@ export class PhrasesService {
   private getModalEvents(scoring: ScoreEntry[]): ThemePhrasesModalEventResponseDto[] {
     const modalEvents: ThemePhrasesModalEventResponseDto[] = [];
 
-    if (!scoring.find(score => score.reason === RecordingModalTypes.FIRST_RECORDING)) {
+    if (!scoring?.find(score => score.reason === RecordingModalTypes.FIRST_RECORDING)) {
       modalEvents.push({
         eventIndex: 1,
         type: RecordingModalTypes.FIRST_RECORDING,
         score: ScoringValues[RecordingModalTypes.FIRST_RECORDING],
       });
     }
-    if (!scoring.find(score => score.reason === RecordingModalTypes.FIRST_THEME)) {
+    if (!scoring?.find(score => score.reason === RecordingModalTypes.FIRST_THEME)) {
       modalEvents.push({
         eventIndex: 6,
         type: RecordingModalTypes.FIRST_THEME,
@@ -99,7 +99,7 @@ export class PhrasesService {
   }
 
   public async getRandomTheme(loggedUser: AuthUserModel): Promise<{ title: string }> {
-    const user = await this.userRecordingService.getOrCreateUser(loggedUser);
+    const user = await this.userRecordingService.getUser(loggedUser);
     const themes = await this.getRandomGroupsForUserRecording(user);
     if (themes && themes.length > 0) {
       const randomIndex = Math.floor((Math.random() * themes.length));
