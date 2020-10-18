@@ -35,6 +35,10 @@ export class UserRecordingService {
     return this.filterRecordingTheme(theme, user);
   }
 
+  public async getUserByNickname(nickname: string): Promise<UserRecording | null> {
+    return await this.userRecordingModel.findOne({ 'user.nickname': nickname }).exec()
+  }
+
   public filterRecordingTheme(theme: string, user: UserRecording): UserRecordingTheme | null {
     return user ? user.themes.find((each) => each.title === theme) : null;
   }
