@@ -3,8 +3,6 @@ import { extname } from 'path';
 import AuthUserModel from '../auth/auth-user.model';
 import AppendUserRecordingResponseDto from './dto/append-user-recording-response.dto';
 import AppendUserRecordingDto from './dto/append-user-recording.dto';
-import AssignNameDto from './dto/assign-name.dto';
-import RegistrationDataDto from './dto/registration-data.dto';
 import { SkipRecordingDto } from './dto/skip-recording.dto';
 import { FileUploadService } from './file-upload.service';
 import { FileInterface } from './interfaces/file.interface';
@@ -92,23 +90,6 @@ export class RecordingService {
     }
     await user.save();
     return recordingTheme;
-  }
-
-  public async assignName(assignNameDto: AssignNameDto, loggedUser: AuthUserModel): Promise<void> {
-    const user = await this.userRecordingService.getOrCreateUser(loggedUser);
-    user.user.nickname = assignNameDto.name;
-    await user.save();
-  }
-
-  public async register(registrationDataDto: RegistrationDataDto, loggedUser: AuthUserModel): Promise<void> {
-    const user = await this.userRecordingService.getOrCreateUser(loggedUser);
-    user.user.nickname = registrationDataDto.name;
-    user.user.ageInterval = registrationDataDto.age;
-    user.user.gender = registrationDataDto.gender;
-    user.user.region = registrationDataDto.region;
-    user.user.dialect = registrationDataDto.dialect;
-
-    await user.save();
   }
 
   private _getFilename(recording: AppendUserRecordingDto, file: FileInterface): string {
