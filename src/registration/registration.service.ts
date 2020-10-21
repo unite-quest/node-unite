@@ -1,6 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import AuthUserModel from '../auth/auth-user.model';
 import { UserRecordingService } from '../recording/user-recording.service';
+import { UserScoreEntry } from '../scoring/interfaces/user-score-entry.interface';
+import { ScoringService } from '../scoring/scoring.service';
 import AssignNameDto from './dto/assign-name.dto';
 import RegistrationDataDto from './dto/registration-data.dto';
 import ValidateNicknameDto from './dto/validate-nickname.dto';
@@ -11,6 +13,7 @@ export class RegistrationService {
   constructor(
     private userRecordingService: UserRecordingService,
     private foulLanguageService: FoulLanguageService,
+    private scoringService: ScoringService,
   ) { }
 
   public async assignName(assignNameDto: AssignNameDto, loggedUser: AuthUserModel): Promise<void> {
@@ -23,7 +26,7 @@ export class RegistrationService {
     await user.save();
   }
 
-  public async register(registrationDataDto: RegistrationDataDto, loggedUser: AuthUserModel): Promise<void> {
+  public async register(registrationDataDto: RegistrationDataDto, loggedUser: AuthUserModel): Promise<UserScoreEntry> {
     const user = await this.userRecordingService.getOrCreateUser(loggedUser);
     user.user.nickname = registrationDataDto.name;
     user.user.ageInterval = registrationDataDto.age;
@@ -31,7 +34,9 @@ export class RegistrationService {
     user.user.region = registrationDataDto.region;
     user.user.dialect = registrationDataDto.dialect;
 
+    const entry = await this.scoringService.scoreForRegistration(loggedUser);
     await user.save();
+    return entry;
   }
 
   public async validateNickname(nicknameDto: ValidateNicknameDto): Promise<void> {

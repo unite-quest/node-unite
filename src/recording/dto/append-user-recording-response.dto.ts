@@ -1,18 +1,17 @@
-import { ScoreEntry, ScoringValues } from "../interfaces/score-entry.interface";
-import { RecordingModalTypes } from "./recording-modal-types";
+import { UserScoreEntry } from "../../scoring/interfaces/user-score-entry.interface";
 
 export default class AppendUserRecordingResponseDto {
   modal?: {
-    type: RecordingModalTypes,
+    type: string, // fix "any"
     score: number;
   };
   hasNext: boolean;
 
-  constructor(score: ScoreEntry, hasNext: boolean) {
+  constructor(score: UserScoreEntry, hasNext: boolean) {
     if (score) {
       this.modal = {
         type: score.reason,
-        score: ScoringValues[score.reason],
+        score: score.score
       }
     }
     this.hasNext = hasNext;

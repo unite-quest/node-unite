@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { extname } from 'path';
 import AuthUserModel from '../auth/auth-user.model';
+import { UserScoreEntry } from '../scoring/interfaces/user-score-entry.interface';
+import { ScoringService } from '../scoring/scoring.service';
 import AppendUserRecordingResponseDto from './dto/append-user-recording-response.dto';
 import AppendUserRecordingDto from './dto/append-user-recording.dto';
 import { SkipRecordingDto } from './dto/skip-recording.dto';
@@ -8,7 +10,6 @@ import { FileUploadService } from './file-upload.service';
 import { FileInterface } from './interfaces/file.interface';
 import { Recording } from './interfaces/recording.interface';
 import UserRecordingTheme from './interfaces/user-recording-theme.interface';
-import { ScoringService } from './scoring.service';
 import { UserRecordingService } from './user-recording.service';
 
 @Injectable()
@@ -58,9 +59,11 @@ export class RecordingService {
 
     const validRecordings = recordingTheme.recordings.filter(recording => !recording?.skipped?.reason).length;
     recordingTheme.finished = validRecordings >= 6; // does this updates the array reference?
-    const score = await this.scoringService.getNextScore(user, validRecordings);
-    if (score) {
-      user.scoring.push(score);
+    let score: UserScoreEntry = null;
+    if (recordingTheme.finished) {
+      score = await this.scoringService.scoreForRecordingTheme(loggedUser);
+    } else {
+      score = await this.scoringService.scoreForRecordingOnce(loggedUser);
     }
 
     await user.save();

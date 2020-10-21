@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ScoringModule } from 'src/scoring/scoring.module';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseModule } from '../database/database.module';
 import { RecordingModule } from '../recording/recording.module';
@@ -11,6 +12,7 @@ import { PhrasesService } from './phrases.service';
     DatabaseModule,
     AuthModule,
     RecordingModule,
+    ScoringModule,
   ],
   controllers: [
     PhrasesController,

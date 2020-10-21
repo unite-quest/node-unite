@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { ScoringTypes } from 'src/scoring/interfaces/scoring-types';
+import { UserScore } from 'src/scoring/interfaces/user-score.interface';
 import AuthUserModel from '../auth/auth-user.model';
 import { PhrasesService } from '../phrases/phrases.service';
 import { UserRecording } from '../recording/interfaces/user-recording.interface';
-import { ScoringService } from '../recording/scoring.service';
 import { UserRecordingService } from '../recording/user-recording.service';
+import { ScoringService } from '../scoring/scoring.service';
 import DashboardResponseActionDto from './dto/dashboard-response-action.dto';
 import DashboardResponseDto from './dto/dashboard-response.dto';
 
@@ -18,7 +20,8 @@ export class DashboardService {
 
   public async getActions(loggedUser: AuthUserModel): Promise<DashboardResponseDto> {
     const user = await this.userRecordingService.getUser(loggedUser);
-    const registration = await this.getRegistrationActions(user);
+    const userScore = await this.scoringService.getOrCreateUserScoring(loggedUser);
+    const registration = await this.getRegistrationActions(userScore);
     const theme = await this.getThemeActions(user);
     const extra = await this.getExtraActions(user);
 
@@ -27,15 +30,16 @@ export class DashboardService {
         name: user?.user?.nickname || '',
       },
       score: {
-        total: this.scoringService.calculateTotal(user),
+        total: userScore.total,
       },
       actions: registration.concat(theme).concat(extra)
         .sort((a, b) => b.points - a.points), // order by points desc
     };
   }
 
-  private async getRegistrationActions(user: UserRecording): Promise<DashboardResponseActionDto[]> {
-    if (user && user.user && user.user.dialect && user.user.ageInterval) {
+  private async getRegistrationActions(score: UserScore): Promise<DashboardResponseActionDto[]> {
+    const registration = score.entries.find(entry => entry.reason === ScoringTypes.REGISTRATION);
+    if (registration) {
       return [];
     }
 
@@ -45,11 +49,11 @@ export class DashboardService {
       points: 500,
       isRecording: false,
       background: {
-        src: '/square-cover.jpg',
+        src: '/covers/registration.jpg',
         alt: 'cadastro',
       },
       banner: {
-        src: '/logo_light.png',
+        src: '/icons/pencil.png',
         alt: 'caneta',
         title: 'Faça seu cadastro',
       },
@@ -60,7 +64,7 @@ export class DashboardService {
     const randomGroups = await this.phrasesService.getRandomGroupsForUserRecording(user);
     return randomGroups.map(group => {
       return {
-        id: group.title,
+        id: `THEME_${group.title}`,
         type: 'RECORDING',
         points: 150,
         isRecording: true,
@@ -74,13 +78,32 @@ export class DashboardService {
 
   private async getExtraActions(user: UserRecording): Promise<DashboardResponseActionDto[]> {
     return [{
-      id: 'Extra',
+      id: 'RECOMMENDATION',
       type: 'EXTRA',
-      points: 150,
+      points: 100,
       isRecording: false,
       background: {
-        src: '/square-cover.jpg',
+        src: '/covers/friendship.jpg',
         alt: 'cadastro',
+      },
+      banner: {
+        src: '/icons/pencil.png',
+        alt: 'caneta',
+        title: 'Indique um amigo',
+      },
+    }, {
+      id: 'KNOW_MORE',
+      type: 'EXTRA',
+      points: 100,
+      isRecording: false,
+      background: {
+        src: '/covers/recording.jpg',
+        alt: 'gravacao',
+      },
+      banner: {
+        src: '/icons/people.svg',
+        alt: 'pessoas',
+        title: 'Conheça mais',
       },
     }];
   }

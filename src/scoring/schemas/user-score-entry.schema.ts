@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const ScoreEntrySchema = new mongoose.Schema({
+export const UserScoreEntrySchema = new mongoose.Schema({
   score: Number,
   reason: String,
 });
