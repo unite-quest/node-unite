@@ -1,17 +1,18 @@
 import { HttpModule, Module } from '@nestjs/common';
+import { ScoringModule } from 'src/scoring/scoring.module';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseModule } from '../database/database.module';
 import { FileUploadService } from './file-upload.service';
 import { RecordingController } from './recording.controller';
 import { recordingProviders } from './recording.providers';
 import { RecordingService } from './recording.service';
-import { ScoringService } from './scoring.service';
 import { UserRecordingService } from './user-recording.service';
 @Module({
   imports: [
     DatabaseModule,
     HttpModule,
     AuthModule,
+    ScoringModule,
   ],
   controllers: [
     RecordingController
@@ -20,13 +21,11 @@ import { UserRecordingService } from './user-recording.service';
     RecordingService,
     UserRecordingService,
     FileUploadService,
-    ScoringService,
     ...recordingProviders,
   ],
   exports: [
     RecordingService,
     UserRecordingService,
-    ScoringService,
   ]
 })
 export class RecordingModule { }

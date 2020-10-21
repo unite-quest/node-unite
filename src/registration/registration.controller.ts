@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
+import { UserScoreEntry } from '../scoring/interfaces/user-score-entry.interface';
 import AssignNameDto from './dto/assign-name.dto';
 import RegistrationDataDto from './dto/registration-data.dto';
 import ValidateNicknameDto from './dto/validate-nickname.dto';
@@ -21,7 +22,7 @@ export class RegistrationController {
 
   @UseGuards(FirebaseAuthGuard)
   @Post('register')
-  registration(@Body() data: RegistrationDataDto): Promise<void> {
+  registration(@Body() data: RegistrationDataDto): Promise<UserScoreEntry> {
     const user = AuthService.getLoggedUser();
     return this.registrationService.register(data, user);
   }

@@ -2,10 +2,13 @@ import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import AuthUserModel from '../auth/auth-user.model';
 import { RecordingModalTypes } from '../recording/dto/recording-modal-types';
-import { ScoreEntry, ScoringValues } from '../recording/interfaces/score-entry.interface';
 import UserRecordingTheme from '../recording/interfaces/user-recording-theme.interface';
 import { UserRecording } from '../recording/interfaces/user-recording.interface';
 import { UserRecordingService } from '../recording/user-recording.service';
+import { ScoringTypes } from '../scoring/interfaces/scoring-types';
+import { ScoringValues } from '../scoring/interfaces/scoring-values';
+import { UserScore } from '../scoring/interfaces/user-score.interface';
+import { ScoringService } from '../scoring/scoring.service';
 import CreateThemeDto from './dto/create-theme.dto';
 import RandomThemeResponseDto from './dto/random-theme-response.dto';
 import ThemePhrasesItemResponseDto from './dto/theme-phrases-item-response.dto';
@@ -15,13 +18,16 @@ import PhrasesInterface from './interfaces/phrases.interface';
 
 @Injectable()
 export class PhrasesService {
-  public static readonly MAXIMUM_SKIPS_COUNT: number = 4;
-  public static readonly DASHBOARD_LIMIT: number = 20;
+  public static readonly MAXIMUM_SKIPS_COUNT = 4;
+  public static readonly DASHBOARD_LIMIT = 20;
+  public static readonly FIRST_RECORDING_MODAL_INDEX = 1;
+  public static readonly FIRST_THEME_MODAL_INDEX = 6;
 
   constructor(
     @Inject('PHRASES_MODEL')
     private phrasesModel: Model<PhrasesInterface>,
     private userRecordingService: UserRecordingService,
+    private scoringService: ScoringService,
   ) { }
 
   public createTheme(createThemeDto: CreateThemeDto): Promise<PhrasesInterface> {
@@ -29,9 +35,8 @@ export class PhrasesService {
   }
 
   public async getTheme(theme: string, loggedUser: AuthUserModel): Promise<ThemePhrasesResponseDto> {
-    // fetches user theme and scoring
-    const user = await this.userRecordingService.getUser(loggedUser);
-    const userTheme = this.userRecordingService.filterRecordingTheme(theme, user);
+    const userTheme = await this.userRecordingService.getUserRecordingTheme(theme, loggedUser);
+    const userScore = await this.scoringService.getOrCreateUserScoring(loggedUser);
 
     if (userTheme?.finished) {
       throw new BadRequestException('Already finished recording');
@@ -42,10 +47,6 @@ export class PhrasesService {
       throw new BadRequestException('Theme does not exist');
     }
 
-    return this.mergePhrasesWithUser(themePhrases, userTheme, user?.scoring);
-  }
-
-  private mergePhrasesWithUser(themePhrases: PhrasesInterface, userTheme: UserRecordingTheme, scoring: ScoreEntry[]): ThemePhrasesResponseDto {
     const phrases = this.mergePhrases(themePhrases, userTheme);
 
     return {
@@ -54,7 +55,7 @@ export class PhrasesService {
       stepsCap: (phrases.length - PhrasesService.MAXIMUM_SKIPS_COUNT),
       total: phrases.length,
       phrases,
-      modalEvents: this.getModalEvents(scoring),
+      modalEvents: this.getModalEvents(userScore),
     };
   }
 
@@ -77,21 +78,24 @@ export class PhrasesService {
     }) || [];
   }
 
-  private getModalEvents(scoring: ScoreEntry[]): ThemePhrasesModalEventResponseDto[] {
-    const modalEvents: ThemePhrasesModalEventResponseDto[] = [];
+  private getModalEvents(scoring: UserScore): ThemePhrasesModalEventResponseDto[] {
+    if (!scoring) {
+      return [];
+    }
 
-    if (!scoring?.find(score => score.reason === RecordingModalTypes.FIRST_RECORDING)) {
+    const modalEvents: ThemePhrasesModalEventResponseDto[] = [];
+    if (!(scoring.entries || []).find(entry => entry.reason === ScoringTypes.FIRST_RECORDING)) {
       modalEvents.push({
-        eventIndex: 1,
+        eventIndex: PhrasesService.FIRST_RECORDING_MODAL_INDEX,
         type: RecordingModalTypes.FIRST_RECORDING,
-        score: ScoringValues[RecordingModalTypes.FIRST_RECORDING],
+        score: ScoringValues[ScoringTypes.FIRST_RECORDING],
       });
     }
-    if (!scoring?.find(score => score.reason === RecordingModalTypes.FIRST_THEME)) {
+    if (!(scoring.entries || []).find(entry => entry.reason === ScoringTypes.FIRST_THEME)) {
       modalEvents.push({
-        eventIndex: 6,
+        eventIndex: PhrasesService.FIRST_THEME_MODAL_INDEX,
         type: RecordingModalTypes.FIRST_THEME,
-        score: ScoringValues[RecordingModalTypes.FIRST_THEME],
+        score: ScoringValues[ScoringTypes.FIRST_THEME],
       });
     }
 
@@ -121,22 +125,15 @@ export class PhrasesService {
   }
 
   private async getRandomNonRepeatingGroups(include: string[], exclude: string[]): Promise<RandomThemeResponseDto[]> {
-    let query = {};
-    if (include && include.length) {
-      query['title'] = {
-        ['$in']: include
-      };
-    }
-    if (exclude && exclude.length) {
-      query['title'] = {
-        ...query['title'],
-        ['$nin']: exclude,
-      }
-    }
-    const groups: PhrasesInterface[] = await this.phrasesModel.find(query)
+    const includingGroups = await this.phrasesModel.find({ title: { '$in': include } })
       .limit(PhrasesService.DASHBOARD_LIMIT).exec();
+    const excludingGroups = await this.phrasesModel.find({ title: { '$nin': exclude } })
+      .limit(PhrasesService.DASHBOARD_LIMIT).exec();
+    const removedDuplicates = excludingGroups.filter(eGroup => {
+      return !includingGroups.find(iGroup => iGroup.title === eGroup.title);
+    });
 
-    return groups.map(group => {
+    return includingGroups.concat(removedDuplicates).map(group => {
       return {
         title: group.title,
         cover: group.cover,

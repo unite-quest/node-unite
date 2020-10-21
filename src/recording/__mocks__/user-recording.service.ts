@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import AuthUserModel from '../../auth/auth-user.model';
-import { ScoreEntry } from '../interfaces/score-entry.interface';
 import { UserMetadata } from '../interfaces/user-data.interface';
 import UserRecordingTheme from '../interfaces/user-recording-theme.interface';
 import { UserRecording } from '../interfaces/user-recording.interface';
@@ -9,7 +8,6 @@ import { UserRecording } from '../interfaces/user-recording.interface';
 export interface MockUserRecording {
   readonly user: UserMetadata;
   readonly themes: UserRecordingTheme[];
-  readonly scoring: ScoreEntry[];
 }
 
 
@@ -21,7 +19,6 @@ export class UserRecordingService {
         firebaseId: 'firebaseId',
       },
       themes: [],
-      scoring: [],
     }
   }
 
@@ -31,7 +28,6 @@ export class UserRecordingService {
         firebaseId: 'firebaseId',
       },
       themes: [],
-      scoring: [],
     }
   }
 
