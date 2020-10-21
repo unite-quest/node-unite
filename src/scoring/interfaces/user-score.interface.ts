@@ -6,6 +6,7 @@ export interface UserScore extends UserScoreBase, Document { }
 
 export interface UserScoreBase {
   readonly firebaseId: string;
+  nickname: string;
   total: number;
   entries: UserScoreEntry[];
   friends: UserFriend[];

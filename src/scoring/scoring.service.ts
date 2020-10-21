@@ -13,6 +13,12 @@ export class ScoringService {
     private userScoringModel: Model<UserScore>,
   ) { }
 
+  public async assignScoreName(user: AuthUserModel, nickname: string): Promise<void> {
+    const scoring = await this.getOrCreateUserScoring(user);
+    scoring.nickname = nickname;
+    await scoring.save();
+  }
+
   public async scoreForRegistration(user: AuthUserModel): Promise<UserScoreEntry> {
     let scoring = await this.getOrCreateUserScoring(user);
 
@@ -68,14 +74,32 @@ export class ScoringService {
   }
 
   public async getTopScores(): Promise<UserScore[]> {
-    return await this.userScoringModel.find({}).sort(['total', -1]).limit(10);
+    return await this.userScoringModel
+      .find({ nickname: { '$nin': [null, ''] } })
+      .sort({ total: -1 })
+      .limit(10);
   }
 
   public async getFriendScores(user: AuthUserModel): Promise<UserScore[]> {
-    let scoring = await this.getOrCreateUserScoring(user);
-    const ids = scoring.friends.map(friend => friend.firebaseId);
+    const scoring = await this.getOrCreateUserScoring(user);
+
+    // also include self
+    const ids = scoring.friends.map(friend => friend.firebaseId).concat([scoring.firebaseId]);
     return await this.userScoringModel
-      .find({ 'firebaseId': { '$in': ids } }).sort(['total', -1]).limit(10);
+      .find({ 'firebaseId': { '$in': ids } })
+      .sort({ total: -1 })
+      .limit(10);
+  }
+
+  // badly badly badly optimized
+  public async getUserPositionInLeaderboard(user: UserScore): Promise<number> {
+    const userScores = await this.userScoringModel
+      .find() // pls help
+      .sort({ total: -1 })
+      .exec();
+
+    const ids: string[] = userScores.map(user => user.firebaseId);
+    return ids.indexOf(user.firebaseId);
   }
 
   public async getOrCreateUserScoring(user: AuthUserModel): Promise<UserScore> {
@@ -86,6 +110,7 @@ export class ScoringService {
 
     const emptyUserScore: UserScoreBase = {
       firebaseId: user.uid,
+      nickname: '',
       total: 0,
       entries: [],
       friends: [],
@@ -112,33 +137,4 @@ export class ScoringService {
       reason: type,
     }
   }
-
-  // getNextScore(user: UserRecording, currentValidRecordings: number): Promise<ScoreEntry | null> {
-  //   if (!user || !user.scoring) {
-  //     return;
-  //   }
-
-
-  //   const length = user.scoring.length;
-  //   let entry: ScoreEntry = null;
-
-  //   if (length === 0 && currentValidRecordings === 1) { // no recordings and no scores
-  //     entry = {
-  //       score: 100,
-  //       reason: RecordingModalTypes.FIRST_RECORDING,
-  //     };
-  //   } else if (length === 1 && currentValidRecordings === 6) { // minimum recordings to finish theme and at least one score
-  //     entry = {
-  //       score: 300,
-  //       reason: RecordingModalTypes.FIRST_THEME,
-  //     };
-  //   } else if (length > 1 && currentValidRecordings === 6) {
-  //     entry = {
-  //       score: 150,
-  //       reason: RecordingModalTypes.FIRST_THEME,
-  //     };
-  //   }
-
-  //   return Promise.resolve(entry);
-  // }
 }

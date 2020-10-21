@@ -21,6 +21,7 @@ export class RegistrationService {
 
     // check for foul language
     await this.validateNickname({ nickname: assignNameDto.name });
+    await this.scoringService.assignScoreName(loggedUser, assignNameDto.name);
 
     user.user.nickname = assignNameDto.name;
     await user.save();
@@ -28,6 +29,7 @@ export class RegistrationService {
 
   public async register(registrationDataDto: RegistrationDataDto, loggedUser: AuthUserModel): Promise<UserScoreEntry> {
     const user = await this.userRecordingService.getOrCreateUser(loggedUser);
+    await this.validateNickname({ nickname: registrationDataDto.name });
     user.user.nickname = registrationDataDto.name;
     user.user.ageInterval = registrationDataDto.age;
     user.user.gender = registrationDataDto.gender;
@@ -35,6 +37,7 @@ export class RegistrationService {
     user.user.dialect = registrationDataDto.dialect;
 
     const entry = await this.scoringService.scoreForRegistration(loggedUser);
+    await this.scoringService.assignScoreName(loggedUser, registrationDataDto.name);
     await user.save();
     return entry;
   }

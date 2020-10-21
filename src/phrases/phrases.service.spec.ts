@@ -3,17 +3,21 @@ import { Test } from '@nestjs/testing';
 import mockingoose from 'mockingoose';
 import { Model, model } from 'mongoose';
 import AuthUserModel from '../auth/auth-user.model';
-import { RecordingModalTypes } from '../recording/dto/recording-modal-types';
 import { UserRecordingService } from '../recording/__mocks__/user-recording.service';
+import { ScoringTypes } from '../scoring/interfaces/scoring-types';
+import { ScoringService } from '../scoring/scoring.service';
 import PhrasesInterface from './interfaces/phrases.interface';
 import { PhrasesService } from './phrases.service';
 import { PhrasesSchema } from './schemas/phrases.schema';
 
+jest.mock('../scoring/scoring.service');
 
 describe('PhrasesService', () => {
   let phrasesService: PhrasesService;
   let phrasesModel: Model<PhrasesInterface>;
-  let mockUserRecordingService: any;
+  let mockUserRecordingService: UserRecordingService;
+  let mockScoringService: ScoringService;
+
   const phrasesDb =
   {
     title: 'ciencia',
@@ -45,6 +49,7 @@ describe('PhrasesService', () => {
     phrasesModel = model('Phrases', PhrasesSchema);
     PhrasesSchema.path('phrases', Object);
     mockUserRecordingService = new UserRecordingService();
+    mockScoringService = new ScoringService(null);
 
     const moduleRef = await Test.createTestingModule({
       providers: [
@@ -56,7 +61,12 @@ describe('PhrasesService', () => {
         {
           provide: 'PHRASES_MODEL',
           useValue: phrasesModel,
-        }],
+        },
+        {
+          provide: ScoringService,
+          useValue: mockScoringService,
+        }
+      ],
     }).compile();
 
     phrasesService = moduleRef.get<PhrasesService>(PhrasesService);
@@ -91,7 +101,7 @@ describe('PhrasesService', () => {
 
     it('should not get themes when finished is true', async () => {
       mockingoose(phrasesModel).toReturn(phrasesDb, 'findOne');
-      mockUserRecordingService.filterRecordingTheme = jest.fn().mockReturnValue({
+      mockUserRecordingService.getUserRecordingTheme = jest.fn().mockReturnValue({
         finished: true,
       });
 
@@ -120,10 +130,17 @@ describe('PhrasesService', () => {
           firebaseId: 'firebaseId',
         },
         themes: [],
-        scoring: [{
-          reason: RecordingModalTypes.FIRST_RECORDING,
-        }],
       });
+      mockScoringService.getOrCreateUserScoring = jest.fn().mockReturnValue({
+        firebaseId: user.uid,
+        nickname: '',
+        total: 0,
+        entries: [{
+          score: 100,
+          reason: ScoringTypes.FIRST_RECORDING,
+        }],
+        friends: [],
+      })
 
       const theme = await phrasesService.getTheme('theme', user);
 

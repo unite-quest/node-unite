@@ -125,22 +125,15 @@ export class PhrasesService {
   }
 
   private async getRandomNonRepeatingGroups(include: string[], exclude: string[]): Promise<RandomThemeResponseDto[]> {
-    let query = {};
-    if (include && include.length) {
-      query['title'] = {
-        ['$in']: include
-      };
-    }
-    if (exclude && exclude.length) {
-      query['title'] = {
-        ...query['title'],
-        ['$nin']: exclude,
-      }
-    }
-    const groups: PhrasesInterface[] = await this.phrasesModel.find(query)
+    const includingGroups = await this.phrasesModel.find({ title: { '$in': include } })
       .limit(PhrasesService.DASHBOARD_LIMIT).exec();
+    const excludingGroups = await this.phrasesModel.find({ title: { '$nin': exclude } })
+      .limit(PhrasesService.DASHBOARD_LIMIT).exec();
+    const removedDuplicates = excludingGroups.filter(eGroup => {
+      return !includingGroups.find(iGroup => iGroup.title === eGroup.title);
+    });
 
-    return groups.map(group => {
+    return includingGroups.concat(removedDuplicates).map(group => {
       return {
         title: group.title,
         cover: group.cover,

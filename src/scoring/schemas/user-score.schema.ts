@@ -9,6 +9,7 @@ export const UserScoreSchema = new mongoose.Schema({
     unique: true,
     index: true,
   },
+  nickname: String,
   total: Number,
   entries: [UserScoreEntrySchema],
   friends: [UserFriendSchema],
