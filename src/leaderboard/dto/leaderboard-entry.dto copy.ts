@@ -1,4 +1,5 @@
 export default interface LeaderboardEntryDto {
+  id: string;
   nickname: {
     full: string,
     short: string,

@@ -119,6 +119,26 @@ export class ScoringService {
     return this.userScoringModel.create(emptyUserScore);
   }
 
+  public async searchUsersByNickname(nickname: string, loggedUser: UserScore): Promise<UserScore[]> {
+    if (!nickname) {
+      return [];
+    }
+
+    return await this.userScoringModel.find({
+      nickname: { $regex: nickname, $options: 'i' },
+      firebaseId: { $nin: [loggedUser.firebaseId] }, // excludes self
+    });
+  }
+
+  public async searchUserById(_id: string): Promise<UserScore> {
+    if (!_id) {
+      return null;
+    }
+
+    return await this.userScoringModel.findOne({ _id });
+  }
+
+
   private pushEntry(scoring: UserScore, entry: UserScoreEntry): UserScore {
     if (entry) {
       scoring.entries.push(entry);
