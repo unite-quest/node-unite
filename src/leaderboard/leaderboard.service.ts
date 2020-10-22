@@ -27,6 +27,7 @@ export class LeaderboardService {
     return {
       ranking: topScores.map((each: UserScore, index: number): LeaderboardEntryDto => {
         return {
+          id: each._id,
           nickname: {
             full: each.nickname,
             short: this.shortifyNickname(each.nickname),
@@ -36,6 +37,7 @@ export class LeaderboardService {
         }
       }),
       user: {
+        id: user._id,
         nickname: {
           full: user.nickname,
           short: this.shortifyNickname(user.nickname),
@@ -65,7 +67,7 @@ export class LeaderboardService {
       await this.scoringService.getUserPositionInLeaderboard(user);
   }
 
-  private shortifyNickname(full: string): string {
+  public shortifyNickname(full: string): string {
     if (!full) {
       return '';
     }
