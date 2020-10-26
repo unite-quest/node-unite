@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import AuthUserModel from 'src/auth/auth-user.model';
+import AuthUserModel from '../../auth/auth-user.model';
 import { ScoringTypes } from '../interfaces/scoring-types';
 import { UserScoreEntry } from '../interfaces/user-score-entry.interface';
 import { UserScoreBase } from '../interfaces/user-score.interface';

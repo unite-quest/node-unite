@@ -5,6 +5,7 @@ import { LooseFirebaseAuthGuard } from '../auth/loose-firebase-auth.guard';
 import { UserScoreEntry } from '../scoring/interfaces/user-score-entry.interface';
 import AssignNameDto from './dto/assign-name.dto';
 import RegistrationDataDto from './dto/registration-data.dto';
+import RemoveUserDataDto from './dto/remove-user-data.dto';
 import UserMetadataDto from './dto/user-metadata.dto';
 import ValidateNicknameDto from './dto/validate-nickname.dto';
 import { RegistrationService } from './registration.service';
@@ -46,5 +47,12 @@ export class RegistrationController {
   getUserMetadata(): Promise<UserMetadataDto> {
     const user = AuthService.getLoggedUser();
     return this.registrationService.getUserMetadata(user);
+  }
+
+  @UseGuards(LooseFirebaseAuthGuard)
+  @Post('remove-user-data')
+  removeUserData(@Body() data: RemoveUserDataDto): Promise<void> {
+    const user = AuthService.getLoggedUser();
+    return this.registrationService.removeUserData(data, user);
   }
 }

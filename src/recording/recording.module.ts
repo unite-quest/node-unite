@@ -1,7 +1,7 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { ScoringModule } from 'src/scoring/scoring.module';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseModule } from '../database/database.module';
+import { ScoringModule } from '../scoring/scoring.module';
 import { FileUploadService } from './file-upload.service';
 import { RecordingController } from './recording.controller';
 import { recordingProviders } from './recording.providers';

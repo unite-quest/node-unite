@@ -1,8 +1,9 @@
 import { HttpModule, Module } from '@nestjs/common';
-import { RecordingModule } from 'src/recording/recording.module';
-import { ScoringModule } from 'src/scoring/scoring.module';
+import { AuditModule } from '../audit/audit.module';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseModule } from '../database/database.module';
+import { RecordingModule } from '../recording/recording.module';
+import { ScoringModule } from '../scoring/scoring.module';
 import { FoulLanguageService } from './foul-language.service';
 import { RegistrationController } from './registration.controller';
 import { RegistrationService } from './registration.service';
@@ -13,6 +14,7 @@ import { RegistrationService } from './registration.service';
     AuthModule,
     RecordingModule,
     ScoringModule,
+    AuditModule,
   ],
   controllers: [
     RegistrationController,

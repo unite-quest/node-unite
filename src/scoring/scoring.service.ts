@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
-import AuthUserModel from 'src/auth/auth-user.model';
+import AuthUserModel from '../auth/auth-user.model';
 import { ScoringTypes } from './interfaces/scoring-types';
 import { ScoringValues } from './interfaces/scoring-values';
 import { UserScoreEntry } from './interfaces/user-score-entry.interface';
@@ -138,6 +138,14 @@ export class ScoringService {
     return await this.userScoringModel.findOne({ _id });
   }
 
+  public async removeScoringData(user: AuthUserModel): Promise<UserScore> {
+    const scoring = await this.userScoringModel.findOne({ 'firebaseId': user.uid });
+    if (!scoring) {
+      return;
+    }
+
+    return scoring.remove();
+  }
 
   private pushEntry(scoring: UserScore, entry: UserScoreEntry): UserScore {
     if (entry) {
