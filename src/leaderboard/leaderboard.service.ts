@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { UserScore } from 'src/scoring/interfaces/user-score.interface';
-import { ScoringService } from 'src/scoring/scoring.service';
 import AuthUserModel from '../auth/auth-user.model';
+import { UserScore } from '../scoring/interfaces/user-score.interface';
+import { ScoringService } from '../scoring/scoring.service';
 import LeaderboardEntryDto from './dto/leaderboard-entry.dto copy';
 import LeaderboardDto from './dto/leaderboard.dto';
 

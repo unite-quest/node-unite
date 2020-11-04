@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { ScoringTypes } from 'src/scoring/interfaces/scoring-types';
-import { UserScore } from 'src/scoring/interfaces/user-score.interface';
 import AuthUserModel from '../auth/auth-user.model';
 import { PhrasesService } from '../phrases/phrases.service';
 import { UserRecording } from '../recording/interfaces/user-recording.interface';
 import { UserRecordingService } from '../recording/user-recording.service';
+import { ScoringTypes } from '../scoring/interfaces/scoring-types';
+import { UserScore } from '../scoring/interfaces/user-score.interface';
 import { ScoringService } from '../scoring/scoring.service';
 import DashboardResponseActionDto from './dto/dashboard-response-action.dto';
 import DashboardResponseDto from './dto/dashboard-response.dto';
