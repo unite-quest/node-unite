@@ -1,7 +1,10 @@
 import { IsNotEmpty } from 'class-validator';
 
 export default class RegistrationDataDto {
-  name?: string;
+  @IsNotEmpty()
+  oldUid: string;
+  @IsNotEmpty()
+  name: string;
   @IsNotEmpty()
   gender: 'F' | 'M' | 'O';
   @IsNotEmpty()
@@ -10,6 +13,4 @@ export default class RegistrationDataDto {
   region: string;
   @IsNotEmpty()
   dialect: string;
-  username?: string;
-  password?: string;
 }

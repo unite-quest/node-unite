@@ -1,5 +1,5 @@
 export interface UserMetadata {
-  readonly firebaseId: string;
+  firebaseId: string;
   nickname?: string;
   gender?: 'F' | 'M' | 'O';
   ageInterval?: string;

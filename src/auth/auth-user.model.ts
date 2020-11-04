@@ -1,5 +1,6 @@
 export default class AuthUserModel {
   uid: string;
+  isAnonymous: boolean;
   name?: string;
   email?: string;
 
@@ -9,6 +10,7 @@ export default class AuthUserModel {
     }
 
     this.uid = data.user_id;
+    this.isAnonymous = data?.firebase?.sign_in_provider === 'anonymous';
     this.name = data.name;
     this.email = data.email;
   }

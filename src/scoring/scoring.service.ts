@@ -147,6 +147,24 @@ export class ScoringService {
     return scoring.remove();
   }
 
+  public async mergeUser(oldUid: string, user: AuthUserModel): Promise<void> {
+    if (!oldUid || !user) {
+      return;
+    }
+
+    const oldScoring = await this.userScoringModel.findOne({ 'firebaseId': oldUid });
+    const newScoring = await this.getOrCreateUserScoring(user);
+
+    if (oldScoring && newScoring) {
+      newScoring.total = oldScoring.total;
+      newScoring.nickname = oldScoring.nickname;
+      newScoring.entries = oldScoring.entries;
+      newScoring.friends = oldScoring.friends;
+      await oldScoring.remove();
+      await newScoring.save()
+    }
+  }
+
   private pushEntry(scoring: UserScore, entry: UserScoreEntry): UserScore {
     if (entry) {
       scoring.entries.push(entry);
