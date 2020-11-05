@@ -1,36 +1,37 @@
-import { HttpService, Injectable } from '@nestjs/common';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Inject, Injectable } from '@nestjs/common';
+import { GridFSBucket } from 'mongodb';
+import { throwError } from 'rxjs';
+import { Readable } from 'stream';
 import { FileInterface } from './interfaces/file.interface';
-
+import streamToPromise = require('stream-to-promise');
 
 @Injectable()
 export class FileUploadService {
   constructor(
-    private httpService: HttpService,
+    @Inject('RECORDINGS_BUCKET')
+    private readonly bucket: GridFSBucket,
   ) { }
 
-  public upload(file: FileInterface, filename: string): Observable<string> {
+  public async upload(file: FileInterface, filename: string): Promise<string> {
     if (!file || !filename) {
       throwError('Unable to upload, empty arguments');
       return;
     }
 
-    return this.httpService.post('https://content.dropboxapi.com/2/files/upload', file.buffer, {
-      headers: {
-        'Dropbox-API-Arg': `{"path": "/voices/${filename}","mode": "add","autorename": true,"mute": false,"strict_conflict": false}`,
-        'Authorization': `Bearer ${process.env.DROPBOX_APP_TOKEN}`,
-        'Content-Type': 'application/octet-stream',
-      }
-    }).pipe(
-      map((response) => {
-        console.log('Saved', filename);
-        return response.data.id;
-      }),
-      catchError((err: any) => {
-        console.log(err);
-        return throwError(err);
-      }),
-    );
+    // Covert buffer to Readable Stream
+    const recordingFileStream = new Readable();
+    recordingFileStream.push(file.buffer);
+    recordingFileStream.push(null);
+
+    // Open bucket and stream
+    const uploadStream = this.bucket.openUploadStream(filename);
+    const id = uploadStream.id.toString();
+    recordingFileStream.pipe(uploadStream);
+
+    // Wait for completion
+    return streamToPromise(uploadStream).then(() => {
+      return Promise.resolve(id);
+    });
   }
+
 }

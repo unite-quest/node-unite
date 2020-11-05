@@ -6,6 +6,7 @@ import { ScoringService } from '../scoring/scoring.service';
 import AppendUserRecordingResponseDto from './dto/append-user-recording-response.dto';
 import AppendUserRecordingDto from './dto/append-user-recording.dto';
 import { SkipRecordingDto } from './dto/skip-recording.dto';
+import { FileDownloadService } from './file-download.service';
 import { FileUploadService } from './file-upload.service';
 import { FileInterface } from './interfaces/file.interface';
 import { Recording } from './interfaces/recording.interface';
@@ -17,6 +18,7 @@ export class RecordingService {
   constructor(
     private userRecordingService: UserRecordingService,
     private fileUploadService: FileUploadService,
+    private fileDownloadService: FileDownloadService,
     private scoringService: ScoringService,
   ) { }
 
@@ -37,7 +39,7 @@ export class RecordingService {
     // upload recording
     const filename = this._getFilename(recordingDto, file);
     const format = this._getFileExtension(file).indexOf('wav') >= 0 ? 'wav' : 'webm';
-    const recordingPath = await this.fileUploadService.upload(file, filename).toPromise();
+    const recordingPath = await this.fileUploadService.upload(file, filename);
     const recording: Recording = {
       ...recordingDto,
       format,
@@ -93,6 +95,18 @@ export class RecordingService {
     }
     await user.save();
     return recordingTheme;
+  }
+
+  /**
+   * For testing purposes.
+   *
+   * @param {AuthUserModel} loggedUser
+   * @returns
+   * @memberof RecordingService
+   */
+  public async download(loggedUser: AuthUserModel) {
+    const user = await this.userRecordingService.getUser(loggedUser);
+    return this.fileDownloadService.donwload('5fa40f710f721d414dd04113');
   }
 
   private _getFilename(recording: AppendUserRecordingDto, file: FileInterface): string {

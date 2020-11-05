@@ -1,5 +1,6 @@
-import { Body, Controller, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
 import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
 import AppendUserRecordingResponseDto from './dto/append-user-recording-response.dto';
@@ -28,5 +29,13 @@ export class RecordingController {
   skipRecording(@Body() data: SkipRecordingDto): Promise<UserRecordingTheme> {
     const user = AuthService.getLoggedUser();
     return this.recordingService.skip(data, user);
+  }
+
+  @UseGuards(FirebaseAuthGuard)
+  @Get('download')
+  async donwload(@Res() res: Response) {
+    const user = AuthService.getLoggedUser();
+    const donwloadStream = await this.recordingService.download(user);
+    donwloadStream.pipe(res);
   }
 }

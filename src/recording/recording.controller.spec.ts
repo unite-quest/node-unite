@@ -2,6 +2,7 @@ import mockingoose from 'mockingoose';
 import { Model, model } from 'mongoose';
 import { ScoringService } from '../scoring/scoring.service';
 import AppendUserRecordingDto from './dto/append-user-recording.dto';
+import { FileDownloadService } from './file-download.service';
 import { FileUploadService } from './file-upload.service';
 import { FileInterface } from './interfaces/file.interface';
 import { UserRecording } from './interfaces/user-recording.interface';
@@ -11,6 +12,7 @@ import { UserRecordingSchema } from './schemas/user-recording.schema';
 import { UserRecordingService } from './user-recording.service';
 
 jest.mock('./file-upload.service');
+jest.mock('./file-download.service');
 jest.mock('../auth/auth.service');
 jest.mock('../scoring/scoring.service');
 
@@ -18,6 +20,7 @@ describe('RecordingController', () => {
   let recordingController: RecordingController;
   let recordingService: RecordingService;
   let fileUploadService: FileUploadService;
+  let fileDownloadService: FileDownloadService;
   let scoringService: ScoringService;
   let userRecordingService: UserRecordingService;
   let userRecordingModel: Model<UserRecording>;
@@ -42,12 +45,15 @@ describe('RecordingController', () => {
 
   beforeEach(() => {
     userRecordingModel = model('UserRecording', UserRecordingSchema);
-    fileUploadService = new FileUploadService(null)
+    fileUploadService = new FileUploadService(null);
+    fileDownloadService = new FileDownloadService(null);
     scoringService = new ScoringService(null);
     userRecordingService = new UserRecordingService(userRecordingModel);
 
     mockingoose(userRecordingModel).toReturn({ _id, ...userRecording }, 'findOne');
-    recordingService = new RecordingService(userRecordingService, fileUploadService, scoringService);
+    recordingService = new RecordingService(
+      userRecordingService, fileUploadService, fileDownloadService, scoringService,
+    );
     recordingController = new RecordingController(recordingService);
   });
 
