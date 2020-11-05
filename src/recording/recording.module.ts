@@ -2,6 +2,7 @@ import { HttpModule, Module } from '@nestjs/common';
 import { AuthModule } from '../auth/auth.module';
 import { DatabaseModule } from '../database/database.module';
 import { ScoringModule } from '../scoring/scoring.module';
+import { FileDownloadService } from './file-download.service';
 import { FileUploadService } from './file-upload.service';
 import { RecordingController } from './recording.controller';
 import { recordingProviders } from './recording.providers';
@@ -19,8 +20,9 @@ import { UserRecordingService } from './user-recording.service';
   ],
   providers: [
     RecordingService,
-    UserRecordingService,
     FileUploadService,
+    FileDownloadService,
+    UserRecordingService,
     ...recordingProviders,
   ],
   exports: [
