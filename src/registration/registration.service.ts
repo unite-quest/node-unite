@@ -98,7 +98,13 @@ export class RegistrationService {
       throw new BadRequestException('User does not have metadata');
     }
 
-    return { nickname: user.user.nickname };
+    return {
+      nickname: user.user.nickname,
+      gender: user.user.gender,
+      ageInterval: user.user.ageInterval,
+      region: user.user.region,
+      dialect: user.user.dialect,
+    };
   }
 
   public async removeUserData(removeUserDataDto: RemoveUserDataDto, loggedUser: AuthUserModel): Promise<void> {
