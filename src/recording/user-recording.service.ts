@@ -55,8 +55,14 @@ export class UserRecordingService {
       return;
     }
 
+
+    if (oldUser.themes.length > newUser.themes.length) {
+      console.log('Since old user has more data, migrate', oldUser.user.firebaseId, newUser.user.firebaseId);
+      newUser.themes = oldUser.themes;
+      return;
+    }
+
     const backupId = newUser.user.firebaseId;
-    newUser.themes = oldUser.themes;
     newUser.user = oldUser.user;
     newUser.user.firebaseId = backupId;
 

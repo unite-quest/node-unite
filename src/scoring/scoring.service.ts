@@ -155,14 +155,21 @@ export class ScoringService {
     const oldScoring = await this.userScoringModel.findOne({ 'firebaseId': oldUid });
     const newScoring = await this.getOrCreateUserScoring(user);
 
-    if (oldScoring && newScoring) {
-      newScoring.total = oldScoring.total;
-      newScoring.nickname = oldScoring.nickname;
-      newScoring.entries = oldScoring.entries;
-      newScoring.friends = oldScoring.friends;
-      await oldScoring.remove();
-      await newScoring.save()
+    if (!oldScoring || !newScoring) {
+      return;
     }
+
+    if (newScoring.total > oldScoring.total) {
+      console.log('Since new scoring has more points than old scoring, no need to merge');
+      return;
+    }
+
+    newScoring.total = oldScoring.total;
+    newScoring.nickname = oldScoring.nickname;
+    newScoring.entries = oldScoring.entries;
+    newScoring.friends = oldScoring.friends;
+    await oldScoring.remove();
+    await newScoring.save()
   }
 
   private pushEntry(scoring: UserScore, entry: UserScoreEntry): UserScore {
