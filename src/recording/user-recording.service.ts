@@ -49,6 +49,10 @@ export class UserRecordingService {
     return await this.userRecordingModel.findOne({ 'user.nickname': nickname }).exec()
   }
 
+  public async getUserByReferralCode(code: string): Promise<UserRecording | null> {
+    return await this.userRecordingModel.findOne({ 'user.referralCode': code }).exec()
+  }
+
   public filterRecordingTheme(theme: string, user: UserRecording): UserRecordingTheme | null {
     return user ? user.themes.find((each) => each.title === theme) : null;
   }

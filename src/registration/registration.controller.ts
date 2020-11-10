@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
 import { LooseFirebaseAuthGuard } from '../auth/loose-firebase-auth.guard';
@@ -6,6 +6,7 @@ import { UserScoreEntry } from '../scoring/interfaces/user-score-entry.interface
 import AssignNameDto from './dto/assign-name.dto';
 import MergeUserDataDto from './dto/merge-user-data-dto';
 import ReferCodeDto from './dto/refer-code.dto';
+import ReferralFriendNameDto from './dto/referral-friend-name.dto';
 import RegistrationDataDto from './dto/registration-data.dto';
 import RemoveUserDataDto from './dto/remove-user-data.dto';
 import UserMetadataDto from './dto/user-metadata.dto';
@@ -70,5 +71,11 @@ export class RegistrationController {
   getReferCode(): Promise<ReferCodeDto> {
     const user = AuthService.getLoggedUser();
     return this.registrationService.getReferralCode(user);
+  }
+
+  @UseGuards(FirebaseAuthGuard)
+  @Get('referral-friend-name/:code')
+  getReferralFriendName(@Param('code') referralCode): Promise<ReferralFriendNameDto> {
+    return this.registrationService.getReferralFriendName(referralCode);
   }
 }

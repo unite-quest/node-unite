@@ -10,6 +10,7 @@ import { ScoringService } from '../scoring/scoring.service';
 import AssignNameDto from './dto/assign-name.dto';
 import MergeUserDataDto from './dto/merge-user-data-dto';
 import ReferCodeDto from './dto/refer-code.dto';
+import ReferralFriendNameDto from './dto/referral-friend-name.dto';
 import RegistrationDataDto from './dto/registration-data.dto';
 import RemoveUserDataDto from './dto/remove-user-data.dto';
 import UserMetadataDto from './dto/user-metadata.dto';
@@ -132,6 +133,15 @@ export class RegistrationService {
   public async getReferralCode(loggedUser: AuthUserModel): Promise<ReferCodeDto> {
     const user = await this.userRecordingService.getOrCreateUser(loggedUser);
     return { code: user.user.referralCode };
+  }
+
+  public async getReferralFriendName(referralCode: any): Promise<ReferralFriendNameDto> {
+    const user = await this.userRecordingService.getUserByReferralCode(referralCode);
+    if (!user) {
+      throw new BadRequestException('Referral code does not exist');
+    }
+
+    return { name: user.user.nickname };
   }
 
 }
