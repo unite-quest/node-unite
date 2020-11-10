@@ -12,4 +12,5 @@ export const UserDataSchema = new mongoose.Schema({
   ageInterval: String,
   region: String,
   dialect: String,
+  referralCode: String,
 });

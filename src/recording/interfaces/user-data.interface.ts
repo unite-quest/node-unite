@@ -5,4 +5,5 @@ export interface UserMetadata {
   ageInterval?: string;
   region?: string;
   dialect?: string;
+  readonly referralCode?: string;
 }

@@ -5,6 +5,7 @@ import { LooseFirebaseAuthGuard } from '../auth/loose-firebase-auth.guard';
 import { UserScoreEntry } from '../scoring/interfaces/user-score-entry.interface';
 import AssignNameDto from './dto/assign-name.dto';
 import MergeUserDataDto from './dto/merge-user-data-dto';
+import ReferCodeDto from './dto/refer-code.dto';
 import RegistrationDataDto from './dto/registration-data.dto';
 import RemoveUserDataDto from './dto/remove-user-data.dto';
 import UserMetadataDto from './dto/user-metadata.dto';
@@ -62,5 +63,12 @@ export class RegistrationController {
   mergeUserData(@Body() data: MergeUserDataDto): Promise<void> {
     const user = AuthService.getLoggedUser();
     return this.registrationService.mergeData(data, user);
+  }
+
+  @UseGuards(FirebaseAuthGuard)
+  @Get('referral-code')
+  getReferCode(): Promise<ReferCodeDto> {
+    const user = AuthService.getLoggedUser();
+    return this.registrationService.getReferralCode(user);
   }
 }

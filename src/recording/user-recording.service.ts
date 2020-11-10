@@ -19,10 +19,21 @@ export class UserRecordingService {
     const emptyUser: UserRecordingBase = {
       user: {
         firebaseId: user.uid,
+        referralCode: this.getRandomReferralCode(),
       },
       themes: [],
     };
     return this.userRecordingModel.create(emptyUser);
+  }
+
+  private getRandomReferralCode(): string {
+    var s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    return Array(16)
+      .join()
+      .split(',')
+      .map(function () {
+        return s.charAt(Math.floor(Math.random() * s.length));
+      }).join('');
   }
 
   public async getUser(user: AuthUserModel): Promise<UserRecording | null> {
