@@ -124,7 +124,6 @@ export class RegistrationService {
     if (!removeUserDataDto.keepUserData) {
       await this.scoringService.removeScoringData(loggedUser);
       await user.remove();
-      //@TODO remove recordings afterwards
     }
 
     return;

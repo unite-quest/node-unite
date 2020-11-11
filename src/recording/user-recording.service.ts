@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import AuthUserModel from '../auth/auth-user.model';
 import UserRecordingTheme from './interfaces/user-recording-theme.interface';
@@ -16,14 +16,19 @@ export class UserRecordingService {
     if (dbUser) {
       return dbUser;
     }
-    const emptyUser: UserRecordingBase = {
+
+    const emptyUser = this.getEmptyUser(user.uid);
+    return this.userRecordingModel.create(emptyUser);
+  }
+
+  private getEmptyUser(firebaseId: string): UserRecordingBase {
+    return {
       user: {
-        firebaseId: user.uid,
+        firebaseId,
         referralCode: this.getRandomReferralCode(),
       },
       themes: [],
     };
-    return this.userRecordingModel.create(emptyUser);
   }
 
   private getRandomReferralCode(): string {
@@ -62,26 +67,21 @@ export class UserRecordingService {
       return;
     }
 
-    const newUser = await this.getOrCreateUser(loggedUser);
+    const newUser = await this.getUser(loggedUser);
     // should only migrate anon users
     const oldUser = await this.userRecordingModel.findOne({ 'user.firebaseId': oldUserUid }).exec();
 
-    if (!newUser || !oldUser) {
-      return;
+    if (!oldUser) {
+      throw new BadRequestException('Unable to merge users, invalid old user provided');
     }
 
-
-    if (oldUser.themes.length > newUser.themes.length) {
-      console.log('Since old user has more data, migrate', oldUser.user.firebaseId, newUser.user.firebaseId);
-      newUser.themes = oldUser.themes;
-      return;
-    }
-
-    const backupId = newUser.user.firebaseId;
-    newUser.user = oldUser.user;
-    newUser.user.firebaseId = backupId;
-
-    await oldUser.remove()
-    await newUser.save();
+    if (!newUser) { // first time login, should fill all data
+      const migratedUser = this.getEmptyUser(loggedUser.uid);
+      migratedUser.user = oldUser.user;
+      migratedUser.themes = oldUser.themes;
+      migratedUser.user.firebaseId = loggedUser.uid;
+      await this.userRecordingModel.create(migratedUser);
+      await oldUser.remove();
+    } else { } // second time login -- user exists, no need to migrate
   }
 }

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import AuthUserModel from '../auth/auth-user.model';
 import { ScoringTypes } from './interfaces/scoring-types';
@@ -108,15 +108,18 @@ export class ScoringService {
       return scoring;
     }
 
-    const emptyUserScore: UserScoreBase = {
-      firebaseId: user.uid,
+    const emptyUserScore: UserScoreBase = this.getEmptyUserScore(user.uid);
+    return this.userScoringModel.create(emptyUserScore);
+  }
+
+  private getEmptyUserScore(firebaseId: string): UserScoreBase {
+    return {
+      firebaseId,
       nickname: '',
       total: 0,
       entries: [],
       friends: [],
-    }
-
-    return this.userScoringModel.create(emptyUserScore);
+    };
   }
 
   public async searchUsersByNickname(nickname: string, loggedUser: UserScore): Promise<UserScore[]> {
@@ -138,38 +141,36 @@ export class ScoringService {
     return await this.userScoringModel.findOne({ _id });
   }
 
-  public async removeScoringData(user: AuthUserModel): Promise<UserScore> {
+  public async removeScoringData(user: AuthUserModel): Promise<void> {
     const scoring = await this.userScoringModel.findOne({ 'firebaseId': user.uid });
     if (!scoring) {
       return;
     }
 
-    return scoring.remove();
+    await scoring.remove();
   }
 
-  public async mergeUser(oldUid: string, user: AuthUserModel): Promise<void> {
-    if (!oldUid || !user) {
+  public async mergeUser(oldUid: string, loggedUser: AuthUserModel): Promise<void> {
+    if (!oldUid || !loggedUser) {
       return;
     }
 
     const oldScoring = await this.userScoringModel.findOne({ 'firebaseId': oldUid });
-    const newScoring = await this.getOrCreateUserScoring(user);
+    const newScoring = await this.userScoringModel.findOne({ 'firebaseId': loggedUser.uid });
 
-    if (!oldScoring || !newScoring) {
-      return;
+    if (!oldScoring) {
+      throw new BadRequestException('Unable to merge scoring, invalid old user provided');
     }
 
-    if (newScoring.total > oldScoring.total) {
-      console.log('Since new scoring has more points than old scoring, no need to merge');
-      return;
-    }
-
-    newScoring.total = oldScoring.total;
-    newScoring.nickname = oldScoring.nickname;
-    newScoring.entries = oldScoring.entries;
-    newScoring.friends = oldScoring.friends;
-    await oldScoring.remove();
-    await newScoring.save()
+    if (!newScoring) {
+      const migratedScoring = this.getEmptyUserScore(loggedUser.uid);
+      migratedScoring.total = oldScoring.total;
+      migratedScoring.nickname = oldScoring.nickname;
+      migratedScoring.entries = oldScoring.entries;
+      migratedScoring.friends = oldScoring.friends;
+      await this.userScoringModel.create(migratedScoring);
+      await oldScoring.remove();
+    } else { } // user exists, no need to migrate (even if score differs)
   }
 
   private pushEntry(scoring: UserScore, entry: UserScoreEntry): UserScore {
