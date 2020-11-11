@@ -162,14 +162,16 @@ export class ScoringService {
       throw new BadRequestException('Unable to merge scoring, invalid old user provided');
     }
 
-    if (!newScoring) {
+    if (!newScoring) { // first time scoring on new user
       const migratedScoring = this.getEmptyUserScore(loggedUser.uid);
-      migratedScoring.total = oldScoring.total;
-      migratedScoring.nickname = oldScoring.nickname;
-      migratedScoring.entries = oldScoring.entries;
-      migratedScoring.friends = oldScoring.friends;
+      if (oldScoring) { // if old user exists, migrate data
+        migratedScoring.total = oldScoring.total;
+        migratedScoring.nickname = oldScoring.nickname;
+        migratedScoring.entries = oldScoring.entries;
+        migratedScoring.friends = oldScoring.friends;
+        await oldScoring.remove();
+      } // if not, just create user
       await this.userScoringModel.create(migratedScoring);
-      await oldScoring.remove();
     } else { } // user exists, no need to migrate (even if score differs)
   }
 

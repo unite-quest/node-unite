@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import AuthUserModel from '../auth/auth-user.model';
 import UserRecordingTheme from './interfaces/user-recording-theme.interface';
@@ -71,17 +71,15 @@ export class UserRecordingService {
     // should only migrate anon users
     const oldUser = await this.userRecordingModel.findOne({ 'user.firebaseId': oldUserUid }).exec();
 
-    if (!oldUser) {
-      throw new BadRequestException('Unable to merge users, invalid old user provided');
-    }
-
-    if (!newUser) { // first time login, should fill all data
+    if (!newUser) { // first time login
       const migratedUser = this.getEmptyUser(loggedUser.uid);
-      migratedUser.user = oldUser.user;
-      migratedUser.themes = oldUser.themes;
-      migratedUser.user.firebaseId = loggedUser.uid;
+      if (oldUser) { // if old user available, migrate data
+        migratedUser.user = oldUser.user;
+        migratedUser.themes = oldUser.themes;
+        migratedUser.user.firebaseId = loggedUser.uid;
+        await oldUser.remove();
+      } // if not, just create a empty user
       await this.userRecordingModel.create(migratedUser);
-      await oldUser.remove();
     } else { } // second time login -- user exists, no need to migrate
   }
 }
