@@ -4,6 +4,8 @@ import { AuditService } from '../audit/audit.service';
 import AuthUserModel from '../auth/auth-user.model';
 import { AuthService } from '../auth/auth.service';
 import { FirebaseService } from '../auth/firebase.service';
+import DashboardNotificationDto from '../dashboard/dto/dashboard-notification.dto';
+import UserNotification from '../recording/interfaces/user-notification.interface';
 import { UserRecordingService } from '../recording/user-recording.service';
 import { UserScoreEntry } from '../scoring/interfaces/user-score-entry.interface';
 import { ScoringService } from '../scoring/scoring.service';
@@ -77,10 +79,9 @@ export class RegistrationService {
     }
 
     const foundByNick = await this.userRecordingService.getUserByNickname(name);
-
     if (loggedUser) { // logged flow
       const user = await this.userRecordingService.getUser(loggedUser);
-      if (user.user.nickname !== name && foundByNick) { // validating own nickname
+      if (user && user.user.nickname !== name && foundByNick) { // validating own nickname
         throw new BadRequestException('USER_EXISTS');
       }
     } else { // anon flow
@@ -106,7 +107,26 @@ export class RegistrationService {
       ageInterval: user.user.ageInterval,
       region: user.user.region,
       dialect: user.user.dialect,
+      notifications: this.parseNotifications(user.notifications),
     };
+  }
+
+  private parseNotifications(notifications: UserNotification[]): DashboardNotificationDto[] {
+    if (!notifications) {
+      return [];
+    }
+
+    return notifications
+      .filter((notification) => !notification.dismissed)
+      .map((notification) => {
+        return {
+          type: notification.type,
+          follow: notification.follow && {
+            id: notification.follow.scoringId,
+            name: notification.follow.name,
+          },
+        };
+      });
   }
 
   public async removeUserData(removeUserDataDto: RemoveUserDataDto, loggedUser: AuthUserModel): Promise<void> {

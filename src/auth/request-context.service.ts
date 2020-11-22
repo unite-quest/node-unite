@@ -10,7 +10,7 @@ export class RequestContextService {
     try {
       requestContext.set(key, value);
     } catch (err) {
-      console.log('Error setting request context', err);
+      console.error('Error setting request context', err);
     }
   }
 }
