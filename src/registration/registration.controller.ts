@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
 import { LooseFirebaseAuthGuard } from '../auth/loose-firebase-auth.guard';
@@ -34,6 +34,7 @@ export class RegistrationController {
   }
 
   @UseGuards(LooseFirebaseAuthGuard)
+  @HttpCode(204)
   @Post('validate-nickname')
   validateNickname(@Body() data: ValidateNicknameDto): Promise<void> {
     const user = AuthService.getLoggedUser();

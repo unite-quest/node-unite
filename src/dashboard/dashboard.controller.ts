@@ -14,6 +14,6 @@ export class DashboardController {
   @Get()
   public getDashboard(): Promise<DashboardResponseDto> {
     const user = AuthService.getLoggedUser();
-    return this.dashboardService.getActions(user);
+    return this.dashboardService.getDashboardForUser(user);
   }
 }

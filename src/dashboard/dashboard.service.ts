@@ -17,8 +17,7 @@ export class DashboardService {
     private scoringService: ScoringService,
   ) { }
 
-
-  public async getActions(loggedUser: AuthUserModel): Promise<DashboardResponseDto> {
+  public async getDashboardForUser(loggedUser: AuthUserModel): Promise<DashboardResponseDto> {
     const user = await this.userRecordingService.getUser(loggedUser);
     const userScore = await this.scoringService.getOrCreateUserScoring(loggedUser);
     const registration = await this.getRegistrationActions(userScore);
@@ -107,4 +106,5 @@ export class DashboardService {
       },
     }];
   }
+
 }

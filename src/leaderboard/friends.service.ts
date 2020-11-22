@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import AuthUserModel from '../auth/auth-user.model';
+import { NotificationService } from '../notifications/notification.service';
 import { UserScore } from '../scoring/interfaces/user-score.interface';
 import { ScoringService } from '../scoring/scoring.service';
 import ActOnFriendsRequestDto from './dto/act-on-friends-request.dto';
@@ -12,6 +13,7 @@ export class FriendsService {
   constructor(
     private scoringService: ScoringService,
     private leaderboardService: LeaderboardService,
+    private notificationsService: NotificationService,
   ) { }
 
   public async searchUsersByNickname(nickname: string, loggedUser: AuthUserModel): Promise<LeaderboardDto> {
@@ -34,6 +36,9 @@ export class FriendsService {
     const foundFriend = user.friends.find(eachFriend => eachFriend.firebaseId === firebaseId);
     if (actOnFriendsDto.actions.follow) {
       if (!foundFriend) {
+        await this.notificationsService.notifyFollowAction(user.id, {
+          friendFirebaseId: friend.firebaseId, nickname: user.nickname
+        });
         user.friends.push({ firebaseId });
       } else {
         throw new BadRequestException('User already followed');

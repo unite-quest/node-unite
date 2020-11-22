@@ -28,6 +28,7 @@ export class UserRecordingService {
         referralCode: this.getRandomReferralCode(),
       },
       themes: [],
+      notifications: [],
     };
   }
 
