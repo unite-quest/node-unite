@@ -15,12 +15,14 @@ import { UserRecordingService } from './user-recording.service';
 
 @Injectable()
 export class RecordingService {
+  public static readonly MINIMUM_RECORDING_COUNT = 6;
+
   constructor(
     private userRecordingService: UserRecordingService,
     private fileUploadService: FileUploadService,
     private fileDownloadService: FileDownloadService,
     private scoringService: ScoringService,
-  ) { }
+  ) {}
 
   /**
    * Appends recording to user.
@@ -32,13 +34,17 @@ export class RecordingService {
    * @returns {Observable<any>}
    * @memberof RecordingService
    */
-  public async append(recordingDto: AppendUserRecordingDto, file: FileInterface, loggedUser: AuthUserModel):
-    Promise<AppendUserRecordingResponseDto> {
+  public async append(
+    recordingDto: AppendUserRecordingDto,
+    file: FileInterface,
+    loggedUser: AuthUserModel,
+  ): Promise<AppendUserRecordingResponseDto> {
     const user = await this.userRecordingService.getOrCreateUser(loggedUser);
 
     // upload recording
     const filename = this._getFilename(recordingDto, file);
-    const format = this._getFileExtension(file).indexOf('wav') >= 0 ? 'wav' : 'webm';
+    const format =
+      this._getFileExtension(file).indexOf('wav') >= 0 ? 'wav' : 'webm';
     const recordingPath = await this.fileUploadService.upload(file, filename);
     const recording: Recording = {
       ...recordingDto,
@@ -47,10 +53,14 @@ export class RecordingService {
     };
 
     // try to find theme
-    let recordingTheme: UserRecordingTheme = user.themes.find((each) => each.title === recordingDto.themeId);
-    if (recordingTheme) { // push if found
+    let recordingTheme: UserRecordingTheme = user.themes.find(
+      each => each.title === recordingDto.themeId,
+    );
+    if (recordingTheme) {
+      // push if found
       recordingTheme.recordings.push(recording);
-    } else { // create theme if not found
+    } else {
+      // create theme if not found
       recordingTheme = {
         title: recordingDto.themeId,
         finished: false,
@@ -59,8 +69,11 @@ export class RecordingService {
       user.themes.push(recordingTheme);
     }
 
-    const validRecordings = recordingTheme.recordings.filter(recording => !recording?.skipped?.reason).length;
-    recordingTheme.finished = validRecordings >= 6; // does this updates the array reference?
+    const validRecordings = recordingTheme.recordings.filter(
+      recording => !recording?.skipped?.reason,
+    ).length;
+    recordingTheme.finished =
+      validRecordings >= RecordingService.MINIMUM_RECORDING_COUNT; // does this updates the array reference?
     let score: UserScoreEntry = null;
     if (recordingTheme.finished) {
       score = await this.scoringService.scoreForRecordingTheme(loggedUser);
@@ -72,10 +85,15 @@ export class RecordingService {
     return new AppendUserRecordingResponseDto(score, !recordingTheme.finished);
   }
 
-  public async skip(recordingDto: SkipRecordingDto, loggedUser: AuthUserModel): Promise<UserRecordingTheme> {
+  public async skip(
+    recordingDto: SkipRecordingDto,
+    loggedUser: AuthUserModel,
+  ): Promise<UserRecordingTheme> {
     const user = await this.userRecordingService.getOrCreateUser(loggedUser);
 
-    let recordingTheme: UserRecordingTheme = user.themes.find((each) => each.title === recordingDto.themeId);
+    let recordingTheme: UserRecordingTheme = user.themes.find(
+      each => each.title === recordingDto.themeId,
+    );
     const recording: Recording = {
       ...recordingDto,
       skipped: {
@@ -83,9 +101,11 @@ export class RecordingService {
       },
     };
 
-    if (recordingTheme) { // push if found
+    if (recordingTheme) {
+      // push if found
       recordingTheme.recordings.push(recording);
-    } else { // create theme if not found
+    } else {
+      // create theme if not found
       recordingTheme = {
         title: recordingDto.themeId,
         finished: false,
@@ -109,7 +129,10 @@ export class RecordingService {
     return this.fileDownloadService.donwload('5fa40f710f721d414dd04113');
   }
 
-  private _getFilename(recording: AppendUserRecordingDto, file: FileInterface): string {
+  private _getFilename(
+    recording: AppendUserRecordingDto,
+    file: FileInterface,
+  ): string {
     return `${new Date().toISOString()}${this._getFileExtension(file)}`;
   }
 

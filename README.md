@@ -4,40 +4,40 @@ The "Fala Alguma Coisa" ecosystem consists of three applications (app, backend a
 
 ## Ecosystem
 
- - App: Basic anonymous data is collected, also the voice is recorded here. (https://github.com/gabrieltnishimura/flutter-falaalgumacoisa)
- - Backend: Anonymous data and recordings are stored to a database. It also manages word suggestion to the app recordings. (this repo)
- - Speech Recognition: Using Tensorflow APIs (>2.0.0), speech data is converted to MFCC to train a neural network using [Graves's CTC](https://www.cs.toronto.edu/~graves/icml_2006.pdf). (https://github.com/gabrieltnishimura/tf2-ctc-speech-recognition)
+- App: Basic anonymous data is collected, also the voice is recorded here. (https://github.com/gabrieltnishimura/react-falaalgumacoisa)
+- Backend: Anonymous data and recordings are stored to a database. It also manages word suggestion to the app recordings. (this repo)
+- Speech Recognition: Using Tensorflow APIs (>2.0.0), speech data is converted to MFCC to train a neural network using [Graves's CTC](https://www.cs.toronto.edu/~graves/icml_2006.pdf). (https://github.com/gabrieltnishimura/tf2-ctc-speech-recognition)
 
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn start
 
 # watch mode
-$ npm run start:dev
+$ yarn start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn test:cov
 ```
 
 ## Example payload
