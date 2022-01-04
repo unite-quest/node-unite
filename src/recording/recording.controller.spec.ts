@@ -1,4 +1,4 @@
-import mockingoose from 'mockingoose';
+const mockingoose = require('mockingoose');
 import { Model, model } from 'mongoose';
 import { ScoringService } from '../scoring/scoring.service';
 import AppendUserRecordingDto from './dto/append-user-recording.dto';
@@ -41,26 +41,41 @@ describe('RecordingController', () => {
       firebaseId: 'firebased',
     },
     themes: [],
-  }
+  };
 
   beforeEach(() => {
-    userRecordingModel = model('UserRecording', UserRecordingSchema);
+    userRecordingModel = model<UserRecording>(
+      'UserRecording',
+      UserRecordingSchema,
+    );
     fileUploadService = new FileUploadService(null);
     fileDownloadService = new FileDownloadService(null);
     scoringService = new ScoringService(null);
     userRecordingService = new UserRecordingService(userRecordingModel);
 
-    mockingoose(userRecordingModel).toReturn({ _id, ...userRecording }, 'findOne');
-    recordingService = new RecordingService(
-      userRecordingService, fileUploadService, fileDownloadService, scoringService,
+    mockingoose(userRecordingModel).toReturn(
+      { _id, ...userRecording },
+      'findOne',
     );
+    recordingService = new RecordingService(
+      userRecordingService,
+      fileUploadService,
+      fileDownloadService,
+      scoringService,
+    );
+    console.log('recordingService', recordingService);
     recordingController = new RecordingController(recordingService);
   });
 
   describe('create', () => {
     it('should create a recording to database', async () => {
       const file: FileInterface = {
-        size: 10, buffer: [], encoding: 'utf-8', mimetype: 'audio/wave', fieldname: 'file', originalname: 'test.wav'
+        size: 10,
+        buffer: [],
+        encoding: 'utf-8',
+        mimetype: 'audio/wave',
+        fieldname: 'file',
+        originalname: 'test.wav',
       };
       const response = await recordingController.appendRecording(data, file);
       expect(response.hasNext).toEqual(true);
