@@ -1,6 +1,6 @@
+const mockingoose = require('mockingoose');
 import { BadRequestException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import mockingoose from 'mockingoose';
 import { Model, model } from 'mongoose';
 import AuthUserModel from '../auth/auth-user.model';
 import { UserRecordingService } from '../recording/__mocks__/user-recording.service';
@@ -18,26 +18,31 @@ describe('PhrasesService', () => {
   let mockUserRecordingService: UserRecordingService;
   let mockScoringService: ScoringService;
 
-  const phrasesDb =
-  {
+  const phrasesDb = {
     title: 'ciencia',
     cover: 'test.png',
-    phrases: [{
-      _id: 'id_0',
-      text: 'phrase 1',
-    }, {
-      _id: 'id_1',
-      text: 'phrase 2',
-    }, {
-      _id: 'id_2',
-      text: 'phrase 3',
-    }, {
-      _id: 'id_3',
-      text: 'phrase 4',
-    }, {
-      _id: 'id_4',
-      text: 'phrase 5',
-    }]
+    phrases: [
+      {
+        _id: 'id_0',
+        text: 'phrase 1',
+      },
+      {
+        _id: 'id_1',
+        text: 'phrase 2',
+      },
+      {
+        _id: 'id_2',
+        text: 'phrase 3',
+      },
+      {
+        _id: 'id_3',
+        text: 'phrase 4',
+      },
+      {
+        _id: 'id_4',
+        text: 'phrase 5',
+      },
+    ],
   };
   const user = new AuthUserModel({
     user_id: 'this dude',
@@ -46,7 +51,7 @@ describe('PhrasesService', () => {
   });
 
   beforeEach(async () => {
-    phrasesModel = model('Phrases', PhrasesSchema);
+    phrasesModel = model<PhrasesInterface>('Phrases', PhrasesSchema);
     PhrasesSchema.path('phrases', Object);
     mockUserRecordingService = new UserRecordingService();
     mockScoringService = new ScoringService(null);
@@ -65,7 +70,7 @@ describe('PhrasesService', () => {
         {
           provide: ScoringService,
           useValue: mockScoringService,
-        }
+        },
       ],
     }).compile();
 
@@ -101,15 +106,19 @@ describe('PhrasesService', () => {
 
     it('should not get themes when finished is true', async () => {
       mockingoose(phrasesModel).toReturn(phrasesDb, 'findOne');
-      mockUserRecordingService.getUserRecordingTheme = jest.fn().mockReturnValue({
-        finished: true,
-      });
+      mockUserRecordingService.getUserRecordingTheme = jest
+        .fn()
+        .mockReturnValue({
+          finished: true,
+        });
 
       expect.assertions(1);
       try {
         await await phrasesService.getTheme('theme', user);
       } catch (e) {
-        expect(e).toStrictEqual(new BadRequestException('Already finished recording'));
+        expect(e).toStrictEqual(
+          new BadRequestException('Already finished recording'),
+        );
       }
     });
 
@@ -119,7 +128,9 @@ describe('PhrasesService', () => {
       try {
         await await phrasesService.getTheme('theme', user);
       } catch (e) {
-        expect(e).toStrictEqual(new BadRequestException('Theme does not exist'));
+        expect(e).toStrictEqual(
+          new BadRequestException('Theme does not exist'),
+        );
       }
     });
 
@@ -135,12 +146,14 @@ describe('PhrasesService', () => {
         firebaseId: user.uid,
         nickname: '',
         total: 0,
-        entries: [{
-          score: 100,
-          reason: ScoringTypes.FIRST_RECORDING,
-        }],
+        entries: [
+          {
+            score: 100,
+            reason: ScoringTypes.FIRST_RECORDING,
+          },
+        ],
         friends: [],
-      })
+      });
 
       const theme = await phrasesService.getTheme('theme', user);
 
