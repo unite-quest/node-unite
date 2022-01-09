@@ -8,7 +8,7 @@ import { PhrasesModule } from './phrases/phrases.module';
 import { RecordingModule } from './recording/recording.module';
 import { RegistrationModule } from './registration/registration.module';
 import { ScoringModule } from './scoring/scoring.module';
-
+import { StatsModule } from './stats/stats.module';
 
 @Module({
   imports: [
@@ -24,6 +24,7 @@ import { ScoringModule } from './scoring/scoring.module';
     ScoringModule,
     LeaderboardModule,
     NotificationsModule,
+    StatsModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

@@ -30,7 +30,7 @@ describe('RecordingController', () => {
     phraseId: 'phraseId--222',
     themeId: 'theme-t',
     sampleRate: 16000,
-    duration: '1234',
+    duration: 1234,
     additionalMetadata: {
       userAgent: 'Android',
     },
