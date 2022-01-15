@@ -4,7 +4,7 @@ export const RecordingPhraseSchema = new mongoose.Schema({
   phraseId: String,
   sampleRate: Number,
   format: String,
-  duration: String,
+  duration: Number,
   recordingPath: String,
   skipped: {
     reason: String,

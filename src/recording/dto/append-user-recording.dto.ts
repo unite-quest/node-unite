@@ -6,7 +6,8 @@ export default class AppendUserRecordingDto {
   @IsNotEmpty()
   phraseId: string;
   sampleRate: number;
-  duration: string;
+  @IsNotEmpty()
+  duration: number;
   additionalMetadata: {
     userAgent: string;
   };

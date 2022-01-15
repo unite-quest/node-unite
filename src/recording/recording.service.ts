@@ -46,6 +46,7 @@ export class RecordingService {
     const format =
       this._getFileExtension(file).indexOf('wav') >= 0 ? 'wav' : 'webm';
     const recordingPath = await this.fileUploadService.upload(file, filename);
+
     const recording: Recording = {
       ...recordingDto,
       format,
