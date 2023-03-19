@@ -28,21 +28,33 @@ export class PhrasesService {
     private phrasesModel: Model<PhrasesInterface>,
     private userRecordingService: UserRecordingService,
     private scoringService: ScoringService,
-  ) { }
+  ) {}
 
-  public createTheme(createThemeDto: CreateThemeDto): Promise<PhrasesInterface> {
+  public createTheme(
+    createThemeDto: CreateThemeDto,
+  ): Promise<PhrasesInterface> {
     return this.phrasesModel.create(createThemeDto); //TODO error handling
   }
 
-  public async getTheme(theme: string, loggedUser: AuthUserModel): Promise<ThemePhrasesResponseDto> {
-    const userTheme = await this.userRecordingService.getUserRecordingTheme(theme, loggedUser);
-    const userScore = await this.scoringService.getOrCreateUserScoring(loggedUser);
+  public async getTheme(
+    theme: string,
+    loggedUser: AuthUserModel,
+  ): Promise<ThemePhrasesResponseDto> {
+    const userTheme = await this.userRecordingService.getUserRecordingTheme(
+      theme,
+      loggedUser,
+    );
+    const userScore = await this.scoringService.getOrCreateUserScoring(
+      loggedUser,
+    );
 
     if (userTheme?.finished) {
       throw new BadRequestException('Already finished recording');
     }
 
-    const themePhrases: PhrasesInterface = await this.phrasesModel.findOne({ title: theme }).exec();
+    const themePhrases: PhrasesInterface = await this.phrasesModel
+      .findOne({ title: theme })
+      .exec();
     if (!themePhrases) {
       throw new BadRequestException('Theme does not exist');
     }
@@ -52,7 +64,7 @@ export class PhrasesService {
     return {
       title: themePhrases.title,
       cover: themePhrases.cover,
-      stepsCap: (phrases.length - PhrasesService.MAXIMUM_SKIPS_COUNT),
+      stepsCap: phrases.length - PhrasesService.MAXIMUM_SKIPS_COUNT,
       total: phrases.length,
       phrases,
       modalEvents: this.getModalEvents(userScore),
@@ -61,37 +73,55 @@ export class PhrasesService {
 
   private mergePhrases(
     themePhrases: PhrasesInterface,
-    userPhrases: UserRecordingTheme
+    userPhrases: UserRecordingTheme,
   ): ThemePhrasesItemResponseDto[] {
     let spokenLength = 0;
 
-    return themePhrases?.phrases.map((phrase): ThemePhrasesItemResponseDto => {
-      const userRecorded = userPhrases?.recordings?.find((recording) => `${recording.phraseId}` === `${phrase._id}`)
-      const spoken = Boolean(userRecorded && !userRecorded?.skipped?.reason);
-      spokenLength = spoken ? spokenLength + 1 : spokenLength;
-      return {
-        id: phrase._id,
-        text: phrase.text,
-        skipped: Boolean(userRecorded?.skipped?.reason),
-        spoken,
-      }
-    }) || [];
+    return (
+      themePhrases?.phrases.map(
+        (phrase): ThemePhrasesItemResponseDto => {
+          const userRecorded = userPhrases?.recordings?.find(
+            recording => `${recording.phraseId}` === `${phrase._id}`,
+          );
+          const spoken = Boolean(
+            userRecorded && !userRecorded?.skipped?.reason,
+          );
+          spokenLength = spoken ? spokenLength + 1 : spokenLength;
+          return {
+            id: phrase._id,
+            text: phrase.text,
+            skipped: Boolean(userRecorded?.skipped?.reason),
+            spoken,
+          };
+        },
+      ) || []
+    );
   }
 
-  private getModalEvents(scoring: UserScore): ThemePhrasesModalEventResponseDto[] {
+  private getModalEvents(
+    scoring: UserScore,
+  ): ThemePhrasesModalEventResponseDto[] {
     if (!scoring) {
       return [];
     }
 
     const modalEvents: ThemePhrasesModalEventResponseDto[] = [];
-    if (!(scoring.entries || []).find(entry => entry.reason === ScoringTypes.FIRST_RECORDING)) {
+    if (
+      !(scoring.entries || []).find(
+        entry => entry.reason === ScoringTypes.FIRST_RECORDING,
+      )
+    ) {
       modalEvents.push({
         eventIndex: PhrasesService.FIRST_RECORDING_MODAL_INDEX,
         type: RecordingModalTypes.FIRST_RECORDING,
         score: ScoringValues[ScoringTypes.FIRST_RECORDING],
       });
     }
-    if (!(scoring.entries || []).find(entry => entry.reason === ScoringTypes.FIRST_THEME)) {
+    if (
+      !(scoring.entries || []).find(
+        entry => entry.reason === ScoringTypes.FIRST_THEME,
+      )
+    ) {
       modalEvents.push({
         eventIndex: PhrasesService.FIRST_THEME_MODAL_INDEX,
         type: RecordingModalTypes.FIRST_THEME,
@@ -102,33 +132,46 @@ export class PhrasesService {
     return modalEvents;
   }
 
-  public async getRandomTheme(loggedUser: AuthUserModel): Promise<{ title: string }> {
-    const user = await this.userRecordingService.getUser(loggedUser);
+  public async getRandomTheme(
+    loggedUser: AuthUserModel,
+  ): Promise<{ title: string }> {
+    const user = loggedUser.uid
+      ? await this.userRecordingService.getUser(loggedUser)
+      : null;
     const themes = await this.getRandomGroupsForUserRecording(user);
     if (themes && themes.length > 0) {
-      const randomIndex = Math.floor((Math.random() * themes.length));
+      const randomIndex = Math.floor(Math.random() * themes.length);
       return {
         title: themes[randomIndex]?.title,
       };
     }
   }
 
-  public async getRandomGroupsForUserRecording(user: UserRecording) {
-    let unfinishedThemes: string[] = [];
-    const finishedThemes: string[] = user?.themes?.filter(theme => {
-      if (!theme.finished) {
-        unfinishedThemes.push(theme.title);
-      }
-      return theme.finished;
-    }).map(theme => theme.title);
+  public async getRandomGroupsForUserRecording(user: UserRecording | null) {
+    const unfinishedThemes: string[] = [];
+    const finishedThemes: string[] = (user?.themes || [])
+      .filter(theme => {
+        if (!theme.finished) {
+          unfinishedThemes.push(theme.title);
+        }
+        return theme.finished;
+      })
+      .map(theme => theme.title);
     return this.getRandomNonRepeatingGroups(unfinishedThemes, finishedThemes);
   }
 
-  private async getRandomNonRepeatingGroups(include: string[], exclude: string[]): Promise<RandomThemeResponseDto[]> {
-    const includingGroups = await this.phrasesModel.find({ title: { '$in': include } })
-      .limit(PhrasesService.DASHBOARD_LIMIT).exec();
-    const excludingGroups = await this.phrasesModel.find({ title: { '$nin': exclude } })
-      .limit(PhrasesService.DASHBOARD_LIMIT).exec();
+  private async getRandomNonRepeatingGroups(
+    include: string[],
+    exclude: string[],
+  ): Promise<RandomThemeResponseDto[]> {
+    const includingGroups = await this.phrasesModel
+      .find({ title: { $in: include } })
+      .limit(PhrasesService.DASHBOARD_LIMIT)
+      .exec();
+    const excludingGroups = await this.phrasesModel
+      .find({ title: { $nin: exclude } })
+      .limit(PhrasesService.DASHBOARD_LIMIT)
+      .exec();
     const removedDuplicates = excludingGroups.filter(eGroup => {
       return !includingGroups.find(iGroup => iGroup.title === eGroup.title);
     });
@@ -137,7 +180,7 @@ export class PhrasesService {
       return {
         title: group.title,
         cover: group.cover,
-      }
+      };
     });
   }
 }
