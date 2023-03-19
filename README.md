@@ -1,5 +1,7 @@
 # Fala Alguma Coisa
 
+![logo](https://user-images.githubusercontent.com/15278288/148660111-a2da8408-fbea-4e2c-aab3-442ce0b792d9.jpg)
+
 The "Fala Alguma Coisa" ecosystem consists of three applications (app, backend and recognition). It stores anonymous data and voice recordings (Portuguese Brazil) to a database. This data is later used to train a speech recognition system.
 
 ## Ecosystem
