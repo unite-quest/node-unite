@@ -37,7 +37,7 @@ export class UserRecordingService {
   }
 
   private getRandomReferralCode(): string {
-    var s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const s = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     return Array(16)
       .join()
       .split(',')
@@ -54,13 +54,13 @@ export class UserRecordingService {
   }
 
   public async getUserRecordingTheme(
-    theme: string,
+    themeId: string,
     loggedUser: AuthUserModel,
   ): Promise<UserRecordingTheme | null> {
     const user = await this.userRecordingModel
       .findOne({ 'user.firebaseId': loggedUser.uid })
       .exec();
-    return this.filterRecordingTheme(theme, user);
+    return this.filterRecordingTheme(themeId, user);
   }
 
   public async getUserByNickname(
@@ -80,10 +80,10 @@ export class UserRecordingService {
   }
 
   public filterRecordingTheme(
-    theme: string,
+    themeId: string,
     user: UserRecording,
   ): UserRecordingTheme | null {
-    return user ? user.themes.find(each => each.title === theme) : null;
+    return user ? user.themes.find(each => each.themeId === themeId) : null;
   }
 
   public async mergeUsers(

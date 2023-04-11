@@ -19,7 +19,8 @@ describe('PhrasesService', () => {
   let mockScoringService: ScoringService;
 
   const phrasesDb = {
-    title: 'ciencia',
+    themeId: 'ciencia',
+    title: 'Science',
     cover: 'test.png',
     phrases: [
       {
@@ -45,6 +46,7 @@ describe('PhrasesService', () => {
     ],
   };
   const user = new AuthUserModel({
+    // eslint-disable-next-line @typescript-eslint/camelcase
     user_id: 'this dude',
     name: 'has name',
     email: 'also has email',
@@ -90,7 +92,8 @@ describe('PhrasesService', () => {
       const theme = await phrasesService.getTheme('theme', user);
 
       expect(theme.cover).toBe('test.png');
-      expect(theme.title).toBe('ciencia');
+      expect(theme.themeId).toBe('ciencia');
+      expect(theme.title).toBe('Science');
       expect(theme.total).toBe(5);
       expect(theme.stepsCap).toBe(1);
       expect(theme.modalEvents.length).toBe(2);

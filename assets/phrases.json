@@ -1,0 +1,1503 @@
+[
+  {
+    "themeId": "ciencia",
+    "title": "Ciência",
+    "cover": "/backgrounds/science.jpg",
+    "phrases": [
+      {
+        "text": "Ler em voz alta faz bem para pronúncia, memória e entendimento do texto"
+      },
+      {
+        "text": "Ciência é descobrir a verdade a partir das descobertas anteriores"
+      },
+      {
+        "text": "Corpus é uma coleção eletrônica de excertos de uma linguagem"
+      },
+      {
+        "text": "Para ensinar uma linguagem a um computador, é preciso ter muitos exemplos de uso"
+      },
+      {
+        "text": "Produzimos sons com o ar do pulmão vibrando por meio de nossas cordas vocais"
+      },
+      {
+        "text": "A ciência cidadã ajuda na geração e análise de dados"
+      },
+      {
+        "text": "Mesmo durante a quarentena, pesquisadores se mantiveram felizes"
+      },
+      {
+        "text": "Meu grande objetivo é me tornar um escalador profissional reconhecido nacionalmente"
+      },
+      {
+        "text": "Eu adoro jogar futebol com meus amigos da escola e sinto falta das atividades esportivas"
+      },
+      {
+        "text": "Se algum dia eu terminar o mestrado vou gritar de felicidade até ficar rouco"
+      }
+    ]
+  },
+  {
+    "themeId": "astronomia",
+    "title": "Astronomia",
+    "cover": "/backgrounds/space.jpg",
+    "phrases": [
+      {
+        "text": "Astronomia é uma ciência natural que estuda corpos celestes e fenômenos que se originam fora da Terra"
+      },
+      {
+        "text": "Uma estrela é uma grande e luminosa esfera de plasma, mantida íntegra pela gravidade e pela pressão de radiação"
+      },
+      {
+        "text": "A estrela mais próxima da Terra é o Sol, que é a fonte da maior parte da energia do planeta"
+      },
+      {
+        "text": "Um satélite natural é um corpo celeste que orbita em torno de um planeta ou outro corpo maior"
+      },
+      {
+        "text": "Uma nebulosa é uma nuvem interestelar de poeira, hidrogênio, hélio e gases ionizados"
+      },
+      {
+        "text": "A Lua é o único satélite natural da Terra e o quinto maior do Sistema Solar"
+      },
+      {
+        "text": "A Terra é o único corpo celeste onde é conhecida a existência de vida"
+      },
+      {
+        "text": "A luz solar demora aproximadamente 8 minutos e 18 segundos para chegar à Terra"
+      },
+      {
+        "text": "Em astronomia, corpo celeste designa qualquer entidade física existente no espaço sideral"
+      },
+      {
+        "text": "Um planeta telúrico ou planeta sólido é um planeta rochoso assim como a Terra"
+      }
+    ]
+  },
+  {
+    "themeId": "biologia",
+    "title": "Biologia",
+    "cover": "/backgrounds/biology.jpg",
+    "phrases": [
+      {
+        "text": "A preguiça-gigante brasileira media cerca de 6 metros e comia 300 kg de vegetal por dia"
+      },
+      {
+        "text": "A baleia-azul é o maior animal do mundo, podendo atingir cerca de 30 metros de comprimento"
+      },
+      {
+        "text": "Orcas não são baleias, são golfinhos"
+      },
+      {
+        "text": "Bebês apresentam mais ossos do que um ser humano adulto. De 300 ossos para 206, pois muitos se fundem"
+      },
+      {
+        "text": "Os vasos sanguíneos de um adulto têm mais de 160 mil quilômetros de comprimento"
+      },
+      {
+        "text": "Um ser humano adulto carrega cerca de 3,6 kg de pele e tem extensão aproximada de 2 metros quadrados"
+      },
+      {
+        "text": "As abelhas são os mais importantes agentes polinizadores, sem elas não existiriam frutas e vegetais na Terra"
+      },
+      {
+        "text": "A espécie de pinguim mais alta é o imperador, medindo 1,20 m. A menor espécie é o pinguim azul, com 40 cm"
+      },
+      {
+        "text": "A maçã não é um fruto, mas um pseudofruto. E o tomate não é um legume, mas sim, um fruto"
+      },
+      {
+        "text": "Um ser humano produz cerca de 23.000 L de saliva durante sua vida, o suficiente para encher duas piscinas"
+      }
+    ]
+  },
+  {
+    "themeId": "reflexao",
+    "title": "Reflexão",
+    "cover": "/backgrounds/reflex.jpg",
+    "phrases": [
+      {
+        "text": "A estrutura destas superfícies é tal que a luz volta na direção de onde veio."
+      },
+      {
+        "text": "A forma exata da reflexão depende da estrutura do material."
+      },
+      {
+        "text": "A reflexão é observada com ondas de superfície em corpos de água."
+      },
+      {
+        "text": "Algumas superfícies apresentam retrorreflexão."
+      },
+      {
+        "text": "Exemplos comuns incluem a reflexão da luz, som e ondas."
+      },
+      {
+        "text": "Mais tarde, Hamilton enunciou a forma moderna do princípio variacional."
+      },
+      {
+        "text": "Nos metais, os elétrons sem energia de ligação são chamados de elétrons livres."
+      },
+      {
+        "text": "O número de densidade dos elétrons livres é muito grande."
+      },
+      {
+        "text": "Quando a luz se reflete em um espelho, uma imagem aparece."
+      }
+    ]
+  },
+  {
+    "themeId": "media",
+    "title": "Média",
+    "cover": "/backgrounds/average.jpg",
+    "phrases": [
+      {
+        "text": "O número mais frequente em uma lista de valores é chamado de moda."
+      },
+      {
+        "text": "Média também é interpretada como um valor significativo de uma lista de números."
+      },
+      {
+        "text": "Essa é a forma mais simples de média móvel."
+      },
+      {
+        "text": "Em estatística, média é uma medida de posição que indica um valor uniforme dos dados."
+      },
+      {
+        "text": "A taxa de retorno é um tipo de média usada em finanças."
+      },
+      {
+        "text": "Em estatística, dados possuem posições."
+      },
+      {
+        "text": "Elas não são tão claras, mas podem ter relação com a definição moderna de média."
+      },
+      {
+        "text": "Não está claro em qual língua a palavra apareceu pela primeira vez."
+      }
+    ]
+  },
+  {
+    "themeId": "apicultura",
+    "title": "Apicultura",
+    "cover": "/backgrounds/apiculture.jpg",
+    "phrases": [
+      {
+        "text": "Além disso, as abelhas são importantes polinizadoras."
+      },
+      {
+        "text": "A direção desta reta indica a direção da fonte de alimento."
+      },
+      {
+        "text": "A distância é indicada pela velocidade da dança: quanto mais rápido é, mais próximo está a fonte."
+      },
+      {
+        "text": "A fumaça é terceira linha de defesa do apicultor."
+      },
+      {
+        "text": "A última etapa que precisa ser feita é aplicar gelo ou uma compressa fria na área da ferroada."
+      },
+      {
+        "text": "No mercado de hoje pode se encontrar fumigadores de diferentes tamanhos, formas e materiais."
+      },
+      {
+        "text": "O número de fêmeas em relação aos machos é dado através do número de ouro (divina proporção)."
+      },
+      {
+        "text": "A imagem mostra algumas alternativas de caixas para introdução e transporte da rainha."
+      }
+    ]
+  },
+  {
+    "themeId": "riqueza",
+    "title": "Riqueza",
+    "cover": "/backgrounds/wealth.jpg",
+    "phrases": [
+      {
+        "text": "Se você acredita que tal coisa tem valor ela passa a ter."
+      },
+      {
+        "text": "A riqueza foi vista como um fato objetivo da vida como ser humano em uma sociedade."
+      },
+      {
+        "text": "A riqueza também pode ser medida pelo acesso aos serviços básicos, como saúde, etc."
+      },
+      {
+        "text": "A noção de estado e a noção de guerra teriam nascido nesta época."
+      },
+      {
+        "text": "A economia agrícola continua estas tradições nas análises da política utilizada na agricultura moderna."
+      },
+      {
+        "text": "O conceito de riqueza é relativo: o que é ser rico, possuir ou compreender?"
+      },
+      {
+        "text": "O maior bem de um homem é a sua consciência, que está ligada a seu espírito."
+      },
+      {
+        "text": "Também se aplica à condição de alguém ter em abundância um determinado bem de valor."
+      }
+    ]
+  },
+  {
+    "themeId": "montagem",
+    "title": "Montagem",
+    "cover": "/backgrounds/montage.jpg",
+    "phrases": [
+      {
+        "text": "A edição não-linear dá ao editor um maior controle do trabalho de montagem das imagens."
+      },
+      {
+        "text": "A montagem funciona porque os espectadores inferem o significado com base no contexto."
+      },
+      {
+        "text": "O simples ato de justapor os tiros em uma sequência fez o relacionamento."
+      },
+      {
+        "text": "Em sistema digital, monta-se na memória de um computador, através de um programa de montagem."
+      },
+      {
+        "text": "O editor de filmes geralmente começa a trabalhar enquanto a fotografia principal é iniciada."
+      },
+      {
+        "text": "Porque é o primeiro passo, o corte do editor pode ser mais longo que o filme final."
+      },
+      {
+        "text": "O filme incluiu uma narrativa contínua sobre sete cenas, renderizada em um total de nove cenas."
+      },
+      {
+        "text": "Quando o corte terminar, o trabalho do assistente é colocar o filme ou programa de televisão \"online\""
+      }
+    ]
+  },
+  {
+    "themeId": "curling",
+    "title": "Curling",
+    "cover": "/backgrounds/curling.jpg",
+    "phrases": [
+      {
+        "text": "Apesar de a dinâmica da pontuação ser uma só, há duas formas de apresentá-la num placar."
+      },
+      {
+        "text": "As competições mais importantes do esporte são o Campeonato Mundial e os Jogos Olímpicos de Inverno."
+      },
+      {
+        "text": "As equipes são formadas dentro dos clubes e jogam juntas sempre, em todos os níveis de competição."
+      },
+      {
+        "text": "Cada equipe deve possuir ao menos um integrante de cada gênero."
+      },
+      {
+        "text": "Cada equipe é composta por quatro jogadores."
+      },
+      {
+        "text": "Junto com a competição foi realizado um seminário para discutir as regras."
+      },
+      {
+        "text": "Nenhuma equipe pode fazer qualquer tipo de alteração nas pedras durante o jogo."
+      },
+      {
+        "text": "O lançamento pode ser feito diretamente com a mão ou com a ajuda de um suporte extensor."
+      }
+    ]
+  },
+  {
+    "themeId": "cavalaria-medieval",
+    "title": "Cavalaria Medieval",
+    "cover": "/backgrounds/cavalry.jpg",
+    "phrases": [
+      {
+        "text": "A lança era a arma com a qual a cavalaria começava a lutar."
+      },
+      {
+        "text": "Boas espadas eram caras, então sua posse era um sinal de distinção entre a nobreza."
+      },
+      {
+        "text": "Dessa forma, eles podiam passar mensagens entre os defensores de um castelo ou cidade e seus ,sitiadores."
+      },
+      {
+        "text": "Elas eram as armas mais comuns para combate corpo-a-corpo entre cavaleiros."
+      },
+      {
+        "text": "Eles trajavam um sobretudo vermelho com uma cruz branca e também faziam os votos de São Bento."
+      },
+      {
+        "text": "Esperava-se que eles utilizassem os lucros com a terra para comprar cavalos e equipamentos."
+      },
+      {
+        "text": "Parte da força do cavalo podia ser transmitida através da lança no momento do impacto."
+      },
+      {
+        "text": "Quando primeiro usado, o termo \"cavalheirismo\" significava habilidade em lidar com cavalos."
+      }
+    ]
+  },
+  {
+    "themeId": "meio-ambiente",
+    "title": "Meio Ambiente",
+    "cover": "/backgrounds/environment.jpg",
+    "phrases": [
+      {
+        "text": "A atmosfera terrestre pode ser dividida em cinco camadas principais."
+      },
+      {
+        "text": "A fina camada de gases que envolve a Terra é mantida no lugar pela gravidade do planeta."
+      },
+      {
+        "text": "A temperatura da superfície difere, por sua vez, por causa de diferença de pressão."
+      },
+      {
+        "text": "A água do rio geralmente está em um canal, formado por um leito entre bancos."
+      },
+      {
+        "text": "Foi a primeira grande atitude mundial no sentido de tentar preservar o meio ambiente."
+      },
+      {
+        "text": "Mais da metade dessa área está numa profundidade maior que três mil metros."
+      },
+      {
+        "text": "Organismos de vida mais complexa podem se comunicar através de vários meios."
+      },
+      {
+        "text": "O tempo ocorre pela diferença de densidade (temperatura e mistura) entre um local e outro."
+      }
+    ]
+  },
+  {
+    "themeId": "circuito-impresso",
+    "title": "Circuito Impresso",
+    "cover": "/backgrounds/circuit.jpg",
+    "phrases": [
+      {
+        "text": "Algumas placas de lado único que foram chapeadas com buracos são feitas assim."
+      },
+      {
+        "text": "Além disso, os componentes localizados no interior são difíceis de substituir."
+      },
+      {
+        "text": "Cobre adicional é então chapeado nas partes sem máscara."
+      },
+      {
+        "text": "Essa interferência pode causar mau funcionamento."
+      },
+      {
+        "text": "Ou seja, a emissão medida do lado de fora do equipamento é bem menor."
+      },
+      {
+        "text": "Semiaditivo é o processo mais comum: a placa sem trilha já tem tem uma fina camada de cobre."
+      },
+      {
+        "text": "Traços eram feitos com fita autoadesiva."
+      },
+      {
+        "text": "Uma vez comum, mas não mais comumente usados por causa de sua baixa precisão e resolução."
+      }
+    ]
+  },
+  {
+    "themeId": "notacao-musical",
+    "title": "Notação Musical",
+    "cover": "/backgrounds/music-sheet.jpg",
+    "phrases": [
+      {
+        "text": "A intensidade das notas pode variar ao longo de uma música."
+      },
+      {
+        "text": "Cada nota tem metade da duração da anterior."
+      },
+      {
+        "text": "Elas são: semibreve, mínima, semínima, colcheia, semicolcheia, fusa e semifusa."
+      },
+      {
+        "text": "Na figura vemos a chave de tonalidade de uma escala de Lá maior."
+      },
+      {
+        "text": "O Andamento define a velocidade de execução de uma composição."
+      },
+      {
+        "text": "O volume deve permanecer no novo nível até que uma nova indicação seja dada."
+      },
+      {
+        "text": "Os símbolos das figuras são usados para representar a duração do som a ser executado."
+      },
+      {
+        "text": "Por exemplo, uma representação sem sustenidos ou bemóis, será a escala de Dó Maior."
+      }
+    ]
+  },
+  {
+    "themeId": "futebol-brasileiro",
+    "title": "Futebol Brasileiro",
+    "cover": "/backgrounds/soccer-brazil.jpg",
+    "phrases": [
+      {
+        "text": "A Copa Sul-Americana é a segunda principal competição da América do Sul."
+      },
+      {
+        "text": "A temporada brasileira, tradicionalmente, é iniciada em janeiro."
+      },
+      {
+        "text": "Atualmente, sete equipes do Brasil podem conseguir vaga na competição através das competições nacionais."
+      },
+      {
+        "text": "Esse é apenas um exemplo de como o futebol brasileiro foi por um caminho errado."
+      },
+      {
+        "text": "O futebol brasileiro começou com algo apenas praticado pela elite."
+      },
+      {
+        "text": "O futebol feminino do Brasil tem como destaque a Seleção Brasileira de Futebol Feminino."
+      },
+      {
+        "text": "Seleção Brasileira de Futebol Feminino representa o Brasil nas competições de futebol feminino."
+      },
+      {
+        "text": "Sua existência é um aspecto único ao futebol brasileiro."
+      }
+    ]
+  },
+  {
+    "themeId": "ciclone",
+    "title": "Ciclone",
+    "cover": "/backgrounds/cyclone.jpg",
+    "phrases": [
+      {
+        "text": "Por isso, os ventos são mais fortes no centro do ciclone do que em seus arredores."
+      },
+      {
+        "text": "A sua intensa maré de tempestade foi responsável pela maior parte das mortes."
+      },
+      {
+        "text": "Mas quando ocorrem, podem causar muitos danos e milhares de mortes."
+      },
+      {
+        "text": "Um ciclone tropical pode enfraquecer-se por diferentes maneiras."
+      },
+      {
+        "text": "Se o mesmo fenômeno ocorre no Oceano Atlântico ou no Pacífico Leste, chamar-se-á \"furacão\"."
+      },
+      {
+        "text": "Uma depressão tropical é a fase menos intensa de um ciclone tropical."
+      },
+      {
+        "text": "O pico de atividade ocorre no final de agosto e por todo o mês de Setembro."
+      },
+      {
+        "text": "Numa escala mundial, maio é o mês menos ativo enquanto setembro é o mês mais ativo."
+      }
+    ]
+  },
+  {
+    "themeId": "criptografia-de-chave-publica",
+    "title": "Criptografia de chave pública",
+    "cover": "/backgrounds/cryptography.jpg",
+    "phrases": [
+      {
+        "text": "Bob pode então destrancar a caixa com sua chave e ler a mensagem de Alice."
+      },
+      {
+        "text": "Ela então envia uma caixa para Bob através do correio comum."
+      },
+      {
+        "text": "Entretanto, não existe forma de saber se todos os participantes irão realmente \"receber\" a mensagem."
+      },
+      {
+        "text": "Então, ela manda a caixa para Bob pelo correio normal."
+      },
+      {
+        "text": "Nesse exemplo, Alice quer enviar uma mensagem secreta para Bob, e espera uma resposta secreta de Bob."
+      },
+      {
+        "text": "Por exemplo, um encontro cara-a-cara ou uma troca, através de um correio confiável, poderia ser usada."
+      },
+      {
+        "text": "Porém, apenas a pessoa que possui a chave pode abrir a caixa e ler a mensagem."
+      },
+      {
+        "text": "Uma chave pública será conhecida por um grande e, na prática, desconhecido conjunto de usuários."
+      }
+    ]
+  },
+  {
+    "themeId": "minhoca",
+    "title": "Minhoca",
+    "cover": "/backgrounds/worm.jpg",
+    "phrases": [
+      {
+        "text": "Cada segmento apresenta um tamanho e uma forma, de acordo com a posição ao longo do animal."
+      },
+      {
+        "text": "Cada segmento entre o peristômio e o pigídio é denominado metâmero."
+      },
+      {
+        "text": "Essa estrutura tem sua posição e o número de segmentos invariáveis, dentro de uma determinada espécie."
+      },
+      {
+        "text": "Essas fibras são responsáveis pelo mecanismo de fuga desses animais."
+      },
+      {
+        "text": "Esses podem variar em número e forma em diferentes espécies."
+      },
+      {
+        "text": "Isso determina uma perda de água e íons pelas paredes do corpo."
+      },
+      {
+        "text": "Já na extremidade posterior, está localizado o pigídio."
+      },
+      {
+        "text": "Já no Brasil, é uma espécie comum que serve de alimento para diversos animais."
+      }
+    ]
+  },
+  {
+    "themeId": "arco-iris",
+    "title": "Arco-íris",
+    "cover": "/backgrounds/rainbow.jpg",
+    "phrases": [
+      {
+        "text": "A região entre o arco-íris primário e secundário é denominada banda de Alexandre."
+      },
+      {
+        "text": "Como se trata de um número de arcos superior ao esperado, denominam-se arcos supranumerários."
+      },
+      {
+        "text": "Entretanto, ele não foi capaz de explicar as cores."
+      },
+      {
+        "text": "Existem também os arco-íris geminados ou gêmeos e os supranumerários, que são fenômenos muito raros."
+      },
+      {
+        "text": "Na língua inglesa é usada a mnemónica roygbiv."
+      },
+      {
+        "text": "Observa-se que essa faixa é mais escura que o resto do céu, por não ter qualquer reflexão de luz."
+      },
+      {
+        "text": "Ver também o artigo sobre as cores para informações sobre o espectro de cores do arco-íris."
+      },
+      {
+        "text": "Às vezes é mesmo observado em combinação com um duplo arco-íris."
+      }
+    ]
+  },
+  {
+    "themeId": "aviao",
+    "title": "Avião",
+    "cover": "/backgrounds/plane.jpg",
+    "phrases": [
+      {
+        "text": "O avião é considerado o segundo meio de transporte mais seguro que existe, perdendo apenas para o elevador."
+      },
+      {
+        "text": "É mais provável sofrer um acidente indo até ao aeroporto de carro do que durante o voo."
+      },
+      {
+        "text": "O voo em velocidade supersónica gera mais poluição sonora devido à onda de choque."
+      },
+      {
+        "text": "Quanto ao número motores, os aviões classificam-se em monomotores, bimotores, trimotores, quadrimotores."
+      },
+      {
+        "text": "No pouso a velocidade é igualmente alta."
+      },
+      {
+        "text": "Quanto à velocidade, os aviões pode ser subsônicos e supersônicos."
+      },
+      {
+        "text": "Atenção especial é dada aos motores e às asas."
+      },
+      {
+        "text": "São relativamente poucas as companhias que produzem aviões em larga escala."
+      }
+    ]
+  },
+  {
+    "themeId": "ilusao-de-otica",
+    "title": "Ilusão de ótica",
+    "cover": "/backgrounds/illusion.jpg",
+    "phrases": [
+      {
+        "text": "A interpretação do que vemos no mundo exterior é uma tarefa muito complexa."
+      },
+      {
+        "text": "A nossa percepção do mundo é em grande parte auto-produzida."
+      },
+      {
+        "text": "As razões para tal fato são, na maioria das vezes, desconhecidas."
+      },
+      {
+        "text": "Contudo o cérebro atribui-lhes uma cor constante."
+      },
+      {
+        "text": "E o mundo físico em si não está separado em objetos."
+      },
+      {
+        "text": "Note, por exemplo vemos a linha que está em baixo como sendo mais curta do que a outra."
+      },
+      {
+        "text": "Não vemos uma imagem física do mundo, vemos objetos."
+      },
+      {
+        "text": "O que implica uma aprendizagem da perspectiva linear."
+      }
+    ]
+  },
+  {
+    "themeId": "veneza",
+    "title": "Veneza",
+    "cover": "/backgrounds/venezia.jpg",
+    "phrases": [
+      {
+        "text": "A cidade também depende muito do negócio de navios de cruzeiro."
+      },
+      {
+        "text": "A influência de Veneza estendeu-se naturalmente ao nível cultural ao longo da História."
+      },
+      {
+        "text": "Os visitantes podem ainda tomar os barcos-táxis entre áreas da cidade."
+      },
+      {
+        "text": "Veneza é famosa pela beleza de sua arquitetura e obras de arte."
+      },
+      {
+        "text": "Veneza é mundialmente famosa pelos seus canais."
+      },
+      {
+        "text": "Veneza é praticamente uma zona sem carros, por ser construída sobre a água."
+      },
+      {
+        "text": "Veneza é um importante centro do catolicismo na Itália."
+      },
+      {
+        "text": "Veneza é uma cidade rica em museus, galerias de arte e eventos relacionados."
+      }
+    ]
+  },
+  {
+    "themeId": "tigre",
+    "title": "Tigre",
+    "cover": "/backgrounds/tiger.jpg",
+    "phrases": [
+      {
+        "text": "Eles são capazes de carregar ou capturar a presa na água."
+      },
+      {
+        "text": "Existem poucos tigres-dourados e são mantidos em cativeiro."
+      },
+      {
+        "text": "O pai geralmente não participa em criá-los."
+      },
+      {
+        "text": "O tigre foi um dos cinco grandes animais de caça da Ásia."
+      },
+      {
+        "text": "O tigre-siberiano é o animal nacional da Coreia do Sul."
+      },
+      {
+        "text": "Os filhotes são amamentados por três a seis meses."
+      },
+      {
+        "text": "É o animal símbolo de diversos países da Ásia e mascote de diversas empresas em todo o mundo."
+      },
+      {
+        "text": "Outras comunicações vocais incluem rosnados e silvos."
+      }
+    ]
+  },
+  {
+    "themeId": "grecia-antiga",
+    "title": "Grécia Antiga",
+    "cover": "/backgrounds/grecia-antiga.jpg",
+    "phrases": [
+      {
+        "text": "A cultura da Grécia Antiga é considerada a base da cultura da civilização ocidental."
+      },
+      {
+        "text": "Ciência e religião não eram separadas e aproximar-se da verdade significava aproximar-se dos deuses."
+      },
+      {
+        "text": "Os gregos tinham conflitos e diferenças entre si, mas muitos elementos culturais em comum."
+      },
+      {
+        "text": "A monarquia é uma forma de governo em que o poder está nas mãos de uma única pessoa."
+      },
+      {
+        "text": "A Monarquia como forma de governo logo desapareceu na Grécia."
+      },
+      {
+        "text": "A democracia é uma forma de governo em que o poder está nas mãos de todas as pessoas."
+      },
+      {
+        "text": "O mundo grego antigo estendia-se por uma área muito maior do que o território grego atual."
+      },
+      {
+        "text": "Após a morte de Alexandre, os seus generais lutaram entre si pela posse do império."
+      }
+    ]
+  },
+  {
+    "themeId": "energia",
+    "title": "Energia",
+    "cover": "/backgrounds/energia.jpg",
+    "phrases": [
+      {
+        "text": "A forma de calculá-la é determinada de acordo com a natureza da interação entre os mesmos."
+      },
+      {
+        "text": "O conceito de energia é um dos conceitos essenciais da física."
+      },
+      {
+        "text": "Pelo mesmo motivo a Terra pode ser considerada um excelente terra elétrico."
+      },
+      {
+        "text": "Uma consideração importante sobre a energia potencial refere-se à sua medida."
+      },
+      {
+        "text": "Trata-se de energia pura propagando-se pelo espaço em forma de ondas associadas a um campo."
+      },
+      {
+        "text": "É a energia que um objeto possui em virtude da posição relativa que encontra-se dentro do sistema."
+      },
+      {
+        "text": "Há ainda o problema do aquecimento global, diretamente relacionado aos mesmos."
+      },
+      {
+        "text": "As variações nesta energia podem perfeitamente ser negativas, entretanto."
+      }
+    ]
+  },
+  {
+    "themeId": "poesia",
+    "title": "Poesia",
+    "cover": "/backgrounds/poesia.jpg",
+    "phrases": [
+      {
+        "text": "A poesia como uma forma de arte pode ser anterior à escrita."
+      },
+      {
+        "text": "A poesia contemporânea está a ser produzida com palavras que pulam para “fora da página”."
+      },
+      { "text": "A poesia digital é marcada pela natureza multimidiática." },
+      {
+        "text": "Não raro é o uso da tridimensionalidade para efeitos de criação artística."
+      },
+      {
+        "text": "O poema é a forma em que está escrito e a poesia é o que dá emoção ao texto."
+      },
+      {
+        "text": "Poesia é a expressão de um sentimento, como por exemplo o amor."
+      },
+      {
+        "text": "Poesia, segundo o modo comum de falar, quer dizer duas coisas."
+      },
+      {
+        "text": "Permitem a classificação dos poemas conforme as suas características."
+      }
+    ]
+  },
+  {
+    "themeId": "satelite-artificial",
+    "title": "Satélite artificial",
+    "cover": "/backgrounds/satelite-artificial.jpg",
+    "phrases": [
+      {
+        "text": "Todo satélite carrega instrumentos especiais para executar sua função no espaço."
+      },
+      {
+        "text": "O satélite permitiu, ainda, a transmissão pela primeira vez do sinal de televisão para os dois continentes."
+      },
+      {
+        "text": "Em tempos de Guerra Fria era necessária a utilização do espaço para observar o território inimigo."
+      },
+      {
+        "text": "A principal vantagem da utilização dos satélites é a cobertura global que podem oferecer."
+      },
+      {
+        "text": "A maioria dos satélites lançados são colocados na órbita geossíncrona e na órbita terrestre baixa."
+      },
+      {
+        "text": "As principais empresas desse segmento são Globalstar, Iridium, Orbcomm e Inmarsat."
+      },
+      {
+        "text": "A localização do centro de lançamento é um fator essencial na escolha do local de lançamento."
+      },
+      {
+        "text": "Basicamente existem quatro tipos de satélites de reconhecimento."
+      }
+    ]
+  },
+  {
+    "themeId": "conducao-termica",
+    "title": "Condução térmica",
+    "cover": "/backgrounds/conducao-termica.jpg",
+    "phrases": [
+      {
+        "text": "A temperatura depende apenas da disposição do ponto em que as medidas são tomadas ao longo do tempo."
+      },
+      { "text": "Considere-se materiais planos justapostos lado a lado." },
+      { "text": "Considere-se que o contato é perfeito entre os tubos." },
+      { "text": "Este poderia ser o modelo de uma parede com uma janela." },
+      { "text": "A temperatura é uniforme em cada superfície do tubo." },
+      { "text": "O calor toma o lugar da pressão nas ondas de som normais." },
+      {
+        "text": "Uma queda de temperatura é frequentemente observada uma \"interface\" entre as duas superfícies em contato."
+      },
+      {
+        "text": "É conhecido como \"segundo som\" porque a onda de calor é similar à propagação de som no ar."
+      }
+    ]
+  },
+  {
+    "themeId": "selecao-natural",
+    "title": "Seleção Natural",
+    "cover": "/backgrounds/selecao-natural.jpg",
+    "phrases": [
+      { "text": "A seleção de genes atua diretamente no nível do gene." },
+      {
+        "text": "Em sucessão, a seleção pode ser dividida de acordo com o seu efeito na diversidade genética."
+      },
+      {
+        "text": "A seleção também pode ser classificada pela unidade de seleção."
+      },
+      { "text": "A seleção sexual resulta da competição por companheiros." },
+      {
+        "text": "As variações podem ou não serem úteis à sobrevivência e à reprodução dos indivíduos."
+      },
+      {
+        "text": "Em uma população, indivíduos de uma espécie apresentam variações (variações intraespecíficas)."
+      },
+      { "text": "O ser humano continua sendo influenciado pela evolução." },
+      {
+        "text": "Finalmente, a seleção pode ser classificada de acordo com o recurso em disputa."
+      }
+    ]
+  },
+  {
+    "themeId": "experiencia-cientifica",
+    "title": "Experiência científica",
+    "cover": "/backgrounds/experciencia-cientifica.jpg",
+    "phrases": [
+      {
+        "text": "A avaliação de uma hipótese pode ser feita de maneiras diferentes dependendo da ciência em questão."
+      },
+      {
+        "text": "Deve-se analisar a extensão e minuciosidade necessária na observação para o particular propósito."
+      },
+      { "text": "Isso é conhecido por grupo de controle." },
+      {
+        "text": "Devemos, em resumo, seguir a lei Baconiana de variar as circunstâncias, como dito na introdução."
+      },
+      { "text": "Entretanto, há diversas críticas a esses métodos." },
+      {
+        "text": "Por bastante tempo, utilizaram-se os métodos indutivos como base para quase todos os tipos de pesquisa."
+      },
+      {
+        "text": "Portanto, a experiência é a tentativa de um agente de usar o exterior."
+      },
+      {
+        "text": "Quanto a classificação de variáveis, ela pode ser feita da seguinte forma: dependente e independente."
+      }
+    ]
+  },
+  {
+    "themeId": "circuito-eletrico",
+    "title": "Circuito elétrico",
+    "cover": "/backgrounds/circuito-eletrico.jpg",
+    "phrases": [
+      {
+        "text": "Os elementos de circuitos são produzidos com um tamanho padrão para facilitar sua montagem."
+      },
+      {
+        "text": "Outras razões incluem seu uso em diversos sistemas elétricos, eletrônicos, de comunicação e industriais."
+      },
+      {
+        "text": "Uma aplicação importante dos circuitos elétricos é no processamento de sinais."
+      },
+      {
+        "text": "A reatância equivalente num circuito varia com a frequência."
+      },
+      {
+        "text": "Estando ligado, o circuito elétrico está fechado e uma corrente elétrica passa por ele."
+      },
+      { "text": "Isso implica corrente máxima e potência média muito baixas." },
+      { "text": "O ciclo repete-se, com uma frequência própria do circuito." },
+      { "text": "Um circuito de corrente contínua, ou circuito c.c." }
+    ]
+  },
+  {
+    "themeId": "ginastica-artistica",
+    "title": "Ginástica artística",
+    "cover": "/backgrounds/ginastica-artistica.jpg",
+    "phrases": [
+      {
+        "text": "A modalidade subdivide-se em duas: ginástica artística masculina e ginástica artística feminina."
+      },
+      {
+        "text": "Na época do Renascimento, os principais artistas faziam culto ao corpo humano e às suas formas."
+      },
+      {
+        "text": "Enquanto equipe, a Alemanha possui dois títulos olímpicos: um feminino e um masculino."
+      },
+      {
+        "text": "Junto a essas escolas, nasceram os Clubes de Ginástica Internacionais."
+      },
+      { "text": "A preparação de um atleta passa por três fases." },
+      {
+        "text": "A variação se dá tanto no solo, quanto nos demais aparelhos."
+      },
+      { "text": "Em Jogos Olímpicos, foi apenas uma medalha." },
+      { "text": "Em mundiais, a situação fora semelhante." }
+    ]
+  },
+  {
+    "themeId": "viagem-no-tempo",
+    "title": "Viagem no tempo",
+    "cover": "/backgrounds/viagem-no-tempo.jpg",
+    "phrases": [
+      {
+        "text": "A História é como uma fita de um filme onde tudo já está fixo."
+      },
+      {
+        "text": "As viagens no tempo são um tema frequente na ficção científica."
+      },
+      { "text": "Esta seria um tipo de abordagem útil para o problema." },
+      {
+        "text": "Michael Moorcock descreve uma forma deste princípio e chama-o \"efeito Morphail\"."
+      },
+      {
+        "text": "Este é apenas um exemplo do cotitiano que prova a viagem ao passado, com uma quantidade menor de energia."
+      },
+      {
+        "text": "O problema desta explicação é que viola o princípio da conservação de massa e energia."
+      },
+      {
+        "text": "Se os blocos de memória são materiais, ao chegar no passado, como saberemos que viajamos no tempo."
+      },
+      { "text": "A antiga linha do tempo continua a existir." }
+    ]
+  },
+  {
+    "themeId": "doenca-de-parkinson",
+    "title": "Doença de Parkinson",
+    "cover": "/backgrounds/doenca-de-parkinson.jpg",
+    "phrases": [
+      { "text": "A doença é mais comum entre homens do que em mulheres." },
+      {
+        "text": "Embora seja mais comum em idosos, a doença também pode aparecer em jovens."
+      },
+      {
+        "text": "Por outro lado, o risco é menor entre fumadores e consumidores de café e chá."
+      },
+      { "text": "A sua escrita tende a ter em pequeno tamanho (micrografia)." },
+      {
+        "text": "Estes iniciam-se geralmente em uma mão, depois na perna do mesmo lado e depois nos outros membros."
+      },
+      { "text": "Sintomas não motores podem aparecer também." },
+      { "text": "O tratamento destina-se a melhorar os sintomas." },
+      {
+        "text": "Uma opção semelhante e mais acessível é a eletroconvulsoterapia."
+      }
+    ]
+  },
+  {
+    "themeId": "justica",
+    "title": "Justiça",
+    "cover": "/backgrounds/justica.jpg",
+    "phrases": [
+      { "text": "A justiça deve buscar a igualdade entre os cidadãos." },
+      {
+        "text": "A terceira perspectiva vem de Trasímaco, que entende que justiça é o interesse do mais forte."
+      },
+      {
+        "text": "Dessa forma, não se pode dizer que algo é bom ou mau ao mesmo tempo."
+      },
+      {
+        "text": "Nesse sentido, a capacidade de uma determinada pessoa representa a sua liberdade de realizar bem-estar."
+      },
+      {
+        "text": "Observa-se que o que é justo para uns, pode não ser justo para outros."
+      },
+      { "text": "O justo, pois, é um meio termo já que o juiz o é”." },
+      { "text": "Sendo assim, não existe um conceito universal de justiça." },
+      {
+        "text": "Também o princípio da igualdade de oportunidades é superior ao princípio da diferença."
+      }
+    ]
+  },
+  {
+    "themeId": "aprendizagem",
+    "title": "Aprendizagem",
+    "cover": "/backgrounds/aprendizagem.jpg",
+    "phrases": [
+      {
+        "text": "Aprendizagem humana está relacionada à educação e desenvolvimento pessoal."
+      },
+      {
+        "text": "A motivação pode ocorrer durante o processo de aprendizagem."
+      },
+      {
+        "text": "Estes afirmam a importância de outros fatores na aprendizagem."
+      },
+      {
+        "text": "Em razão dessa variação até mesmo humanos podem ser identificados como sendo a “mãe” daquela ave."
+      },
+      {
+        "text": "Por trás de cada pensamento há uma tendência afetivo-volitiva."
+      },
+      {
+        "text": "Já no Egito, na China e na Índia a finalidade era transmitir as tradições e os costumes."
+      },
+      {
+        "text": "Logo a memória de curto prazo pouco importa para a aprendizagem."
+      },
+      { "text": "Essa sintomatização está associada à hipoassimilação." }
+    ]
+  },
+  {
+    "themeId": "engenharia-genetica",
+    "title": "Engenharia genética",
+    "cover": "/backgrounds/engenharia-genetica.jpg",
+    "phrases": [
+      {
+        "text": "A tecnologia também tem sido usada para gerar ratos com genes nocauteados."
+      },
+      {
+        "text": "A partir destas pesquisas, teve início o progresso de descoberta da estrutura genética humana."
+      },
+      {
+        "text": "Contudo, os ratinhos não passaram o transgene para os seus descendentes."
+      },
+      {
+        "text": "A transformação genética tornou-se muito eficiente em algum organismo modelo."
+      },
+      {
+        "text": "A variedade de plantas que foram desenvolvidas foi desenvolvida para diferentes espécies."
+      },
+      { "text": "Estas pela simplicidade da sua produção têm baixo custo." },
+      {
+        "text": "Entretanto, estes filhotes eram geralmente mais suculentos e maiores."
+      },
+      {
+        "text": "Outro método de transformação para células vegetais e animais é a eletroporação."
+      }
+    ]
+  },
+  {
+    "themeId": "lideranca",
+    "title": "Liderança",
+    "cover": "/backgrounds/lideranca.jpg",
+    "phrases": [
+      {
+        "text": "A busca do ideal do líder também está presente no campo da filosofia."
+      },
+      {
+        "text": "A natureza e o exercício da liderança têm sido foco de pesquisas do homem ao longo da sua história."
+      },
+      {
+        "text": "Algumas teorias foram desenvolvidas a fim de explicar a liderança."
+      },
+      {
+        "text": "As necessidades motivam o comportamento humano, dando-lhe direção e conteúdo”."
+      },
+      {
+        "text": "Entretanto, a liderança não é dependente apenas das características individuais do líder."
+      },
+      { "text": "Não existe fórmula para se tornar líder." },
+      {
+        "text": "Necessidade de auto-estima inclui amor-próprio, autonomia, status, reconhecimento, consideração."
+      },
+      {
+        "text": "No entanto, as pessoas que possuem os mesmos traços não são nem se tornam, necessariamente, líderes."
+      }
+    ]
+  },
+  {
+    "themeId": "tecnologia-educacional",
+    "title": "Tecnologia educacional",
+    "cover": "/backgrounds/tecnologia-educacional.jpg",
+    "phrases": [
+      {
+        "text": "A introdução dos computadores no ensino tinha como propósito individualizar a instrução."
+      },
+      {
+        "text": "Dessa forma, cada instituição decide o que é melhor individualmente para cada uma delas."
+      },
+      {
+        "text": "Entende-se por tecnologia o resultado da fusão entre ciência e técnica."
+      },
+      { "text": "Esse sistema de teleaulas é um exemplo do modelo de." },
+      { "text": "Este sistema esteve na origem dos primeiros cursos online." },
+      { "text": "Os jovens de hoje nasceram com as novas tecnologias." },
+      { "text": "O mundo tornou-se um lugar menor e mais interconectado." },
+      { "text": "Tudo isso a um custo relativamente pequeno." }
+    ]
+  },
+  {
+    "themeId": "penicilina",
+    "title": "Penicilina",
+    "cover": "/backgrounds/pinicilina.jpg",
+    "phrases": [
+      {
+        "text": "Tem-se dito que muitas descobertas científicas são feitas ao acaso."
+      },
+      { "text": "A absorção por via oral é melhor do que a da ampicilina." },
+      { "text": "A maioria das P. aeruginosa é resistente a essa associação." },
+      { "text": "Apresentam boa absorção, tanto oral como parenteral." },
+      {
+        "text": "As aminopenicilinas são as mais associadas com estas reações dermatológicas."
+      },
+      { "text": "Meia-vida de uma hora para ambas as drogas." },
+      {
+        "text": "No Brasil, atualmente, o único representante disponível é a oxacilina."
+      },
+      {
+        "text": "Novas estratégias foram desenvolvidas para recuperar o espectro destes antimicrobianos."
+      }
+    ]
+  },
+  {
+    "themeId": "constante-matematica",
+    "title": "Constante matemática",
+    "cover": "/backgrounds/contante-matematica.jpg",
+    "phrases": [
+      {
+        "text": "As constantes individuais, são os indivíduos, como se diz o nome."
+      },
+      { "text": "Por exemplo: João Marcos é um ótimo professor." },
+      {
+        "text": "De certa maneira, toda fórmula tem um termo constante, admitindo-se que o termo constante possa ser zero."
+      },
+      { "text": "Essas constantes são aquelas que dão nomes as coisas." },
+      { "text": "Essas relações são valoráveis em verdadeiro e falso." },
+      {
+        "text": "Esta noção é utilizada em oposição à de variável, que não é fixa."
+      },
+      { "text": "Exemplo de declaração de variável em C++." },
+      { "text": "Note, no entanto, que o termo constante pode ser zero." }
+    ]
+  },
+  {
+    "themeId": "cao",
+    "title": "Cão",
+    "cover": "/backgrounds/cao.jpg",
+    "phrases": [
+      { "text": "É de tempos que o cão se relaciona com o homem." },
+      {
+        "text": "As raças pequenas e médias têm os cinco primeiros anos de vida para o primeiro ano humano."
+      },
+      {
+        "text": "De todas as formas de comunicação, a mais importante da vida do cão, entre os cães, é a corporal."
+      },
+      {
+        "text": "A competição entre seus membros leva ainda a um rápido consumo do alimento."
+      },
+      {
+        "text": "Enquanto um cão de médio porte vive em torno de doze anos, um gigante tem expectativa de vida mais curta."
+      },
+      {
+        "text": "Foi também após as guerras mundiais que surgiram os primeiros centros de treinamento de cães-guia de cego."
+      },
+      {
+        "text": "Pelo globo, dispersaram-se há milhares de anos, espalhando-se pela Ásia, Europa e África."
+      },
+      { "text": "Nas religiões o cão também possui o seu papel." }
+    ]
+  },
+  {
+    "themeId": "crianca",
+    "title": "Criança",
+    "cover": "/backgrounds/crianca.jpg",
+    "phrases": [
+      {
+        "text": "A comparação que uma criança faz em relação a outras crianças pode alterar esta auto-imagem."
+      },
+      {
+        "text": "As crianças passam também a aprender que na sociedade existem coisas que eles podem ou não fazer."
+      },
+      {
+        "text": "A palavra normal possui dois sentidos, quando relacionada com o desenvolvimento infantil."
+      },
+      { "text": "Meninos e meninas têm peso e altura semelhantes." },
+      { "text": "Neste estágio da vida, a criança cresce muito rapidamente." },
+      {
+        "text": "Os dentes de leite começam a cair no sexto ano de vida, um por um, até a adolescência."
+      },
+      {
+        "text": "Os primeiros cabelos, bem como os primeiros dentes, aparecem neste estágio."
+      },
+      {
+        "text": "Uma das principais preocupações dos pais é ajudar a criança em desenvolvimento a crescer normalmente."
+      }
+    ]
+  },
+  {
+    "themeId": "liberdade",
+    "title": "Liberdade",
+    "cover": "/backgrounds/liberdade.jpg",
+    "phrases": [
+      {
+        "text": "Com o fim da Guerra santa no período medieval surge o conceito contemporâneo de liberdade."
+      },
+      {
+        "text": "Esta é também, enquanto meta dos seus esforços, a sua própria realização."
+      },
+      { "text": "O homem não escolhe o que deseja, o que quer." },
+      {
+        "text": "Nesse sentido, ser livre significa agir de acordo com sua natureza."
+      },
+      { "text": "Mas o homem não é objeto, ele é sujeito." },
+      {
+        "text": "O homem é livre mesmo de uma essência particular, como não o são os objetos do mundo, as coisas."
+      },
+      {
+        "text": "Por exemplo: de certo modo, eu escolho inclusive o meu nascimento."
+      },
+      { "text": "Sua tese é: a liberdade é absoluta ou não existe." }
+    ]
+  },
+  {
+    "themeId": "tiger",
+    "title": "Tigre",
+    "cover": "/backgrounds/tiger.jpg",
+    "phrases": [
+      { "text": "Eles são capazes de carregar ou capturar a presa na água." },
+      { "text": "Existem poucos tigres-dourados e são mantidos em cativeiro." },
+      {
+        "text": "No sul da Índia, o deus Ayyappan era associado com um tigre."
+      },
+      { "text": "O tigre foi um dos cinco grandes animais de caça da Ásia." },
+      { "text": "O tigre-siberiano é o animal nacional da Coreia do Sul." },
+      { "text": "Os filhotes são amamentados por três a seis meses." },
+      { "text": "O pai geralmente não participa em criá-los." },
+      {
+        "text": "É o animal símbolo de diversos países da Ásia e mascote de diversas empresas em todo o mundo."
+      }
+    ]
+  },
+  {
+    "themeId": "violino",
+    "title": "Violino",
+    "cover": "/backgrounds/violino.jpg",
+    "phrases": [
+      { "text": "A sua criação é atribuída ao italiano Gasparo de Salò." },
+      { "text": "Colocá-los na direção da corda, para depois pousá-los." },
+      {
+        "text": "O braço esquerdo deve estar na mesma direção do pé esquerdo."
+      },
+      { "text": "O peso do corpo deve ficar apoiado nas duas pernas." },
+      { "text": "O género mais comum é a música de concerto." },
+      { "text": "Observação: Ponta do arco: Pronação." },
+      {
+        "text": "Os dedos devem ser colocados sem força, de modo leve sobre as cordas."
+      },
+      {
+        "text": "Quando os dedos não estão sendo usados, deixá-los na posição natural, isto é, encurvados."
+      }
+    ]
+  },
+  {
+    "themeId": "exploracao-espacial",
+    "title": "Exploração espacial",
+    "cover": "/backgrounds/exploracao-espacial.jpg",
+    "phrases": [
+      { "text": "Neste voo ele disse a famosa frase: \"A Terra é azul\"." },
+      {
+        "text": "O planeta do sistema solar que mais atraiu a imaginação do homem foi sempre o \"planeta vermelho\"."
+      },
+      {
+        "text": "Isto poderia ser um passo importante para descobrir se lá já houve vida ou não."
+      },
+      {
+        "text": "Entretanto após seu lançamento, a Polyus caiu no oceano Pacífico."
+      },
+      {
+        "text": "Muitos acidentes ficaram para a história da exploração espacial."
+      },
+      {
+        "text": "As missões Korabl-Sputnik ainda levaram os cães Pchelka, Mushka, Chernuschka e Zvezdochka."
+      },
+      {
+        "text": "Claramente para a exploração do espaço precisava-se de um meio de transporte para tal finalidade."
+      },
+      { "text": "No entanto, devido aos custos, o projeto foi abandonado." }
+    ]
+  },
+  {
+    "themeId": "queda-de-constantinopla",
+    "title": "Queda de Constantinopla",
+    "cover": "/backgrounds/queda-de-constantinopla.jpg",
+    "phrases": [
+      {
+        "text": "Constantinopla era, até o momento de sua queda, uma das cidades mais importantes no mundo."
+      },
+      {
+        "text": "Desta forma, as nações europeias iniciaram projetos para o estabelecimento de rotas comerciais alternativas."
+      },
+      {
+        "text": "As razões da tomada de Constantinopla são variadas e complexas."
+      },
+      {
+        "text": "No início do cerco, os bizantinos conseguiram duas vitórias animadoras."
+      },
+      {
+        "text": "O exército turco atacou por mais duas horas, sem vencer a resistência bizantina."
+      },
+      {
+        "text": "Diz-se que no último momento, o imperador desembainhou a espada e partiu para a luta, e nunca mais foi visto."
+      },
+      {
+        "text": "O ataque dos cruzados revelou um ponto fraco nas defesas da cidade."
+      },
+      { "text": "O clã entrou na batalha ao lado dos turcos e venceu." }
+    ]
+  },
+  {
+    "themeId": "marinha",
+    "title": "Marinha",
+    "cover": "/backgrounds/marinha.jpg",
+    "phrases": [
+      {
+        "text": "Antigamente os navios da marinha de guerra destinavam-se apenas ao combate."
+      },
+      {
+        "text": "Acredita-se que o poder marítimo inglês tenha decidido a guerra."
+      },
+      {
+        "text": "Cada navio de uma marinha de guerra constitui uma unidade naval."
+      },
+      { "text": "Durante a noite eram utilizados sinais de luzes." },
+      {
+        "text": "Outra tradição em vigor em diversas marinhas é a do sino de bordo."
+      },
+      {
+        "text": "Antigamente, este sino servia para marcar a passagem do tempo e bordo."
+      },
+      {
+        "text": "Tal como na marinha de guerra, o pessoal organiza-se nas categorias de oficiais, mestragem e marinhagem."
+      },
+      {
+        "text": "Tradicionalmente, o oficial segundo-comandante de um navio tem o título de \"imediato\"."
+      }
+    ]
+  },
+  {
+    "themeId": "natureza",
+    "title": "Natureza",
+    "cover": "/backgrounds/natureza.jpg",
+    "phrases": [
+      {
+        "text": "O termo \"natureza\" faz referência aos fenômenos do mundo físico, e também à vida em geral."
+      },
+      { "text": "O conjunto de todos os seres que compõem o universo." },
+      { "text": "Aquilo que surge, que se dá por nascimento." },
+      { "text": "O mundo natural costuma estar associado ao mundo real." },
+      {
+        "text": "Atualmente, o número total de espécies está passando por um rápido declínio."
+      },
+      { "text": "Essência e qualidade ínsita de um ser." },
+      { "text": "Geralmente não inclui os objetos construídos pelo homem." },
+      {
+        "text": "Há também definições que incluem o meio ambiente alterado pelo homem como elemento da Natureza."
+      }
+    ]
+  },
+  {
+    "themeId": "alfabetizacao",
+    "title": "Alfabetização",
+    "cover": "/backgrounds/alfabetizacao.jpg",
+    "phrases": [
+      {
+        "text": "A prática de permitir à criança o diálogo faz com que ela exponha suas ideias."
+      },
+      {
+        "text": "O aluno precisa encontrar os usos sociais da leitura e da escrita."
+      },
+      {
+        "text": "Os especialistas dizem que este método alfabetiza crianças, em média, no período de quatro a seis meses."
+      },
+      {
+        "text": "As palavras novas: o passo seguinte é a formação de palavras novas."
+      },
+      {
+        "text": "Usando as famílias silábicas agora conhecidas, o grupo forma palavras novas."
+      },
+      {
+        "text": "De modo geral, um grande problema em muitas pessoas é não ter o hábito da leitura."
+      },
+      {
+        "text": "É necessário ensinar às crianças a linguagem e escrita e não somente a escrita de letras."
+      },
+      {
+        "text": "Todos os fatos são importantes para quem quer escrever seja o que for."
+      }
+    ]
+  },
+  {
+    "themeId": "piada",
+    "title": "Piada",
+    "cover": "/backgrounds/piada.jpg",
+    "phrases": [
+      {
+        "text": "Não existe uma classificação formal para os diferentes \"tipos\" de piadas."
+      },
+      { "text": "Outros países possuem diferentes \"vítimas\" das piadas." },
+      {
+        "text": "Uma variante comum no Brasil são as perguntas estilo \"Você conhece...?\""
+      },
+      {
+        "text": "Nos Estados Unidos, por exemplo, são muito populares piadas sobre advogados."
+      },
+      { "text": "Geralmente as piadas acontecem em bares e na rua." },
+      { "text": "Muitos produtos são vendidos utilizando-se piadas." },
+      { "text": "Alguns exemplos estão relacionados abaixo." },
+      { "text": "Essas são as piadas que satirizam fatos mórbidos." }
+    ]
+  },
+  {
+    "themeId": "ginastica",
+    "title": "Ginástica",
+    "cover": "/backgrounds/ginastica.jpg",
+    "phrases": [
+      {
+        "text": "A chamada ginástica cerebral nasceu da necessidade de manter o cérebro constantemente exercitado."
+      },
+      {
+        "text": "Após a Segunda Guerra Mundial, o programa espalhou-se e evoluiu pelo mundo."
+      },
+      {
+        "text": "Esta modalidade tem por objetivo o trabalho em grupo e a cooperação."
+      },
+      {
+        "text": "Existem ainda diversas outras competições, a nível continental, nacional e regional."
+      },
+      {
+        "text": "Na competição, as notas são divididas em de partida e de execução."
+      },
+      { "text": "Não só na escultura a ginástica esteve presente." },
+      {
+        "text": "Possui a vantagem de poder ser praticada por pessoas de qualquer sexo e idade."
+      }
+    ]
+  },
+  {
+    "themeId": "havai",
+    "title": "Havaí",
+    "cover": "/backgrounds/havai.jpg",
+    "phrases": [
+      {
+        "text": "O Havaí localiza-se em um arquipélago localizado no Oceano Pacífico."
+      },
+      { "text": "A temperatura média varia muito pouco de região a região." },
+      {
+        "text": "A segunda religião mais popular é o budismo, especialmente entre a comunidade japonesa do arquipélago."
+      },
+      {
+        "text": "Além disso, a população do Estado vive em oito ilhas do arquipélago."
+      },
+      { "text": "Inicialmente, os chineses foram os principais imigrantes." },
+      { "text": "O Havaí tornou-se um grande polo militar e turístico." },
+      { "text": "O estudante não possui o direito de voto." },
+      {
+        "text": "O principal oficial do poder executivo no Havaí é o governador."
+      }
+    ]
+  }
+]

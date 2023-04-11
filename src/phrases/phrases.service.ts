@@ -37,11 +37,11 @@ export class PhrasesService {
   }
 
   public async getTheme(
-    theme: string,
+    themeId: string,
     loggedUser: AuthUserModel,
   ): Promise<ThemePhrasesResponseDto> {
     const userTheme = await this.userRecordingService.getUserRecordingTheme(
-      theme,
+      themeId,
       loggedUser,
     );
     const userScore = await this.scoringService.getOrCreateUserScoring(
@@ -53,7 +53,7 @@ export class PhrasesService {
     }
 
     const themePhrases: PhrasesInterface = await this.phrasesModel
-      .findOne({ title: theme })
+      .findOne({ themeId })
       .exec();
     if (!themePhrases) {
       throw new BadRequestException('Theme does not exist');
@@ -62,6 +62,7 @@ export class PhrasesService {
     const phrases = this.mergePhrases(themePhrases, userTheme);
 
     return {
+      themeId: themePhrases.themeId,
       title: themePhrases.title,
       cover: themePhrases.cover,
       stepsCap: phrases.length - PhrasesService.MAXIMUM_SKIPS_COUNT,
@@ -134,7 +135,7 @@ export class PhrasesService {
 
   public async getRandomTheme(
     loggedUser: AuthUserModel,
-  ): Promise<{ title: string }> {
+  ): Promise<{ themeId: string }> {
     const user = loggedUser.uid
       ? await this.userRecordingService.getUser(loggedUser)
       : null;
@@ -142,7 +143,7 @@ export class PhrasesService {
     if (themes && themes.length > 0) {
       const randomIndex = Math.floor(Math.random() * themes.length);
       return {
-        title: themes[randomIndex]?.title,
+        themeId: themes[randomIndex]?.themeId,
       };
     }
   }
@@ -152,11 +153,11 @@ export class PhrasesService {
     const finishedThemes: string[] = (user?.themes || [])
       .filter(theme => {
         if (!theme.finished) {
-          unfinishedThemes.push(theme.title);
+          unfinishedThemes.push(theme.themeId);
         }
         return theme.finished;
       })
-      .map(theme => theme.title);
+      .map(theme => theme.themeId);
     return this.getRandomNonRepeatingGroups(unfinishedThemes, finishedThemes);
   }
 
@@ -173,11 +174,12 @@ export class PhrasesService {
       .limit(PhrasesService.DASHBOARD_LIMIT)
       .exec();
     const removedDuplicates = excludingGroups.filter(eGroup => {
-      return !includingGroups.find(iGroup => iGroup.title === eGroup.title);
+      return !includingGroups.find(iGroup => iGroup.themeId === eGroup.themeId);
     });
 
     return includingGroups.concat(removedDuplicates).map(group => {
       return {
+        themeId: group.themeId,
         title: group.title,
         cover: group.cover,
       };
