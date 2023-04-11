@@ -55,7 +55,7 @@ export class RecordingService {
 
     // try to find theme
     let recordingTheme: UserRecordingTheme = user.themes.find(
-      each => each.title === recordingDto.themeId,
+      each => each.themeId === recordingDto.themeId,
     );
     if (recordingTheme) {
       // push if found
@@ -63,7 +63,7 @@ export class RecordingService {
     } else {
       // create theme if not found
       recordingTheme = {
-        title: recordingDto.themeId,
+        themeId: recordingDto.themeId,
         finished: false,
         recordings: [recording],
       };
@@ -93,7 +93,7 @@ export class RecordingService {
     const user = await this.userRecordingService.getOrCreateUser(loggedUser);
 
     let recordingTheme: UserRecordingTheme = user.themes.find(
-      each => each.title === recordingDto.themeId,
+      each => each.themeId === recordingDto.themeId,
     );
     const recording: Recording = {
       ...recordingDto,
@@ -108,7 +108,7 @@ export class RecordingService {
     } else {
       // create theme if not found
       recordingTheme = {
-        title: recordingDto.themeId,
+        themeId: recordingDto.themeId,
         finished: false,
         recordings: [recording],
       };

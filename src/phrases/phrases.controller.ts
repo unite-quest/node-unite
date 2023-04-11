@@ -9,9 +9,7 @@ import { PhrasesService } from './phrases.service';
 
 @Controller('phrases')
 export class PhrasesController {
-  constructor(
-    private readonly phrasesService: PhrasesService,
-  ) { }
+  constructor(private readonly phrasesService: PhrasesService) {}
 
   /**
    * On first get, creates empty user
@@ -21,23 +19,23 @@ export class PhrasesController {
    * @memberof PhrasesController
    */
   @UseGuards(FirebaseAuthGuard)
-  @Get('theme/:theme')
-  async getPhrasesByGroup(@Param('theme') theme): Promise<ThemePhrasesResponseDto> {
+  @Get('theme/:themeId')
+  async getPhrasesByGroup(
+    @Param('themeId') themeId,
+  ): Promise<ThemePhrasesResponseDto> {
     const user = AuthService.getLoggedUser();
-    return this.phrasesService.getTheme(theme, user);
+    return this.phrasesService.getTheme(themeId, user);
   }
 
-  @UseGuards(FirebaseAuthGuard)
-  @Post('theme/:theme')
-  addPhraseToGroup(@Param('theme') theme, @Body() payload: CreateThemeDto): Promise<PhrasesInterface> {
-    return this.phrasesService.createTheme({ ...payload, title: theme });
+  @Post('theme')
+  addPhraseToGroup(@Body() payload: CreateThemeDto): Promise<PhrasesInterface> {
+    return this.phrasesService.createTheme(payload);
   }
 
   @UseGuards(LooseFirebaseAuthGuard)
   @Get('random')
-  async getRandomTheme(): Promise<{ title: string }> {
+  async getRandomTheme(): Promise<{ themeId: string }> {
     const user = AuthService.getLoggedUser();
     return await this.phrasesService.getRandomTheme(user);
   }
-
 }

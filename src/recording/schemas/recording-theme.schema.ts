@@ -2,9 +2,7 @@ import * as mongoose from 'mongoose';
 import { RecordingPhraseSchema } from './recording-phrase.schema';
 
 export const RecordingThemeSchema = new mongoose.Schema({
-  title: String,
+  themeId: String,
   finished: Boolean,
-  recordings: [
-    RecordingPhraseSchema,
-  ],
+  recordings: [RecordingPhraseSchema],
 });
