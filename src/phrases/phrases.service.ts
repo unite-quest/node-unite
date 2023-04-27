@@ -166,11 +166,11 @@ export class PhrasesService {
     exclude: string[],
   ): Promise<RandomThemeResponseDto[]> {
     const includingGroups = await this.phrasesModel
-      .find({ title: { $in: include } })
+      .find({ themeId: { $in: include } })
       .limit(PhrasesService.DASHBOARD_LIMIT)
       .exec();
     const excludingGroups = await this.phrasesModel
-      .find({ title: { $nin: exclude } })
+      .find({ themeId: { $nin: exclude } })
       .limit(PhrasesService.DASHBOARD_LIMIT)
       .exec();
     const removedDuplicates = excludingGroups.filter(eGroup => {
