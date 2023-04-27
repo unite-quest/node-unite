@@ -6,6 +6,7 @@ export default interface ThemePhrasesResponseDto {
   title: string;
   cover: string;
   stepsCap: number;
+  skippedSteps: number;
   total: number;
   phrases: ThemePhrasesItemResponseDto[];
   modalEvents: ThemePhrasesModalEventResponseDto[];

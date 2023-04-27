@@ -15,10 +15,11 @@ import ThemePhrasesItemResponseDto from './dto/theme-phrases-item-response.dto';
 import { ThemePhrasesModalEventResponseDto } from './dto/theme-phrases-modal-event-response.dto';
 import ThemePhrasesResponseDto from './dto/theme-phrases-response.dto';
 import PhrasesInterface from './interfaces/phrases.interface';
+import { MINIMUM_RECORDING_COUNT } from 'src/recording/recording.service';
 
 @Injectable()
 export class PhrasesService {
-  public static readonly MAXIMUM_SKIPS_COUNT = 4;
+  public static readonly MAXIMUM_SKIPS_COUNT = 2;
   public static readonly DASHBOARD_LIMIT = 20;
   public static readonly FIRST_RECORDING_MODAL_INDEX = 1;
   public static readonly FIRST_THEME_MODAL_INDEX = 6;
@@ -60,12 +61,18 @@ export class PhrasesService {
     }
 
     const phrases = this.mergePhrases(themePhrases, userTheme);
+    const skippedSteps = phrases.filter(phrase => phrase.skipped).length;
 
     return {
       themeId: themePhrases.themeId,
       title: themePhrases.title,
       cover: themePhrases.cover,
-      stepsCap: phrases.length - PhrasesService.MAXIMUM_SKIPS_COUNT,
+      stepsCap: Math.min(
+        // either min or less than min, depending on the number of phrases available
+        MINIMUM_RECORDING_COUNT,
+        phrases.length - PhrasesService.MAXIMUM_SKIPS_COUNT,
+      ),
+      skippedSteps,
       total: phrases.length,
       phrases,
       modalEvents: this.getModalEvents(userScore),

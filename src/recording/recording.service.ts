@@ -13,10 +13,10 @@ import { Recording } from './interfaces/recording.interface';
 import UserRecordingTheme from './interfaces/user-recording-theme.interface';
 import { UserRecordingService } from './user-recording.service';
 
+export const MINIMUM_RECORDING_COUNT = 6;
+
 @Injectable()
 export class RecordingService {
-  public static readonly MINIMUM_RECORDING_COUNT = 6;
-
   constructor(
     private userRecordingService: UserRecordingService,
     private fileUploadService: FileUploadService,
@@ -73,8 +73,7 @@ export class RecordingService {
     const validRecordings = recordingTheme.recordings.filter(
       recording => !recording?.skipped?.reason,
     ).length;
-    recordingTheme.finished =
-      validRecordings >= RecordingService.MINIMUM_RECORDING_COUNT; // does this updates the array reference?
+    recordingTheme.finished = validRecordings >= MINIMUM_RECORDING_COUNT; // does this updates the array reference?
     let score: UserScoreEntry = null;
     if (recordingTheme.finished) {
       score = await this.scoringService.scoreForRecordingTheme(loggedUser);
