@@ -95,7 +95,8 @@ describe('PhrasesService', () => {
       expect(theme.themeId).toBe('ciencia');
       expect(theme.title).toBe('Science');
       expect(theme.total).toBe(5);
-      expect(theme.stepsCap).toBe(1);
+      expect(theme.stepsCap).toBe(3);
+      expect(theme.skippedSteps).toBe(0);
       expect(theme.modalEvents.length).toBe(2);
       expect(theme.modalEvents[0].eventIndex).toBe(1);
       expect(theme.modalEvents[0].score).toBe(100);
