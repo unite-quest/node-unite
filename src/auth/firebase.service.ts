@@ -7,16 +7,19 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable()
 export class FirebaseService {
   constructor(private readonly _configService: ConfigService) {
-    let firebaseConfig: string = this._configService.get('FIREBASE_SERVICE_ACCOUNT');
-    const databaseURL: string = this._configService.get('FIREBASE_SERVICE_DOMAIN');
+    let firebaseConfig: string = this._configService.get(
+      'FIREBASE_SERVICE_ACCOUNT',
+    );
     firebaseConfig = Buffer.from(firebaseConfig, 'base64').toString('utf8');
 
     const serviceAccount = JSON.parse(this._escapeJsonString(firebaseConfig));
-    serviceAccount['private_key'] = serviceAccount['private_key'].replace(/\\n/g, '\n');
+    serviceAccount['private_key'] = serviceAccount['private_key'].replace(
+      /\\n/g,
+      '\n',
+    );
 
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
-      databaseURL,
     });
   }
 
@@ -32,11 +35,14 @@ export class FirebaseService {
       }),
       map(decodedToken => {
         return !!decodedToken;
-      })
+      }),
     );
   }
 
   private _escapeJsonString(json: string): string {
-    return json.replace(/\n/g, "\\\\n").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t");
+    return json
+      .replace(/\n/g, '\\\\n')
+      .replace(/\r/g, '\\\\r')
+      .replace(/\t/g, '\\\\t');
   }
 }
